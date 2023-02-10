@@ -1,0 +1,217 @@
+body{
+    color: black;
+    --secondary-color:#A9D841;
+    font-size: 1.5em;
+}
+
+.social img{
+    height: 1em;
+}
+
+a{
+    color: black;
+}
+
+.social li a{
+    padding-right: 0;
+}
+
+
+.get-started{
+    top: 10px;
+    padding-left: 30px;
+}
+.btn{
+    border-radius: 20px;
+    background-color: white;
+    border: 1.5px solid black;
+    display: flex;
+    gap: .3em;
+}
+.btn-green{
+    background-color: var(--secondary-color);
+}
+
+.btn-black{
+    background-color: black;
+    border: 1.5px solid white;
+    color: white;
+}
+.btn .img-container{
+    background-color: black;
+    height: 1.5em;
+    width: 1.5em;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.btn img{
+    width: .7em;
+
+}
+
+.banner{
+    height: 70vh;
+    background-color: var(--secondary-color);
+    border-radius: 25px !important;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.features{
+    top: 1em;
+    padding-top: 1em;
+    border-top: .5px solid rgb(182, 179, 179);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.features img{
+    width: 4em;
+}
+
+.features .col-sm-9{
+    padding: 1em;
+}
+
+.working{
+    background-color: black;
+    border-radius: 25px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    justify-content: center;
+    padding:0 30px;
+}
+
+.working h2{
+    color: white;
+}
+
+.thumbnail{
+    padding: 1em;
+    background-color: white;
+    border-radius: 25px;
+    color: black;
+    position: relative;
+}
+
+.thumbnail h2{
+    color: black;
+}
+.thumbnail .model{
+    width: 95%;
+}
+.thumbnail p{
+    font-size: 1.62em;
+    font-weight: 500;
+}
+
+.card-btns{
+    display: flex;
+    justify-content: space-between;
+}
+
+.thumbnail-btns{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.desc{
+    font-size: 100%;
+    padding-bottom: 7.5em;
+}
+
+.action{
+    margin-top: 5em;
+    background-color: var(--secondary-color);
+}
+
+.action .container{
+    padding: 3em;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: .7em;
+}
+
+.action-vid{
+    width: 768px;
+    height: 400px;
+    background-image: url("../img/t-shirt.jpg");
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 25px;
+}
+
+.action-vid img{
+    width: 5em;
+}
+
+.action h1{
+    color: white;
+    font-size: 4em;
+
+}
+.cards{
+    padding-top: 3em;
+    padding-bottom: 3em;
+}
+.p-card{
+    margin-bottom: 2em;
+}
+
+.p-card .card-items{
+    background-color: #efeff3;
+    border-radius: 25px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 2em;
+}
+
+.card-img{
+    width: 6em;
+}
+
+.contacts-heading{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 2em;
+}
+
+.contacts .card-img{
+    width: 4em;
+}
+
+.map{
+    padding-top: 2em;
+    padding-bottom: 0;
+}
+
+footer{
+    padding-top: 0;
+    background-color: black;
+    color: white;
+    overflow: hidden;
+}
+
+footer p{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1em;
+}
