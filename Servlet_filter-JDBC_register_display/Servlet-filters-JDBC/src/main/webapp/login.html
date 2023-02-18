@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vivek Raj</title>
+  <style>
+
+        input[type=text], input[type=password] {
+          width: 100%;
+          padding: 12px 20px;
+          margin: 8px 0;
+          display: inline-block;
+          border: 1px solid #ccc;
+          box-sizing: border-box;
+        }
+
+        button {
+          background-color: orange;
+          color: white;
+          padding: 14px 20px;
+          margin: 8px 0;
+          border: none;
+          cursor: pointer;
+          width: 100%;
+        }
+
+        button:hover {
+          opacity: 0.8;
+        }
+
+
+        .container {
+          padding: 16px;
+        }
+    </style>
+  <script type="text/javascript">
+        function ValidateEmail(emailId)
+        {
+            var emailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+            if(emailId.value.match(emailformat))
+            {
+                return true;
+            }
+            else
+            {
+                alert("You have entered an invalid email address!");
+                document.getElementById('yourEmailID').focus();
+                return false;
+            }
+        }
+        </script>
+</head>
+<body>
+<div class="container">
+  <h1>Login Form.</h1>
+  <form action="login" method="get" onsubmit="ValidateEmail(document.getElementById('yourEmailID'))">
+    <label for="yourEmailId"><b>Email</b></label>
+    <input type="text" placeholder="Please enter your email" name="yourEmailID" id = "yourEmailID" required>
+    <label for="yourPassword"><b>Password</b></label>
+    <input type="password" placeholder="Please enter Password" name="yourPassword" id="yourPassword" required>
+    <br>
+    <button type="submit">Login</button>
+  </form>
+  <a href="/Servlet-filters-JDBC"><button>Home</button></a>
+</div>
+
+
+</body>
+</html>
