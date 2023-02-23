@@ -1,0 +1,669 @@
+{
+	"info": {
+		"_postman_id": "3f663111-ea64-432f-b619-5ad35cb3761f",
+		"name": "Spring-railway",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "User APIs",
+			"item": [
+				{
+					"name": "Railway user get all users",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/spring-railway-reservation/user",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"spring-railway-reservation",
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create User",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userId\": 5,\r\n    \"firstName\": \"aftab\",\r\n    \"lastName\": \"md\",\r\n    \"email\": \"adef@gmail.com\",\r\n    \"phoneNo\": \"3846696\",\r\n    \"age\": 31,\r\n    \"gender\": \"male\",\r\n    \"password\": \"vivek\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/spring-railway-reservation/user/create",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"spring-railway-reservation",
+								"user",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update User",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userId\": 5,\r\n    \"firstName\": \"aftab\",\r\n    \"lastName\": \"raja\",\r\n    \"email\": \"adef@gmail.com\",\r\n    \"phoneNo\": \"3846696\",\r\n    \"age\": 31,\r\n    \"gender\": \"male\",\r\n    \"password\": \"vivek\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/spring-railway-reservation/user/update",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"spring-railway-reservation",
+								"user",
+								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete user",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/spring-railway-reservation/user/5",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"spring-railway-reservation",
+								"user",
+								"5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get user by id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/spring-railway-reservation/user/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"spring-railway-reservation",
+								"user",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all tickets booked by a user",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/spring-railway-reservation/user/1/tickets",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"spring-railway-reservation",
+								"user",
+								"1",
+								"tickets"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Station APIs",
+			"item": [
+				{
+					"name": "Get all stations",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/spring-railway-reservation/station",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"spring-railway-reservation",
+								"station"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create station",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"stationName\": \"nizamabad\"\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/spring-railway-reservation/station/create",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"spring-railway-reservation",
+								"station",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update station",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"stationId\": 5,\r\n        \"stationName\": \"danapur\"\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/spring-railway-reservation/station/update",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"spring-railway-reservation",
+								"station",
+								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Station",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/spring-railway-reservation/station/5",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"spring-railway-reservation",
+								"station",
+								"5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get station by id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/spring-railway-reservation/station/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"spring-railway-reservation",
+								"station",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Train APIs",
+			"item": [
+				{
+					"name": "Get train source station",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/spring-railway-reservation/train/1/source",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"spring-railway-reservation",
+								"train",
+								"1",
+								"source"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get train destination",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/spring-railway-reservation/train/1/destination",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"spring-railway-reservation",
+								"train",
+								"1",
+								"destination"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all trains",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/spring-railway-reservation/train",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"spring-railway-reservation",
+								"train"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create train",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"trainId\": 5,\r\n        \"trainName\": \"sc-all\",\r\n        \"noOfSeats\": 300,\r\n        \"sourceStation\": {\r\n            \"stationId\": 4,\r\n            \"stationName\": \"secunderabad\"\r\n        },\r\n        \"destinationStation\": {\r\n            \"stationId\": 2,\r\n            \"stationName\": \"allahabad\"\r\n        }\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/spring-railway-reservation/train/create",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"spring-railway-reservation",
+								"train",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update train",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"trainId\": 5,\r\n    \"trainName\": \"sc-prayagraj\",\r\n    \"noOfSeats\": 350,\r\n    \"sourceStation\": {\r\n        \"stationId\": 4,\r\n        \"stationName\": \"secunderabad\"\r\n    },\r\n    \"destinationStation\": {\r\n        \"stationId\": 2,\r\n        \"stationName\": \"allahabad\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/spring-railway-reservation/train/update",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"spring-railway-reservation",
+								"train",
+								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get train by id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/spring-railway-reservation/train/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"spring-railway-reservation",
+								"train",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Ticket APIs",
+			"item": [
+				{
+					"name": "Get all tickets",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/spring-railway-reservation/ticket",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"spring-railway-reservation",
+								"ticket"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Ticket",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"ticketId\": 3,\r\n        \"user\": {\r\n            \"userId\": 1,\r\n            \"firstName\": \"vivek\",\r\n            \"lastName\": \"raj\",\r\n            \"email\": \"v@email.com\",\r\n            \"phoneNo\": \"862846696\",\r\n            \"age\": 21,\r\n            \"gender\": \"male\",\r\n            \"password\": \"vivek\"\r\n        },\r\n        \"train\": {\r\n            \"trainId\": 1,\r\n            \"trainName\": \"sc-patna\",\r\n            \"noOfSeats\": 300,\r\n            \"sourceStation\": {\r\n                \"stationId\": 4,\r\n                \"stationName\": \"secunderabad\"\r\n            },\r\n            \"destinationStation\": {\r\n                \"stationId\": 3,\r\n                \"stationName\": \"patna\"\r\n            }\r\n        },\r\n        \"status\": \"booked\",\r\n        \"travelDate\": \"Jun 18, 2012\",\r\n        \"fareAmount\": 765\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/spring-railway-reservation/ticket/create",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"spring-railway-reservation",
+								"ticket",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update ticket",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"ticketId\": 6,\r\n        \"user\": {\r\n            \"userId\": 1,\r\n            \"firstName\": \"vivek\",\r\n            \"lastName\": \"raj\",\r\n            \"email\": \"v@email.com\",\r\n            \"phoneNo\": \"862846696\",\r\n            \"age\": 21,\r\n            \"gender\": \"male\",\r\n            \"password\": \"vivek\"\r\n        },\r\n        \"train\": {\r\n            \"trainId\": 1,\r\n            \"trainName\": \"sc-patna\",\r\n            \"noOfSeats\": 300,\r\n            \"sourceStation\": {\r\n                \"stationId\": 4,\r\n                \"stationName\": \"secunderabad\"\r\n            },\r\n            \"destinationStation\": {\r\n                \"stationId\": 3,\r\n                \"stationName\": \"patna\"\r\n            }\r\n        },\r\n        \"status\": \"booked\",\r\n        \"travelDate\": \"Jun 18, 2012\",\r\n        \"fareAmount\": 765\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/spring-railway-reservation/ticket/update",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"spring-railway-reservation",
+								"ticket",
+								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get ticket by id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/spring-railway-reservation/ticket/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"spring-railway-reservation",
+								"ticket",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all passenger of ticket",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/spring-railway-reservation/ticket/1/passengers",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"spring-railway-reservation",
+								"ticket",
+								"1",
+								"passengers"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Passenger APIs",
+			"item": [
+				{
+					"name": "Get all passengers",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/spring-railway-reservation/passenger",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"spring-railway-reservation",
+								"passenger"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create passenger",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"passengerId\": 4,\r\n        \"pnrNo\": 5766761,\r\n        \"ticket\": {\r\n            \"ticketId\": 1,\r\n            \"user\": {\r\n                \"userId\": 1,\r\n                \"firstName\": \"vivek\",\r\n                \"lastName\": \"raj\",\r\n                \"email\": \"v@email.com\",\r\n                \"phoneNo\": \"862846696\",\r\n                \"age\": 21,\r\n                \"gender\": \"male\",\r\n                \"password\": \"vivek\"\r\n            },\r\n            \"train\": {\r\n                \"trainId\": 1,\r\n                \"trainName\": \"sc-patna\",\r\n                \"noOfSeats\": 300,\r\n                \"sourceStation\": {\r\n                    \"stationId\": 4,\r\n                    \"stationName\": \"secunderabad\"\r\n                },\r\n                \"destinationStation\": {\r\n                    \"stationId\": 3,\r\n                    \"stationName\": \"patna\"\r\n                }\r\n            },\r\n            \"status\": \"booked\",\r\n            \"travelDate\": \"Jun 18, 2012\",\r\n            \"fareAmount\": 765\r\n        },\r\n        \"passengerName\": \"vijay\",\r\n        \"gender\": \"male\",\r\n        \"age\": 21,\r\n        \"reservationStatus\": \"CNF\"\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/spring-railway-reservation/passenger/create",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"spring-railway-reservation",
+								"passenger",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Passenger",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"passengerId\": 4,\r\n        \"pnrNo\": 12345,\r\n        \"ticket\": {\r\n            \"ticketId\": 1,\r\n            \"user\": {\r\n                \"userId\": 1,\r\n                \"firstName\": \"vivek\",\r\n                \"lastName\": \"raj\",\r\n                \"email\": \"v@email.com\",\r\n                \"phoneNo\": \"862846696\",\r\n                \"age\": 21,\r\n                \"gender\": \"male\",\r\n                \"password\": \"vivek\"\r\n            },\r\n            \"train\": {\r\n                \"trainId\": 1,\r\n                \"trainName\": \"sc-patna\",\r\n                \"noOfSeats\": 300,\r\n                \"sourceStation\": {\r\n                    \"stationId\": 4,\r\n                    \"stationName\": \"secunderabad\"\r\n                },\r\n                \"destinationStation\": {\r\n                    \"stationId\": 3,\r\n                    \"stationName\": \"patna\"\r\n                }\r\n            },\r\n            \"status\": \"booked\",\r\n            \"travelDate\": \"Jun 18, 2012\",\r\n            \"fareAmount\": 765\r\n        },\r\n        \"passengerName\": \"vijay\",\r\n        \"gender\": \"male\",\r\n        \"age\": 21,\r\n        \"reservationStatus\": \"CNF\"\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/spring-railway-reservation/passenger/update",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"spring-railway-reservation",
+								"passenger",
+								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get passenger by id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/spring-railway-reservation/passenger/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"spring-railway-reservation",
+								"passenger",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
