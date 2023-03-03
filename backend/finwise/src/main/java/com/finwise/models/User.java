@@ -5,6 +5,8 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import java.sql.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 
 @Entity
 @Table(name= "user")
@@ -106,7 +108,7 @@ public class User {
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
-
+                ", password='" + password + '\'' +
                 ", gender='" + gender + '\'' +
                 ", dob=" + dob +
                 ", occupation='" + occupation + '\'' +

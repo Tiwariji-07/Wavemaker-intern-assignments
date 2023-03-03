@@ -7,10 +7,15 @@ create table transaction_type(id int not null auto_increment,
 	primary key(id)
 );
 
+-- drop table category ;
 create table category(id int not null auto_increment,
+	user_id int,
 	category_name varchar(50) not null,
-	primary key(id)
+	primary key(id),
+	foreign key(user_id) references user(id)
 );
+
+
 
 create table user(id int not null auto_increment,
 	first_name varchar(50) not null,
@@ -36,7 +41,7 @@ create table bill_reminder(id int not null auto_increment,
 	foreign key(user_id) references user(id)
 ); 
 
--- drop table btransaction ;
+-- drop table transactions ;
 create table transactions(id int not null auto_increment,
 	user_id int not null,
 	category_id int,
@@ -52,6 +57,7 @@ create table transactions(id int not null auto_increment,
 	foreign key(transaction_type_id) references transaction_type(id)
 ); 
 
+-- drop table expense_budget ;
 create table expense_budget(id int not null auto_increment,
 	user_id int not null,
 	category_id int not null,

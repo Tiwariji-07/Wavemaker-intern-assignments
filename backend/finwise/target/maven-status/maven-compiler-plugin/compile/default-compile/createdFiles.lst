@@ -1,0 +1,4 @@
+com\finwise\models\User.class
+com\finwise\services\UserService.class
+com\finwise\implementations\UserServiceImpl.class
+com\finwise\controllers\UserController.class
