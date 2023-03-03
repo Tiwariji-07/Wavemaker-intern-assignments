@@ -27,6 +27,7 @@
         <property name="annotatedClasses">
             <list>
                 <value>com.finwise.models.User</value>
+                <value>com.finwise.models.Category</value>
             </list>
         </property>
         <property name="hibernateProperties" >

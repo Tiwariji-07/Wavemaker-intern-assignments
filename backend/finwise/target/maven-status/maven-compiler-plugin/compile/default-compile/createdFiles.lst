@@ -1,4 +1,8 @@
-com\finwise\models\User.class
+com\finwise\services\CategoryService.class
+com\finwise\implementations\CategoryServiceImpl.class
 com\finwise\services\UserService.class
+com\finwise\controllers\CategoryController.class
+com\finwise\models\Category.class
+com\finwise\models\User.class
 com\finwise\implementations\UserServiceImpl.class
 com\finwise\controllers\UserController.class
