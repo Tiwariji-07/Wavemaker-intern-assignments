@@ -15,15 +15,18 @@ public class Category {
 
     @Column(name = "category_name")
     private String categoryName;
+    @Column(name = "user_id")
+    private int userId;
 
-    @Override
-    public String toString() {
-        return "Category{" +
-                "categoryId=" + categoryId +
-                ", categoryName='" + categoryName + '\'' +
-                ", userId=" + userId +
-                '}';
-    }
+//    private User user;
+//
+//    public User getUser() {
+//        return user;
+//    }
+//
+//    public void setUser(User user) {
+//        this.user = user;
+//    }
 
     public int getUserId() {
         return userId;
@@ -33,8 +36,6 @@ public class Category {
         this.userId = userId;
     }
 
-    @Column(name = "user_id")
-    private int userId;
 
     public int getCategoryId() {
         return categoryId;
@@ -52,4 +53,13 @@ public class Category {
         this.categoryName = categoryName;
     }
 
+    @Override
+    public String toString() {
+        return "Category{" +
+                "categoryId=" + categoryId +
+                ", categoryName='" + categoryName + '\'' +
+                ", userId=" + userId +
+//                ", user=" + user +
+                '}';
+    }
 }

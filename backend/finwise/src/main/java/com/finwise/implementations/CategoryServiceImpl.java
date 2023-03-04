@@ -2,7 +2,9 @@ package com.finwise.implementations;
 
 import com.finwise.models.Category;
 import com.finwise.models.Category;
+import com.finwise.models.User;
 import com.finwise.services.CategoryService;
+import com.finwise.services.UserService;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -16,6 +18,9 @@ import java.util.List;
 public class CategoryServiceImpl implements CategoryService {
     @Autowired
     private SessionFactory sessionFactory;
+
+//    @Autowired
+//    UserService userService;
 
     public List<Category> getAllCategories(int userId) {
         Session session = sessionFactory.openSession();
@@ -33,7 +38,9 @@ public class CategoryServiceImpl implements CategoryService {
     public Category createCategory(Category category,int userId) {
         Session session = sessionFactory.openSession();
         Transaction transaction= session.beginTransaction();
+//        User user = userService.getUserById(userId);
         category.setUserId(userId);
+//        category.setUser(user);
         session.save(category);
         transaction.commit();
         session.close();

@@ -29,6 +29,7 @@
                 <value>com.finwise.models.User</value>
                 <value>com.finwise.models.Category</value>
                 <value>com.finwise.models.TransactionType</value>
+                <value>com.finwise.models.Bill</value>
             </list>
         </property>
         <property name="hibernateProperties" >
