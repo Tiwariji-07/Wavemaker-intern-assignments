@@ -2,7 +2,11 @@ C:\Users\vivekr_700039\Documents\Projects\Personal finance app\backend\finwise\s
 C:\Users\vivekr_700039\Documents\Projects\Personal finance app\backend\finwise\src\main\java\com\finwise\controllers\CategoryController.java
 C:\Users\vivekr_700039\Documents\Projects\Personal finance app\backend\finwise\src\main\java\com\finwise\implementations\CategoryServiceImpl.java
 C:\Users\vivekr_700039\Documents\Projects\Personal finance app\backend\finwise\src\main\java\com\finwise\services\UserService.java
+C:\Users\vivekr_700039\Documents\Projects\Personal finance app\backend\finwise\src\main\java\com\finwise\controllers\TransactionTypeController.java
+C:\Users\vivekr_700039\Documents\Projects\Personal finance app\backend\finwise\src\main\java\com\finwise\services\TransactionTypeService.java
 C:\Users\vivekr_700039\Documents\Projects\Personal finance app\backend\finwise\src\main\java\com\finwise\services\CategoryService.java
+C:\Users\vivekr_700039\Documents\Projects\Personal finance app\backend\finwise\src\main\java\com\finwise\models\TransactionType.java
 C:\Users\vivekr_700039\Documents\Projects\Personal finance app\backend\finwise\src\main\java\com\finwise\models\User.java
 C:\Users\vivekr_700039\Documents\Projects\Personal finance app\backend\finwise\src\main\java\com\finwise\implementations\UserServiceImpl.java
+C:\Users\vivekr_700039\Documents\Projects\Personal finance app\backend\finwise\src\main\java\com\finwise\implementations\TransactionTypeServiceImpl.java
 C:\Users\vivekr_700039\Documents\Projects\Personal finance app\backend\finwise\src\main\java\com\finwise\controllers\UserController.java
