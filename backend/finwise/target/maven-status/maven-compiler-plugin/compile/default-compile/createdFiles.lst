@@ -1,4 +1,5 @@
 com\finwise\controllers\TransactionsController.class
+com\finwise\models\ExpenseBudget.class
 com\finwise\services\CategoryService.class
 com\finwise\services\UserService.class
 com\finwise\controllers\CategoryController.class
@@ -6,7 +7,9 @@ com\finwise\services\TransactionsService.class
 com\finwise\models\Transactions.class
 com\finwise\implementations\UserServiceImpl.class
 com\finwise\models\TransactionType.class
+com\finwise\implementations\ExpenseBudgetImpl.class
 com\finwise\implementations\TransactionsServiceImpl.class
+com\finwise\services\ExpenseBudgetService.class
 com\finwise\controllers\TransactionTypeController.class
 com\finwise\implementations\BillReminderServiceImpl.class
 com\finwise\implementations\CategoryServiceImpl.class
@@ -17,4 +20,5 @@ com\finwise\services\BillReminderService.class
 com\finwise\models\User.class
 com\finwise\implementations\TransactionTypeServiceImpl.class
 com\finwise\services\TransactionTypeService.class
+com\finwise\controllers\ExpenseBudgetController.class
 com\finwise\controllers\UserController.class
