@@ -31,10 +31,10 @@ public class Transactions {
     private int transactionYear;
 
     @Column(name = "debit_amount")
-    private Float debitAmount;
+    private float debitAmount;
 
     @Column(name = "credit_amount")
-    private Float creditAmount;
+    private float creditAmount;
 
     @Column(name = "description")
     private String description;
