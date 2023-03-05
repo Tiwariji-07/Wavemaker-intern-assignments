@@ -1,5 +1,7 @@
 package com.finwise.models;
 
+import org.hibernate.annotations.ColumnDefault;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -16,7 +18,8 @@ public class Transactions {
     private int userId;
 
     @Column(name = "category_id")
-    private int categoryId;
+//    @ColumnDefault("-1")
+    private Integer categoryId;
 
     @Column(name = "transaction_type_id")
     private int transactionTypeId;
@@ -28,10 +31,10 @@ public class Transactions {
     private int transactionYear;
 
     @Column(name = "debit_amount")
-    private float debitAmount;
+    private Float debitAmount;
 
     @Column(name = "credit_amount")
-    private float creditAmount;
+    private Float creditAmount;
 
     @Column(name = "description")
     private String description;
@@ -56,7 +59,7 @@ public class Transactions {
         return categoryId;
     }
 
-    public void setCategoryId(int categoryId) {
+    public void setCategoryId(Integer categoryId) {
         this.categoryId = categoryId;
     }
 

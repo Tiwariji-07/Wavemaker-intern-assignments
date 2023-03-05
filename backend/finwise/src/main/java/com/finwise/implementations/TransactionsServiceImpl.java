@@ -33,11 +33,13 @@ public class TransactionsServiceImpl implements TransactionsService {
         return results;
     }
 
-    public Transactions createTransactions(Transactions transactions,int userId) {
+    public Transactions createTransactions(Transactions transactions,int userId,int tranTypeId) {
         Session session = sessionFactory.openSession();
         Transaction transaction= session.beginTransaction();
 //        User user = userService.getUserById(userId);
         transactions.setUserId(userId);
+//        transactions.setCategoryId(categoryId);
+        transactions.setTransactionTypeId(tranTypeId);
 //        transactions.setUser(user);
         session.save(transactions);
         transaction.commit();
@@ -45,10 +47,12 @@ public class TransactionsServiceImpl implements TransactionsService {
         return transactions;
     }
 
-    public Transactions updateTransactions(Transactions transactions,int userId) {
+    public Transactions updateTransactions(Transactions transactions,int userId,int tranTypeId) {
         Session session = sessionFactory.openSession();
         Transaction transaction= session.beginTransaction();
         transactions.setUserId(userId);
+//        transactions.setCategoryId(categoryId);
+        transactions.setTransactionTypeId(tranTypeId);
         session.saveOrUpdate(transactions);
         transaction.commit();
         session.close();

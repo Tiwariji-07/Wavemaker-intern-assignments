@@ -7,9 +7,9 @@ import java.util.List;
 public interface TransactionsService {
     List<Transactions> getAllTransactions(int userId);
 
-    Transactions createTransactions(Transactions transactions,int userId);
+    Transactions createTransactions(Transactions transactions,int userId,int tranTypeId);
 
-    Transactions updateTransactions(Transactions transactions,int userId);
+    Transactions updateTransactions(Transactions transactions,int userId,int tranTypeId);
 
     Transactions deleteTransactions(int id);
 

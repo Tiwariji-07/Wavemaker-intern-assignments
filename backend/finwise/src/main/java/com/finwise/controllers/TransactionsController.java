@@ -18,14 +18,16 @@ public class TransactionsController {
         return transactionsService.getAllTransactions(userId);
     }
 
-    @PostMapping("/create")
-    public Transactions createTransactions(@RequestBody Transactions transactions,@PathVariable("user_id") int userId){
-        return transactionsService.createTransactions(transactions,userId);
+    @PostMapping("{tran_type_id}/create")
+    public Transactions createTransactions(@RequestBody Transactions transactions,@PathVariable("user_id") int userId,
+                                           @PathVariable("tran_type_id") int tranTypeId){
+        return transactionsService.createTransactions(transactions,userId,tranTypeId);
     }
 
-    @PutMapping("/update")
-    public Transactions updateTransactions(@RequestBody Transactions transactions,@PathVariable("user_id") int userId){
-        return transactionsService.updateTransactions(transactions,userId);
+    @PutMapping("{tran_type_id}/update")
+    public Transactions updateTransactions(@RequestBody Transactions transactions,@PathVariable("user_id") int userId,
+                                           @PathVariable("tran_type_id") int tranTypeId){
+        return transactionsService.updateTransactions(transactions,userId,tranTypeId);
     }
 
     @DeleteMapping("/{id}")

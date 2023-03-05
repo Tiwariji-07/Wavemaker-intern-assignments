@@ -1,8 +1,12 @@
+com\finwise\controllers\TransactionsController.class
 com\finwise\services\CategoryService.class
 com\finwise\services\UserService.class
 com\finwise\controllers\CategoryController.class
+com\finwise\services\TransactionsService.class
+com\finwise\models\Transactions.class
 com\finwise\implementations\UserServiceImpl.class
 com\finwise\models\TransactionType.class
+com\finwise\implementations\TransactionsServiceImpl.class
 com\finwise\controllers\TransactionTypeController.class
 com\finwise\implementations\BillReminderServiceImpl.class
 com\finwise\implementations\CategoryServiceImpl.class
