@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transactions</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+    <link rel="stylesheet" href="bootstrap-3.3.7/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/reminder.css">
+</head>
+<body>
+    <header>
+        <nav class="navbar heading">
+            <div class="container">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="index.html">
+                        <!-- <img src="assets/finwise-logo.png" alt="FinWise" class="finwise-logo"> -->
+                        <b>Finwise.</b>
+                    </a>
+                </div>
+                <div class="collapse navbar-collapse nav-tabs">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a href="overview.html">Overview</a>
+                        </li>
+                        <li>
+                            <a href="reminder.html">Reminders</a>
+                        </li>
+                        <li>
+                            <a href="#">Budgets</a>
+                        </li>
+                        <li>
+                            <a href="transactions.html">Transactions</a>
+                        </li>
+                        <li>
+                            <div class="op-btns">
+                                <a href="#">
+                                    <span class="material-symbols-outlined profile-icon">account_circle</span>
+                                </a>
+                                
+                            </div>
+                            
+                        </li>
+                    </ul>
+                </div>  
+            </div>
+        </nav>
+    </header>
+
+    <section >
+        <section class="container">
+            <div class="reminder-header">
+                <h1 class="reminder-heading">Transactions</h1>
+                <div class="tran-btns">
+                    <button class="btn reminder-btn">Add Expense</button>
+                    <button class="btn reminder-btn">Add Income</button>
+                </div>
+                
+            </div>
+        </section>
+        <section class="container">
+            <div class="row">
+                <div class="col-sm-10">
+                    <div class="jumbotron">
+                        <table class="table">
+                            <thead>
+                              <tr>
+                                <th>S No</th>
+                                <th>Type</th>
+                                <th>Category</th>
+                                <th>Debit</th>
+                                <th>Credit</th>
+                                <th>Date</th>
+                              </tr>
+                            </thead>
+                            <tbody id="data">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </section>
+
+    <footer>
+        <div class="row">
+            <div class="col container">
+                <p>© Copyright 2023 Finwise - All Rights Reserved</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.3/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="bootstrap-3.3.7/dist/js/bootstrap.min.js"></script>
+    <script src="js/transaction.js"></script>
+</body>
+</html>

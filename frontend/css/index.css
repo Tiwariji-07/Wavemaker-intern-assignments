@@ -1,0 +1,136 @@
+body{
+    --primary-color :#2f486a;
+    --secondary-color : #00ade5;
+    --third-color : #ddebf8;
+    background-color: var(--third-color);
+
+}
+
+.heading{
+    padding: .9em 0;
+    /* border: 1px solid rebeccapurple; */
+}
+
+.login-page{
+    display: none;
+    position: absolute;
+    z-index: 999;
+    justify-content: center;
+    align-items: center;
+    /* padding: 6em 0; */
+}
+
+.login-form{
+    /* min-width: 320px; */
+    border-radius: 1em;
+    background-color: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2em;
+    /* margin-left:auto; */
+}
+
+.ac-form{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+
+}
+
+.op-btn{
+    font-size: 1.2em;
+    background-color: var(--secondary-color);
+    color: white;
+    border-radius: .5em;
+}
+
+.login-form p{
+    padding-top: 1em;
+}
+
+.navbar-brand{
+    color: var(--primary-color);
+    font-size: 1.6em;
+}
+
+.finwise-logo{
+    width: 4em;
+    padding-top: 0 !important;
+    /* padding-bottom: 3em; */
+}
+
+.nav-tabs a{
+    font-size: 1.2em;
+    font-weight: 700;
+    color: var(--primary-color);
+}
+
+/* .nav-tabs a:hover{
+    background: var(--third-color);
+}
+
+.nav-tabs:focus{
+    background: transparent;
+} */
+
+.op-btns{
+    margin-top: .2em;
+    display: flex;
+    gap: 1em;
+    justify-content: center;
+    align-items: center;
+}
+
+.op-btn{
+    font-size: 1.2em;
+    background-color: var(--secondary-color);
+    color: white;
+    border-radius: .5em;
+}
+
+.op-btn:hover{
+    color: white;
+}
+.op-btn:focus{
+    color: white;
+    outline: none;
+    border: none;
+}
+.sec-1 .banner{
+    background-color: var(--third-color);
+    /* text-align: center; */
+    /* border: 1px solid rebeccapurple; */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.sec-1 h3{
+    /* display: inline; */
+    color: var(--secondary-color);
+    line-height: 10px;
+} 
+.sec-1 h4{
+    color: var(--secondary-color);
+}
+.sec-1 h1{
+    /* display: inline; */
+    color: var(--primary-color);
+}
+
+.banner-img{
+    max-width: 40em;
+}
+
+footer{
+    /* position:fixed;
+    bottom: 0;
+    z-index: 2; */
+    text-align: center;
+    padding-top: 1em;
+    background-color: var(--primary-color);
+    color: var(--third-color);
+    font-size: 1em;
+    font-weight: 700;
+}

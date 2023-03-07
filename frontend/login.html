@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finwise login</title>
+    <link rel="stylesheet" href="bootstrap-3.3.7/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/login.css">   
+</head>
+<body>
+    <header>
+        <nav class="navbar heading">
+            <div class="container">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="#">
+                        <!-- <img src="assets/finwise-logo.png" alt="FinWise" class="finwise-logo"> -->
+                        <b><a href="/index.html">Finwise.</a></b>
+                    </a>
+                </div>
+                <div class="collapse navbar-collapse nav-tabs">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <div class="op-btns">
+                                <!-- <a href="/login.html"><button class="btn op-btn">Login</button></a> -->
+                                <a href="/register.html"><button class="btn op-btn">Register</button></a>
+                            </div>
+                            
+                        </li>
+                    </ul>
+                </div>  
+            </div>
+        </nav>
+    </header>
+    <section >
+        <div class="container login-page row">
+            <div class="login-form col-md-6 col-xs-10">
+                <div class="row">
+                    <form class="col-sm-6 col-xs-11" method="post" id="login-form">
+                        <div class="form-group">
+                          <label for="exampleInputEmail1">Email address</label>
+                          <input type="email" name="email" class="form-control" id="exampleInputEmail1" placeholder="Email" required>
+                        </div>
+                        <div class="form-group">
+                          <label for="exampleInputPassword1">Password</label>
+                          <input type="password" name="password" class="form-control" id="exampleInputPassword1" placeholder="Password" required>
+                        </div>
+                        <button type="submit" class="btn op-btn">Submit</button>
+                        <p>New member? <a href="register.html">Register</a></p>
+                    </form>
+                    <img src="assets/login-page.svg" alt="login" class="col-xs-11 col-sm-6 img-responsive">
+                </div>
+            </div>
+        </div>
+        
+    </section>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.3/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="bootstrap-3.3.7/dist/js/bootstrap.min.js"></script>
+    <script src="/js/authenticate.js"></script>
+</body>
+</html>

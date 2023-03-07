@@ -1,0 +1,60 @@
+body{
+    --primary-color :#2f486a;
+    --secondary-color : #00ade5;
+    --third-color : #ddebf8;
+    background-color: var(--third-color);
+    color: var(--primary-color);
+
+}
+
+.heading{
+    padding: .9em 0;
+    /* display: flex;
+    justify-content: space-between; */
+    /* border: 1px solid rebeccapurple; */
+}
+.login-page{
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    /* padding: 6em 0; */
+}
+
+.login-form{
+    /* min-width: 320px; */
+    border-radius: 1em;
+    background-color: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2em;
+    /* margin-left:auto; */
+}
+
+.ac-form{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+
+}
+
+.op-btn{
+    font-size: 1.2em;
+    background-color: var(--secondary-color);
+    color: white;
+    border-radius: .5em;
+}
+
+.login-form p{
+    padding-top: 1em;
+}
+
+.op-btn:hover{
+    color: white;
+}
+.op-btn:focus{
+    color: white;
+    outline: none;
+    border: none;
+}

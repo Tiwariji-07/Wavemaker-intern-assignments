@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finwise</title>
+    <link rel="stylesheet" href="bootstrap-3.3.7/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/index.css">
+    <!-- <link rel="stylesheet" href="css/"> -->
+</head>
+<body>
+    <header>
+        <nav class="navbar heading">
+            <div class="container">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="#">
+                        <!-- <img src="assets/finwise-logo.png" alt="FinWise" class="finwise-logo"> -->
+                        <b>Finwise.</b>
+                    </a>
+                </div>
+                <div class="collapse navbar-collapse nav-tabs">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <div class="op-btns">
+                                <button class="btn op-btn" onclick="showLogin()">Login</button>
+                                <button class="btn op-btn" onclick="showRegister()">Register</button>
+                            </div>
+                            
+                        </li>
+                    </ul>
+                </div>  
+            </div>
+        </nav>
+    </header>
+    <section>
+        <section >
+            <div class="container login-page row" id="login-page">
+                <div class="login-form col-md-6 col-xs-10">
+                    <div class="row">
+                        <form class="col-sm-6 col-xs-11" method="post" id="login-form">
+                            <div class="form-group">
+                              <label for="exampleInputEmail1">Email address</label>
+                              <input type="email" name="email" class="form-control" id="exampleInputEmail1" placeholder="Email" required>
+                            </div>
+                            <div class="form-group">
+                              <label for="exampleInputPassword1">Password</label>
+                              <input type="password" name="password" class="form-control" id="exampleInputPassword1" placeholder="Password" required>
+                            </div>
+                            <button type="submit" class="btn op-btn">Submit</button>
+                            <button class="btn op-btn" onclick="closeLogin()">Cancel</button>
+                            <p>New member? <a onclick="closeLogin(),showRegister()">Register</a></p>
+                        </form>
+                        <img src="assets/login-page.svg" alt="login" class="col-xs-11 col-sm-6 img-responsive">
+                    </div>
+                </div>
+            </div>
+            
+        </section>
+        <section >
+            <div class="container login-page row" id="register-page">
+                <div class="login-form col-md-5 col-xs-10">
+                    <div class="row">
+                        <form class="col-sm-12 col-xs-11" method="post" id="register-form">
+                            <div class="ac-form">
+                                <div class="form-group">
+                                    <label for="firstName">First Name</label>
+                                    <input name="firstName" type="text" class="form-control" id="firstName" placeholder="First Name" required>
+                                    </div>
+                                <div class="form-group">
+                                    <label for="lastName">Last Name</label>
+                                    <input name="lastName" type="text" class="form-control" id="lastName" placeholder="Last Name" required>
+                                </div>
+                                <div class="form-group">
+                                  <label for="email">Email address</label>
+                                  <input name="email" type="email" class="form-control" id="email" placeholder="Email" required>
+                                </div>
+                                <div class="form-group">
+                                  <label for="password">Password</label>
+                                  <input name="password" type="password" class="form-control" id="password" placeholder="Password" required>
+                                </div>
+                                <div class="gender-buttons">
+                                    <label for="inlineRadio1">Gender</label>
+                                    <div class="form-group" id="gender">
+                                        <label class="radio-inline">
+                                            <input type="radio" name="gender" id="inlineRadio1" value="male"> male
+                                        </label>
+                                        <label class="radio-inline">
+                                            <input type="radio" name="gender" id="inlineRadio2" value="female"> female
+                                        </label>
+                                        <label class="radio-inline">
+                                            <input type="radio" name="gender" id="inlineRadio3" value="other"> others
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="occupation">Occupation</label>
+                                    <input name="occupation" type="text" class="form-control" id="occupation" placeholder="occupation" required>
+                                </div>
+                            </div>
+                            
+                            <button type="submit" class="btn op-btn">Submit</button>
+                            <button class="btn op-btn" onclick="closeRegister()">Cancel</button>
+                            <p>Already a member? <a onclick="closeRegister(),showLogin()">Login</a></p>
+                        </form>
+                        <!-- <img src="assets/register-page.svg" alt="login" class="col-xs-11 col-sm-6 img-responsive"> -->
+                    </div>
+                </div>
+            </div>
+            
+        </section>
+        <section class="sec-1 container">
+            <div class="jumbotron banner">
+                <div class="banner-left">
+                    <h3>Get Wise with</h3>
+                    <h1>Finwise</h1>
+                    <h4><b>Track your money and see where it goes.</b></h4>
+                </div>
+                <img src="assets/banner-img.svg" alt="money" class="banner-img img-responsive">
+            </div>
+        </section>
+    </section>
+    <footer>
+        <div class="row">
+            <div class="col container">
+                <p>© Copyright 2023 Finwise - All Rights Reserved</p>
+            </div>
+        </div>
+    </footer>
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.3/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="bootstrap-3.3.7/dist/js/bootstrap.min.js"></script>
+    <script src="js/authenticate.js"></script>
+    <script src="js/signup.js"></script>
+</body>
+</html>

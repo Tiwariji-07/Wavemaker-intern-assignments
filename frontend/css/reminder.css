@@ -1,0 +1,81 @@
+body{
+    --primary-color :#2f486a;
+    --secondary-color : #00ade5;
+    --third-color : #ddebf8;
+    background-color: var(--third-color);
+    overflow-x: hidden;
+}
+
+.reminder-header{
+    display: flex;
+    justify-content:space-between;
+    align-items: center;
+    /* border: 1px solid black; */
+    
+}
+
+.profile-icon{
+    font-weight: 900;
+    font-size: 2.2em;
+    margin-top: .1em;
+}
+
+.reminder-heading{
+    color: var(--primary-color);
+    left: 0;
+    margin-left: 0;
+    /* border: 1px solid black; */
+}
+
+.reminder-btn{
+    /* font-size: 1.2em; */
+    height: 3em;
+    background-color: var(--secondary-color);
+    color: white;
+    border-radius: .5em;
+}
+
+.reminder-btn:hover,.reminder-btn:focus{
+    color: white;
+    outline: none;
+    border: none;
+}
+
+.tran-btns{
+    display: flex;
+    gap: 1em;
+}
+
+.form-popup{
+    display: none;
+    position: fixed;
+    z-index: 9;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    /* left: 0; */
+}
+
+.add-reminder-form{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.form-container {
+    max-width: 320px;
+    padding: 10px;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    /* gap: 1em; */
+}
+
+.ac-form{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+
+}

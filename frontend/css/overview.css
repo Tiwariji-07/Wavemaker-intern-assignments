@@ -1,0 +1,17 @@
+body{
+    --primary-color :#2f486a;
+    --secondary-color : #00ade5;
+    --third-color : #ddebf8;
+    background-color: var(--third-color);
+
+}
+
+.profile-icon{
+    font-weight: 900;
+    font-size: 2.2em;
+    margin-top: .1em;
+}
+
+.overview-heading{
+    color: var(--primary-color);
+}
