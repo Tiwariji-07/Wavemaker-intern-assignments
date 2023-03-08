@@ -1,20 +1,28 @@
 // var transactions = [];
 // var transaction = {transactionType:"",category:"",debitAmount:0,creditAmount:0,month:0,year:0}
 function openTranForm() {
-    document.getElementById("transaction-income-page").style.display = "block";
-  }
+  document.getElementById("transaction-income-page").style.display = "block";
+}
 
 function closeTranForm() {
-    document.getElementById("transaction-income-page").style.display = "none";
-  }
+  document.getElementById("transaction-income-page").style.display = "none";
+}
 
-  function openTranExpenseForm() {
-    document.getElementById("transaction-expense-page").style.display = "block";
-  }
+function openTranExpenseForm() {
+  document.getElementById("transaction-expense-page").style.display = "block";
+}
 
 function closeTranExpenseForm() {
-    document.getElementById("transaction-expense-page").style.display = "none";
-  }
+  document.getElementById("transaction-expense-page").style.display = "none";
+}
+
+function openDetailsForm() {
+  document.getElementById("detailForm").style.display = "block";
+}
+  
+function closeDetailsForm() {
+  document.getElementById("detailForm").style.display = "none";
+}
 
 function getTransactions(){
 
@@ -34,6 +42,7 @@ function getTransactions(){
             // console.log(itemData.category);
             temp += "<tr>";
             temp += "<td>" + count + "</td>";
+            temp += "<td>" + itemData.transactionId + "</td>";
             temp += "<td>" + itemData.transactionType.transactionTypeName + "</td>";
             // var category = itemData.category;
             if(!("category" in itemData)){
@@ -166,8 +175,78 @@ const displayOption = async () => {
   // });
 };
 
+async function displayTransaction(){
+  // const reminder =  getOneReminder(billId);
+  document.querySelector('#data').onclick = function(ev) {
+  // ev.target <== td element
+  // ev.target.parentElement <== tr
+  var index = ev.target.parentElement.rowIndex;
+  console.log(index);
+  var row = document.getElementById('data').children[index-1];
+  console.log(document.getElementById('data').children[index-1]);
+  var transactionId = row.children[1].innerHTML;
+  console.log(transactionId);
+  openDetailsForm();
+  var dtId = document.getElementById('dtid');
+  var dtType = document.getElementById('dttype');
+  var dtCategory = document.getElementById('dtcategory');
+  var dtdate = document.getElementById('dtdate');
+  var dtDebit = document.getElementById('dtdebit');
+  var dtCredit = document.getElementById('dtcredit');
+  var dtDescription = document.getElementById('dtdescription');
+  // var dbillName = document.getElementById('dbillName');
+  fetch(`http://localhost:8080/finwise/2/transactions/${transactionId}`).then((response)=> response.json())
+  .then((data)=>{
+  //   if(data != null){
+  //     console.log(data);
+  //     // alert("transaction added")
+  //     getTransactions();
+  //   }else{
+  //     // alert("Not added ")
+  //   }
+      console.log(data);
+      dtId.value = data.transactionId;
+      dtType.value = data.transactionType.transactionTypeName;
+      dtCategory.value = data.category.categoryName;
+      var month = ("0" + (data.transactionMonth)).slice(-2);
+      dtdate.value = data.transactionYear+"-"+month;
+      console.log(dtdate.value);
+      dtDebit.value = data.debitAmount;
+      dtCredit.value = data.creditAmount;
+      dtDescription.value = data.description;
+  });
+  // console.log(response);
+  // const data = response.json();
+  // return data;
+  
+
+  
+  }
+}
+
+function deleteTransaction(){
+  var id = document.getElementById('dtid').value;
+    console.log(id);
+    fetch(`http://localhost:8080/finwise/2/transactions/${id}`, {
+            method:'DELETE', 
+            //Set the headers that specify you're sending a JSON body request and accepting JSON response
+        headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+        }
+        }).then((response)=> response.json())
+        .then((data)=>{
+          if(data != null){
+            console.log(data);
+            alert("Transaction deleted");
+            closeDetailsForm();
+            getTransactions();
+          }
+    })
+}
 
 getTransactions();
 displayOption();
 addIncome();
 addExpense();
+displayTransaction();

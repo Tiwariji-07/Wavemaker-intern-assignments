@@ -68,6 +68,7 @@
                             <thead>
                               <tr>
                                 <th>S No</th>
+                                <th>Tid</th>
                                 <th>Type</th>
                                 <th>Category</th>
                                 <th>Debit</th>
@@ -135,6 +136,46 @@
 
                     <button type="submit" class="btn">Add</button>
                     <button type="button" class="btn cancel" onclick="closeTranExpenseForm()">Close</button>
+                </div>
+              </form>
+        </div>
+    </section>
+    <section class="form-popup details" id="detailForm">
+        <div class="add-reminder-form">
+            <form method="post" class="form-container" id="reminder-detail-form">
+                <div class="ac-form">
+                    <h1>Transaction Details</h1>
+                    <div class="form-group">
+                        <label for="dtid"><b>Transaction Id</b></label>
+                        <input type="num" placeholder="Enter Bill Id" name="billId" id="dtid" required readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="dttype"><b>Type</b></label>
+                        <input type="text" placeholder="Enter Type Name" name="billName" id="dttype" required readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="dtcategory"><b>Category</b></label>
+                        <input type="text" placeholder="Enter category" name="billAmount" id="dtcategory" required readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="dtdate"><b>Transaction Date</b></label>
+                        <input type="month" name="reminderDate" id="dtdate" required readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="dtdebit"><b>Debit</b></label>
+                        <input type="number" name="reminderDate" id="dtdebit" required readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="dtcredit"><b>Credit</b></label>
+                        <input type="number" name="reminderDate" id="dtcredit" required readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="dtdescription"><b>Description</b></label>
+                        <input type="text" name="reminderDate" id="dtdescription" required readonly>
+                    </div>
+                    <!-- <button type="submit" class="btn btn-success">Save</button> -->
+                    <button type="button" class="btn btn-danger" onclick="deleteTransaction()">Delete</button>
+                    <button type="button" class="btn cancel" onclick="closeDetailsForm()">Close</button>
                 </div>
               </form>
         </div>

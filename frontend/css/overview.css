@@ -19,14 +19,14 @@ body{
 
 #user-detail-page{
     display: none;
-    position: absolute;
+    position: fixed;
     z-index: 9;
     width: 100vw;
     height: 100vh;
     /* top: 10rem; */
     /* margin: auto; */
     /* background-color: #fff; */
-    left: 30%;
+    left: 30vw;
 }
 
 .user-detail-form{
@@ -36,4 +36,8 @@ body{
     /* margin: auto; */
     flex-wrap: wrap;
     
+}
+
+.jumbotron{
+    background-color: white;
 }
