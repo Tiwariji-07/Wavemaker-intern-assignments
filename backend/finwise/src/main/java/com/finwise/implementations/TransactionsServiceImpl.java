@@ -1,10 +1,8 @@
 package com.finwise.implementations;
 
-import com.finwise.models.ExpenseBudget;
+import com.finwise.models.*;
 import com.finwise.models.Transactions;
-import com.finwise.models.Transactions;
-import com.finwise.services.ExpenseBudgetService;
-import com.finwise.services.TransactionsService;
+import com.finwise.services.*;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -22,8 +20,14 @@ public class TransactionsServiceImpl implements TransactionsService {
     @Autowired
     ExpenseBudgetService expenseBudgetService;
 
-//    @Autowired
-//    UserService userService;
+    @Autowired
+    UserService userService;
+
+    @Autowired
+    CategoryService categoryService;
+
+    @Autowired
+    TransactionTypeService transactionTypeService;
 
     public List<Transactions> getAllTransactions(int userId) {
         Session session = sessionFactory.openSession();
@@ -41,19 +45,35 @@ public class TransactionsServiceImpl implements TransactionsService {
     public Transactions createTransactions(Transactions transactions,int userId,int tranTypeId) {
         Session session = sessionFactory.openSession();
         Transaction transaction= session.beginTransaction();
-//        User user = userService.getUserById(userId);
-        transactions.setUserId(userId);
+        User user = userService.getUserById(userId);
+        transactions.setUser(user);
+//        Category category = categoryService.getCategoryById()
 //        transactions.setCategoryId(categoryId);
-        transactions.setTransactionTypeId(tranTypeId);
-//        transactions.setUser(user);
+        TransactionType transactionType = transactionTypeService.getTransactionTypeById(tranTypeId);
+        transactions.setTransactionType(transactionType);
+        Transactions transactions1 = new Transactions();
+        transactions1.setTransactionId(transactions.getTransactionId());
+        transactions1.setUser(transactions.getUser());
+        transactions1.setTransactionType(transactions.getTransactionType());
+        transactions1.setTransactionMonth(transactions.getTransactionMonth());
+        transactions1.setTransactionYear(transactions.getTransactionYear());
+        transactions1.setDescription(transactions.getDescription());
         if(tranTypeId == 1){
-            transactions.setCategoryId(null);
-            transactions.setDebitAmount(0);
+//            Category category = new Category();
+//            category.setCategoryId(0);
+//            category.setCategoryName("-");
+//            category.setUserId(userId);
+            transactions1.setCategory(null);
+            transactions1.setDebitAmount(0);
+            transactions1.setCreditAmount(transactions.getCreditAmount());
         }else{
+            transactions1.setCategory(transactions.getCategory());
+            transactions1.setCreditAmount(0);
+            transactions1.setDebitAmount(transactions.getDebitAmount());
             String sql = "SELECT * FROM expense_budget WHERE category_id = :category_id";
             SQLQuery query = session.createSQLQuery(sql);
             query.addEntity(ExpenseBudget.class);
-            query.setParameter("category_id", transactions.getCategoryId());
+            query.setParameter("category_id", transactions.getCategory().getCategoryId());
             List<ExpenseBudget> results = (List<ExpenseBudget>) query.list();
             for(ExpenseBudget expenseBudget : results){
                 ExpenseBudget newExpenseBudget = new ExpenseBudget();
@@ -68,28 +88,46 @@ public class TransactionsServiceImpl implements TransactionsService {
             }
 
         }
-        session.save(transactions);
+        session.save(transactions1);
         transaction.commit();
         session.close();
-        return transactions;
+        return transactions1;
     }
 
     public Transactions updateTransactions(Transactions transactions,int userId,int tranTypeId) {
         Session session = sessionFactory.openSession();
         Transaction transaction= session.beginTransaction();
-        transactions.setUserId(userId);
+        User user = userService.getUserById(userId);
+        transactions.setUser(user);
+//        Category category = categoryService.getCategoryById()
 //        transactions.setCategoryId(categoryId);
-        transactions.setTransactionTypeId(tranTypeId);
+        TransactionType transactionType = transactionTypeService.getTransactionTypeById(tranTypeId);
+        transactions.setTransactionType(transactionType);
+        Transactions transactions1 = new Transactions();
+        transactions1.setTransactionId(transactions.getTransactionId());
+        transactions1.setUser(transactions.getUser());
+        transactions1.setTransactionType(transactions.getTransactionType());
+        transactions1.setTransactionMonth(transactions1.getTransactionMonth());
+        transactions1.setTransactionYear(transactions.getTransactionYear());
+        transactions1.setDescription(transactions.getDescription());
         if(tranTypeId == 1){
-            transactions.setCategoryId(null);
-            transactions.setDebitAmount(0);
+//            Category category = new Category();
+//            category.setCategoryId(0);
+//            category.setCategoryName("-");
+//            category.setUserId(userId);
+            transactions1.setCategory(null);
+            transactions1.setDebitAmount(0);
+            transactions1.setCreditAmount(transactions.getCreditAmount());
         }else{
+            transactions1.setCategory(transactions.getCategory());
+            transactions1.setCreditAmount(0);
+            transactions1.setDebitAmount(transactions.getDebitAmount());
             Transactions oldTransaction = new Transactions();
             oldTransaction = getTransactionsById(transactions.getTransactionId());
             String sql = "SELECT * FROM expense_budget WHERE category_id = :category_id";
             SQLQuery query = session.createSQLQuery(sql);
             query.addEntity(ExpenseBudget.class);
-            query.setParameter("category_id", transactions.getCategoryId());
+            query.setParameter("category_id", transactions.getCategory().getCategoryId());
             List<ExpenseBudget> results = (List<ExpenseBudget>) query.list();
             for(ExpenseBudget expenseBudget : results){
                 ExpenseBudget newExpenseBudget = new ExpenseBudget();
@@ -104,24 +142,24 @@ public class TransactionsServiceImpl implements TransactionsService {
             }
 
         }
-        session.saveOrUpdate(transactions);
+        session.saveOrUpdate(transactions1);
         transaction.commit();
         session.close();
-        return transactions;
+        return transactions1;
     }
 
     public Transactions deleteTransactions(int id) {
         Session session = sessionFactory.openSession();
         Transaction transaction= session.beginTransaction();
         Transactions transactions = session.get(Transactions.class,id);
-        if(transactions.getTransactionTypeId() == 1){
-            transactions.setCategoryId(null);
+        if(transactions.getTransactionType().getTransactionTypeId() == 1){
+            transactions.setCategory(null);
             transactions.setDebitAmount(0);
         }else{
             String sql = "SELECT * FROM expense_budget WHERE category_id = :category_id";
             SQLQuery query = session.createSQLQuery(sql);
             query.addEntity(ExpenseBudget.class);
-            query.setParameter("category_id", transactions.getCategoryId());
+            query.setParameter("category_id", transactions.getCategory().getCategoryId());
             List<ExpenseBudget> results = (List<ExpenseBudget>) query.list();
             for(ExpenseBudget expenseBudget : results){
                 ExpenseBudget newExpenseBudget = new ExpenseBudget();
@@ -130,7 +168,7 @@ public class TransactionsServiceImpl implements TransactionsService {
                         && transactions.getTransactionYear() == expenseBudget.getBudgetYear()){
                     spentAmount = spentAmount - transactions.getDebitAmount();
                     expenseBudget.setSpentAmount(spentAmount);
-                    newExpenseBudget= expenseBudgetService.updateExpenseBudget(expenseBudget,transactions.getUserId());
+                    newExpenseBudget= expenseBudgetService.updateExpenseBudget(expenseBudget,transactions.getUser().getUserId());
                     break;
                 }
             }

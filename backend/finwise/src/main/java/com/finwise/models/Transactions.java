@@ -2,10 +2,7 @@ package com.finwise.models;
 
 import org.hibernate.annotations.ColumnDefault;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "transactions")
@@ -14,15 +11,17 @@ public class Transactions {
     @Column(name = "id")
     private int transactionId;
 
-    @Column(name = "user_id")
-    private int userId;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    private User user;
 
-    @Column(name = "category_id")
-//    @ColumnDefault("-1")
-    private Integer categoryId;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "category_id", referencedColumnName = "id")
+    private Category category;
 
-    @Column(name = "transaction_type_id")
-    private int transactionTypeId;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "transaction_type_id", referencedColumnName = "id")
+    private TransactionType transactionType;
 
     @Column(name = "transaction_month")
     private int transactionMonth;
@@ -47,29 +46,6 @@ public class Transactions {
         this.transactionId = transactionId;
     }
 
-    public int getUserId() {
-        return userId;
-    }
-
-    public void setUserId(int userId) {
-        this.userId = userId;
-    }
-
-    public int getCategoryId() {
-        return categoryId;
-    }
-
-    public void setCategoryId(Integer categoryId) {
-        this.categoryId = categoryId;
-    }
-
-    public int getTransactionTypeId() {
-        return transactionTypeId;
-    }
-
-    public void setTransactionTypeId(int transactionTypeId) {
-        this.transactionTypeId = transactionTypeId;
-    }
 
     public int getTransactionMonth() {
         return transactionMonth;
@@ -115,9 +91,9 @@ public class Transactions {
     public String toString() {
         return "Transactions{" +
                 "transactionId=" + transactionId +
-                ", userId=" + userId +
-                ", categoryId=" + categoryId +
-                ", transactionTypeId=" + transactionTypeId +
+                ", user=" + user +
+                ", category=" + category +
+                ", transactionType=" + transactionType +
                 ", transactionMonth=" + transactionMonth +
                 ", transactionYear=" + transactionYear +
                 ", debitAmount=" + debitAmount +
@@ -125,4 +101,29 @@ public class Transactions {
                 ", description='" + description + '\'' +
                 '}';
     }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
+    public TransactionType getTransactionType() {
+        return transactionType;
+    }
+
+    public void setTransactionType(TransactionType transactionType) {
+        this.transactionType = transactionType;
+    }
+
 }

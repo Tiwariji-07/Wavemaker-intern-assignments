@@ -1,5 +1,6 @@
 package com.finwise.services;
 
+import com.finwise.models.BudgetPeriod;
 import com.finwise.models.ExpenseBudget;
 
 import java.util.List;
@@ -15,4 +16,6 @@ public interface ExpenseBudgetService {
     ExpenseBudget deleteExpenseBudget(int id);
 
     ExpenseBudget getExpenseBudgetById(int id);
+
+    List<ExpenseBudget> getExpenseBudgetOfPeriod(BudgetPeriod budgetPeriod,int userId);
 }

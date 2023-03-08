@@ -1,5 +1,6 @@
 package com.finwise.implementations;
 
+import com.finwise.models.BudgetPeriod;
 import com.finwise.models.ExpenseBudget;
 import com.finwise.models.ExpenseBudget;
 import com.finwise.services.ExpenseBudgetService;
@@ -10,6 +11,7 @@ import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -72,5 +74,17 @@ public class ExpenseBudgetImpl implements ExpenseBudgetService {
         transaction.commit();
         session.close();
         return expenseBudget;
+    }
+
+    public List<ExpenseBudget> getExpenseBudgetOfPeriod(BudgetPeriod budgetPeriod, int userId) {
+        List<ExpenseBudget> expenseBudgets = getAllExpenseBudget(userId);
+        List<ExpenseBudget> expenseBudgets1 = new ArrayList<ExpenseBudget>();
+        for(ExpenseBudget expenseBudget : expenseBudgets){
+            if(expenseBudget.getBudgetMonth() == budgetPeriod.getMonth() &&
+            expenseBudget.getBudgetYear() == budgetPeriod.getYear()){
+                expenseBudgets1.add(expenseBudget);
+            }
+        }
+        return expenseBudgets1;
     }
 }

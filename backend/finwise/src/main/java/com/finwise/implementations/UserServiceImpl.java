@@ -26,7 +26,7 @@ public class UserServiceImpl implements UserService {
         return userList;
     }
 
-    public User createUser(User user) {
+    public boolean createUser(User user) {
         Session session = sessionFactory.openSession();
         Transaction transaction= session.beginTransaction();
         String sql = "SELECT * FROM user WHERE email = :email";
@@ -34,12 +34,14 @@ public class UserServiceImpl implements UserService {
         query.addEntity(User.class);
         query.setParameter("email", user.getEmail());
         User existingUser = (User) query.uniqueResult();
+        boolean flag = false;
         if(existingUser == null){
             session.save(user);
+            flag = true;
         }
         transaction.commit();
         session.close();
-        return existingUser;
+        return flag;
     }
 
     public User updateUser(User user) {

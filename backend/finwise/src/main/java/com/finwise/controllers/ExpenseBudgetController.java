@@ -1,5 +1,6 @@
 package com.finwise.controllers;
 
+import com.finwise.models.BudgetPeriod;
 import com.finwise.models.ExpenseBudget;
 import com.finwise.services.ExpenseBudgetService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@CrossOrigin(value = "http://127.0.0.1:5500/")
 @RequestMapping(value = "{user_id}/budget")
 public class ExpenseBudgetController {
 
@@ -39,5 +41,11 @@ public class ExpenseBudgetController {
     @GetMapping("/{id}")
     public ExpenseBudget getExpenseBudgetById(@PathVariable("id") int id){
         return expenseBudgetService.getExpenseBudgetById(id);
+    }
+
+    @PostMapping("/period")
+    public List<ExpenseBudget> getExpenseBudgetOfPeriod(@RequestBody BudgetPeriod budgetPeriod,
+                                                        @PathVariable("user_id") int userId){
+        return expenseBudgetService.getExpenseBudgetOfPeriod(budgetPeriod, userId);
     }
 }

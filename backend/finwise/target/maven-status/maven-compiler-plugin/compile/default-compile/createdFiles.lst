@@ -1,5 +1,6 @@
 com\finwise\models\ExpenseBudget.class
 com\finwise\services\UserService.class
+com\finwise\models\BudgetPeriod.class
 com\finwise\models\Transactions.class
 com\finwise\models\TransactionType.class
 com\finwise\implementations\ExpenseBudgetImpl.class

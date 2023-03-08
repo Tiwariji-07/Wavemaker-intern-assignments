@@ -17,6 +17,7 @@ public class LoginServiceImpl implements LoginService {
 
     public User loginUser(Login login) {
         List<User> userList = userService.getAllUsers();
+        User nullUser = new User();
         for(User user : userList){
             if(user.getEmail().equalsIgnoreCase(login.getEmail()) &&
                     user.getPassword().equals(login.getPassword())){
@@ -24,6 +25,6 @@ public class LoginServiceImpl implements LoginService {
             }
         }
 
-        return null;
+        return nullUser;
     }
 }

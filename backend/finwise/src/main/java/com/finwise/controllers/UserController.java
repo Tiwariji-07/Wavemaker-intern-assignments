@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@CrossOrigin(value = "http://127.0.0.1:5500/")
 @RequestMapping(value = "/user")
 public class UserController {
 
@@ -20,7 +21,7 @@ public class UserController {
     }
 
     @PostMapping("/create")
-    public User createUser(@RequestBody User user){
+    public boolean createUser(@RequestBody User user){
         return userService.createUser(user);
     }
 

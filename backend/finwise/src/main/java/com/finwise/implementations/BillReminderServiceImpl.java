@@ -26,7 +26,7 @@ public class BillReminderServiceImpl implements BillReminderService {
     public List<Bill> getAllReminders(int userId) {
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
-        String sql = "SELECT * FROM bill_reminder WHERE user_id = :user_id";
+        String sql = "SELECT * FROM bill_reminder WHERE user_id = :user_id and is_active = true";
         SQLQuery query = session.createSQLQuery(sql);
         query.addEntity(Bill.class);
         query.setParameter("user_id", userId);

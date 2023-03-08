@@ -31,8 +31,8 @@ public class User {
     @Column(name = "gender")
     private String gender;
 
-    @Column(name = "dob")
-    private Date dob;
+//    @Column(name = "dob")
+//    private Date dob;
 
     @Column(name = "occupation")
     private String occupation;
@@ -85,13 +85,13 @@ public class User {
         this.gender = gender;
     }
 
-    public Date getDob() {
-        return dob;
-    }
-
-    public void setDob(Date dob) {
-        this.dob = dob;
-    }
+//    public Date getDob() {
+//        return dob;
+//    }
+//
+//    public void setDob(Date dob) {
+//        this.dob = dob;
+//    }
 
     public String getOccupation() {
         return occupation;
@@ -110,7 +110,7 @@ public class User {
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
                 ", gender='" + gender + '\'' +
-                ", dob=" + dob +
+//                ", dob=" + dob +
                 ", occupation='" + occupation + '\'' +
                 '}';
     }

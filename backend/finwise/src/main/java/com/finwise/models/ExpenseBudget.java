@@ -1,9 +1,6 @@
 package com.finwise.models;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "expense_budget")
@@ -14,8 +11,9 @@ public class ExpenseBudget {
     private int expenseBudgetId;
     @Column(name = "user_id")
     private int userId;
-    @Column(name = "category_id")
-    private int categoryId;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "category_id", referencedColumnName = "id")
+    private Category category;
     @Column(name = "budget_limit")
     private float budgetAmount;
     @Column(name = "spent_amount")
@@ -43,14 +41,6 @@ public class ExpenseBudget {
 
     public void setUserId(int userId) {
         this.userId = userId;
-    }
-
-    public int getCategoryId() {
-        return categoryId;
-    }
-
-    public void setCategoryId(int categoryId) {
-        this.categoryId = categoryId;
     }
 
     public float getBudgetAmount() {
@@ -106,7 +96,7 @@ public class ExpenseBudget {
         return "ExpenseBudget{" +
                 "expenseBudgetId=" + expenseBudgetId +
                 ", userId=" + userId +
-                ", categoryId=" + categoryId +
+                ", category=" + category +
                 ", budgetAmount=" + budgetAmount +
                 ", spentAmount=" + spentAmount +
                 ", budgetMonth=" + budgetMonth +
@@ -115,4 +105,13 @@ public class ExpenseBudget {
                 ", isActive=" + isActive +
                 '}';
     }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
 }
