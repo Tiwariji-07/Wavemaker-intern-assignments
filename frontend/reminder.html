@@ -7,6 +7,7 @@
     <title>Reminders</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
     <link rel="stylesheet" href="bootstrap-3.3.7/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/overview.css">
     <link rel="stylesheet" href="css/index.css">
     <link rel="stylesheet" href="css/reminder.css">
 </head>
@@ -29,14 +30,14 @@
                             <a href="reminder.html">Reminders</a>
                         </li>
                         <li>
-                            <a href="#">Budgets</a>
+                            <a href="budget.html">Budgets</a>
                         </li>
                         <li>
                             <a href="transactions.html">Transactions</a>
                         </li>
                         <li>
                             <div class="op-btns">
-                                <a href="#">
+                                <a onclick="openUserDetailsForm()">
                                     <span class="material-symbols-outlined profile-icon">account_circle</span>
                                 </a>
                                 
@@ -48,7 +49,62 @@
             </div>
         </nav>
     </header>
-
+    <section >
+        <div class="container login-page row" id="user-detail-page">
+            <div class="login-form col-md-5 col-xs-10">
+                <div class="row user-detail-form">
+                    <form class="col-sm-12 col-xs-11" method="post" id="user-detail-form">
+                        <div class="ac-form">
+                            <div class="form-group">
+                                <label for="duserId">User Id</label>
+                                <input name="userId" type="number" class="form-control" id="duserId" placeholder="User id" required readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="dfirstName">First Name</label>
+                                <input name="firstName" type="text" class="form-control" id="dfirstName" placeholder="First Name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="dlastName">Last Name</label>
+                                <input name="lastName" type="text" class="form-control" id="dlastName" placeholder="Last Name" required>
+                            </div>
+                            <div class="form-group">
+                              <label for="demail">Email address</label>
+                              <input name="email" type="email" class="form-control" id="demail" placeholder="Email" required readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="dpassword">Password</label>
+                                <input name="password" type="password" class="form-control" id="dpassword" placeholder="Email" required readonly>
+                              </div>
+                            <div class="gender-buttons">
+                                <label for="dinlineRadio1">Gender</label>
+                                <div class="form-group" id="gender">
+                                    <label class="radio-inline">
+                                        <input type="radio" name="gender" id="dinlineRadio1" value="male"> male
+                                    </label>
+                                    <label class="radio-inline">
+                                        <input type="radio" name="gender" id="dinlineRadio2" value="female"> female
+                                    </label>
+                                    <label class="radio-inline">
+                                        <input type="radio" name="gender" id="dinlineRadio3" value="other"> others
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="doccupation">Occupation</label>
+                                <input name="occupation" type="text" class="form-control" id="doccupation" placeholder="occupation" required>
+                            </div>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-success">Save</button>
+                        <button type="button" class="btn btn-danger" onclick="logout()">Logout</button>
+                        <button type="button" class="btn" onclick="closeUserDetailsForm()">Cancel</button>
+                    </form>
+                    <!-- <img src="assets/register-page.svg" alt="login" class="col-xs-11 col-sm-6 img-responsive"> -->
+                </div>
+            </div>
+        </div>
+        
+    </section>
     <section >
         <section class="container">
             <div class="reminder-header">
@@ -64,6 +120,7 @@
                             <thead>
                               <tr>
                                 <th>S No</th>
+                                <th>Bill Id</th>
                                 <th>Bill Name</th>
                                 <th>Date</th>
                                 <th>Amount</th>
@@ -79,7 +136,7 @@
             </div>
         </section>
     </section>
-    <section class="form-popup" id="myForm">
+    <section class="form-popup adding" id="myForm">
         <div class="add-reminder-form">
             <form method="post" class="form-container" id="reminder-form">
                 <div class="ac-form">
@@ -107,8 +164,47 @@
                             </label>
                         </div>
                 
-                    <button type="submit" class="btn">Add</button>
+                    <button type="submit" class="btn btn-info">Add</button>
                     <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+                </div>
+              </form>
+        </div>
+    </section>
+    <section class="form-popup details" id="detailForm">
+        <div class="add-reminder-form">
+            <form method="post" class="form-container" id="reminder-detail-form">
+                <div class="ac-form">
+                    <h1>Reminder Details</h1>
+                    <div class="form-group">
+                        <label for="dbillId"><b>Bill Id</b></label>
+                        <input type="text" placeholder="Enter Bill Id" name="billId" id="dbillId" required readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="dbillName"><b>Bill Name</b></label>
+                        <input type="text" placeholder="Enter Bill Name" name="billName" id="dbillName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="damount"><b>Amount</b></label>
+                        <input type="number" placeholder="Enter Amount" name="billAmount" id="damount" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="ddate"><b>Reminder Date</b></label>
+                        <input type="date" name="reminderDate" id="ddate" required>
+                    </div>
+                    <div class="recurring-buttons">
+                        <label for="dinlineRadio1">Is it recurring</label>
+                        <div class="form-group" id="recurring">
+                            <label class="radio-inline">
+                                <input type="radio" name="isRecurring" id="true" value=true > Yes
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" name="isRecurring" id="flase" value=false> No
+                            </label>
+                        </div>
+                
+                    <button type="submit" class="btn btn-success">Save</button>
+                    <button type="button" class="btn btn-danger" onclick="deleteReminder()">Delete</button>
+                    <button type="button" class="btn cancel" onclick="closeDetailsForm()">Close</button>
                 </div>
               </form>
         </div>
@@ -126,5 +222,6 @@
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="bootstrap-3.3.7/dist/js/bootstrap.min.js"></script>
     <script src="js/reminder.js"></script>
+    <script src="js/overview.js"></script>
 </body>
 </html>

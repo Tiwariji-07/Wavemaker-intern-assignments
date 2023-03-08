@@ -3,6 +3,7 @@ body{
     --secondary-color : #00ade5;
     --third-color : #ddebf8;
     background-color: var(--third-color);
+    overflow-x:hidden;
 
 }
 
@@ -120,7 +121,7 @@ body{
 }
 
 .banner-img{
-    max-width: 40em;
+    max-width: 35em;
 }
 
 footer{

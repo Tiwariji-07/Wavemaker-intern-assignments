@@ -29,7 +29,7 @@
                             <a href="reminder.html">Reminders</a>
                         </li>
                         <li>
-                            <a href="#">Budgets</a>
+                            <a href="budget.html">Budgets</a>
                         </li>
                         <li>
                             <a href="transactions.html">Transactions</a>
@@ -54,8 +54,8 @@
             <div class="reminder-header">
                 <h1 class="reminder-heading">Transactions</h1>
                 <div class="tran-btns">
-                    <button class="btn reminder-btn">Add Expense</button>
-                    <button class="btn reminder-btn">Add Income</button>
+                    <button class="btn reminder-btn" onclick="closeTranForm(),openTranExpenseForm()">Add Expense</button>
+                    <button class="btn reminder-btn" onclick="closeTranExpenseForm(),openTranForm()">Add Income</button>
                 </div>
                 
             </div>
@@ -82,6 +82,62 @@
                 </div>
             </div>
         </section>
+    </section>
+    <section class="form-popup" id="transaction-income-page">
+        <div class="add-reminder-form">
+            <form method="post" class="form-container" id="transaction-income-form">
+                <div class="ac-form">
+                    <h1>Add Income</h1>
+                    <div class="form-group">
+                        <label for="creditAmount"><b>Amount</b></label>
+                        <input type="number" placeholder="Enter Amount" name="creditAmount" id="creditAmount" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="date"><b>Transaction Date</b></label>
+                        <input type="date" name="transactionDate" id="date" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="desc"><b>Description</b></label>
+                        <input type="text" name="description" id="description" required>
+                    </div>
+
+
+                    <button type="submit" class="btn">Add</button>
+                    <button type="button" class="btn cancel" onclick="closeTranForm()">Close</button>
+                </div>
+              </form>
+        </div>
+    </section>
+    <section class="form-popup" id="transaction-expense-page">
+        <div class="add-reminder-form">
+            <form method="post" class="form-container" id="transaction-expense-form">
+                <div class="ac-form">
+                    <h1>Add Expense</h1>
+                    <div class="form-group">
+                        <label for="debitAmount"><b>Amount</b></label>
+                        <input type="number" placeholder="Enter Amount" name="debitAmount" id="creditAmount" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="date"><b>Transaction Date</b></label>
+                        <input type="date" name="transactionDate" id="date" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="Category"><b>Category</b></label>
+                        <select name="category" id="category">
+                            
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="desc"><b>Description</b></label>
+                        <input type="text" name="description" id="description" required>
+                    </div>
+
+
+                    <button type="submit" class="btn">Add</button>
+                    <button type="button" class="btn cancel" onclick="closeTranExpenseForm()">Close</button>
+                </div>
+              </form>
+        </div>
     </section>
 
     <footer>

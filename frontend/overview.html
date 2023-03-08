@@ -29,14 +29,14 @@
                             <a href="reminder.html">Reminders</a>
                         </li>
                         <li>
-                            <a href="#">Budgets</a>
+                            <a href="budget.html">Budgets</a>
                         </li>
                         <li>
-                            <a href="#">Transactions</a>
+                            <a href="transactions.html">Transactions</a>
                         </li>
                         <li>
                             <div class="op-btns">
-                                <a href="#">
+                                <a onclick="openUserDetailsForm()">
                                     <span class="material-symbols-outlined profile-icon">account_circle</span>
                                 </a>
                                 
@@ -48,7 +48,62 @@
             </div>
         </nav>
     </header>
-
+    <section >
+        <div class="container login-page row" id="user-detail-page">
+            <div class="login-form col-md-5 col-xs-10">
+                <div class="row user-detail-form">
+                    <form class="col-sm-12 col-xs-11" method="post" id="user-detail-form">
+                        <div class="ac-form">
+                            <div class="form-group">
+                                <label for="duserId">User Id</label>
+                                <input name="userId" type="number" class="form-control" id="duserId" placeholder="User id" required readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="dfirstName">First Name</label>
+                                <input name="firstName" type="text" class="form-control" id="dfirstName" placeholder="First Name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="dlastName">Last Name</label>
+                                <input name="lastName" type="text" class="form-control" id="dlastName" placeholder="Last Name" required>
+                            </div>
+                            <div class="form-group">
+                              <label for="demail">Email address</label>
+                              <input name="email" type="email" class="form-control" id="demail" placeholder="Email" required readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="dpassword">Password</label>
+                                <input name="password" type="password" class="form-control" id="dpassword" placeholder="Email" required readonly>
+                              </div>
+                            <div class="gender-buttons">
+                                <label for="dinlineRadio1">Gender</label>
+                                <div class="form-group" id="gender">
+                                    <label class="radio-inline">
+                                        <input type="radio" name="gender" id="dinlineRadio1" value="male"> male
+                                    </label>
+                                    <label class="radio-inline">
+                                        <input type="radio" name="gender" id="dinlineRadio2" value="female"> female
+                                    </label>
+                                    <label class="radio-inline">
+                                        <input type="radio" name="gender" id="dinlineRadio3" value="other"> others
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="doccupation">Occupation</label>
+                                <input name="occupation" type="text" class="form-control" id="doccupation" placeholder="occupation" required>
+                            </div>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-success">Save</button>
+                        <button type="button" class="btn btn-danger" onclick="logout()">Logout</button>
+                        <button type="button" class="btn" onclick="closeUserDetailsForm()">Cancel</button>
+                    </form>
+                    <!-- <img src="assets/register-page.svg" alt="login" class="col-xs-11 col-sm-6 img-responsive"> -->
+                </div>
+            </div>
+        </div>
+        
+    </section>
     <section >
         <h1 class="container overview-heading">Overview</h1>
         <section class="container">
@@ -59,7 +114,7 @@
         </section>
         <section class="container">
             <div class="row">
-                <div class="col-sm-6">
+                <div class="col-md-6 col-xs-12">
                     <div class="jumbotron reminders">
                         <table class="table">
                             <thead>
@@ -76,7 +131,7 @@
                           </table>
                     </div>
                 </div>
-                <div class="col-sm-6">
+                <div class="col-md-6 col-xs-12">
                     <div class="jumbotron transactions">
                         <table class="table">
                             <thead>
@@ -103,6 +158,8 @@
             </div>
         </section>
     </section>
+
+    
 
     <footer>
         <div class="row">

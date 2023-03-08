@@ -1,5 +1,5 @@
 function showLogin(){
-  document.getElementById('login-page').style.display="block";
+  document.getElementById('login-page').style.display="flex";
 }
 
 function closeLogin(){

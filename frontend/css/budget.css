@@ -1,0 +1,111 @@
+body{
+    --primary-color :#2f486a;
+    --secondary-color : #00ade5;
+    --third-color : #ddebf8;
+    background-color: var(--third-color);
+    overflow-x:hidden;
+
+}
+
+.budget-header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* gap: 1em; */
+    /* border: 1px solid black; */
+}
+
+.budget-title{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    /* align-items: center; */
+    gap: 1em;
+    /* left: 0;
+    margin-left: 0; */
+    /* border: 1px solid black; */
+}
+
+.budget-section{
+    /* background-color: #fff; */
+    padding: 1em 0;
+}
+
+.budget-section .jumbotron{
+    background-color: #fff;
+}
+
+.budget-jump1{
+    /* padding: 0; */
+    /* background-image: url("/assets/budget1.jpg"); */
+    /* background-color: #fff; */
+    /* opacity: .1; */
+}
+
+.budget-overview{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: var(--primary-color);
+}
+
+.budget-overview img{
+    
+    /* object-fit: cover; */
+}
+
+.spending{
+    width: 80%;
+    background-color:#ddebf8 ;
+    height: 1.5em;
+    padding: 0;
+    /* opacity: .2; */
+    border-radius: 1em;
+}
+
+.spending-bar{
+    width: 40%;
+    background-color: var(--primary-color);
+    height: 100%;
+    border-radius: 1em 0 0 1em;
+    /* z-index: 3; */
+}
+
+.bar-footer{
+    display: flex;
+    padding-top: .3em;
+    /* align-items: center; */
+    gap: .4em;
+    /* justify-content: center; */
+    font-size: 1.6em;
+}
+
+.bar-footer span{
+    color: var(--secondary-color);
+}
+.j2{
+    background-color: white;
+}
+.budget-info{
+    /* display: flex; */
+    /* justify-content: center;
+    align-items: center; */
+    padding: 1em;
+}
+
+.budget-list{
+    display: flex;
+    justify-content: space-evenly;
+    gap: 1em;
+    flex-wrap: wrap;
+    /* padding-left: 2em; */
+}
+
+.budget-card{
+    padding: 1em;
+    background-color: var(--secondary-color);
+    border-radius: 1em;
+    color: white;
+    /* padding: 1em 1em;
+    margin: 1em 1em; */
+}
