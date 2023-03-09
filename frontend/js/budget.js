@@ -5,10 +5,12 @@ if(sessionStorage.getItem("loggedIn") != "true"){
 const userId = sessionStorage.getItem('userId');
 
 const monthControl = document.querySelector('#budgetMonth');
+const monthControl2 = document.querySelector('#budgetMonth2');
 const date= new Date()
 const month=("0" + (date.getMonth() + 1)).slice(-2)
 const year=date.getFullYear()
 monthControl.value = `${year}-${month}`;
+monthControl2.value = `${year}-${month}`;
 
 var amountLeft = document.getElementsByClassName('amount-left')[0];
 var spending = document.getElementsByClassName('spent-amount')[0];
@@ -21,10 +23,23 @@ function openBudgetForm(){
     document.getElementById('add-budget-page').style.display='flex';
     document.getElementsByClassName('layer')[0].style.display="block";
   document.getElementsByTagName('body')[0].style.overflowY="hidden";
+//   displayOption();
 }
 
 function closeBudgetForm(){
     document.getElementById('add-budget-page').style.display='none';
+    document.getElementsByClassName('layer')[0].style.display="none";
+  document.getElementsByTagName('body')[0].style.overflowY="scroll";
+}
+
+function openCategoryForm(){
+    document.getElementById('add-category-page').style.display='flex';
+    document.getElementsByClassName('layer')[0].style.display="block";
+  document.getElementsByTagName('body')[0].style.overflowY="hidden";
+}
+
+function closeCategoryForm(){
+    document.getElementById('add-category-page').style.display='none';
     document.getElementsByClassName('layer')[0].style.display="none";
   document.getElementsByTagName('body')[0].style.overflowY="scroll";
 }
@@ -182,7 +197,22 @@ function setEachCard(budget){
 
 const batchTrack = document.getElementById("category");
 const getCategories = async () => {
-  const response =await fetch(`http://localhost:8080/finwise/${userId}/category`);
+    var formDataObject = {};
+
+    formDataObject.month = month;
+    formDataObject.year = year;
+    let formDataJsonString = JSON.stringify(formDataObject);
+
+    console.log(formDataJsonString);
+    const response =await fetch(`http://localhost:8080/finwise/${userId}/category/unused`, {
+        method:'POST', 
+          //Set the headers that specify you're sending a JSON body request and accepting JSON response
+        headers: {
+          "Content-Type": "application/json",
+            Accept: "application/json",
+        },
+        body: formDataJsonString
+      });
   console.log(response);
   const data = await response.json();
   return data;
@@ -192,17 +222,19 @@ const displayOption = async () => {
   const options =await getCategories();
   // options.forEach(option => {
     for(option of options){
-      const newOption = document.createElement("option");
-      console.log(option);
-      newOption.value = option.categoryId + " " + option.categoryName;
-      newOption.text = option.categoryName;
-      batchTrack.appendChild(newOption);
+        if(option != null){
+            const newOption = document.createElement("option");
+            console.log(option);
+            newOption.value = option.categoryId + " " + option.categoryName;
+            newOption.text = option.categoryName;
+            batchTrack.appendChild(newOption);
+        }
     }
 
   // });
 };
 
-function addBudget(){
+async function addBudget(){
     const budgetForm = document.getElementById('add-budget-form');
     budgetForm.addEventListener('submit', (e)=>{
         e.preventDefault();
@@ -211,13 +243,9 @@ function addBudget(){
         // const data = new URLSearchParams(formData);
         //Create an object from the form data entries
         let formDataObject = Object.fromEntries(budgetData.entries());
-        
 
-        
-        var oldDate = new Date(formDataObject.budgetDate);
-
-        formDataObject.budgetMonth = oldDate.getMonth()+1;
-        formDataObject.budgetYear = oldDate.getFullYear();
+        formDataObject.budgetMonth = month;
+        formDataObject.budgetYear = year;
         delete formDataObject.budgetDate;
         var categoryValue = formDataObject.category.split(" ");
         formDataObject.category = {categoryId:categoryValue[0],
@@ -238,9 +266,45 @@ function addBudget(){
         .then((data)=>{
           if(data != null){
             console.log(data);
-            alert("Budget added")
+            // alert("Budget added")
+            // getAllbudget();
+            window.location.reload();
             closeBudgetForm();
+            
+          }else{
+            alert("Not added ")
+          }
+        })
+    });
+}
+
+function addCategory(){
+    const categoryForm = document.getElementById('add-category-form');
+    categoryForm.addEventListener('submit', (e)=>{
+        e.preventDefault();
+        const categoryData = new FormData(categoryForm);
+        let formDataObject = Object.fromEntries(categoryData.entries());
+        formDataObject.userId = userId;
+        console.log(formDataObject);
+        // Format the plain form data as JSON
+        let formDataJsonString = JSON.stringify(formDataObject);
+        console.log(formDataJsonString);
+        fetch(`http://localhost:8080/finwise/${userId}/category/create`, {
+            method:'POST', 
+            //Set the headers that specify you're sending a JSON body request and accepting JSON response
+        headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+        },
+            body: formDataJsonString
+        }).then((response)=> response.json())
+        .then((data)=>{
+          if(data != null){
+            console.log(data);
+            alert("Category added");
+            closeCategoryForm();
             getAllbudget();
+            window.location.reload();
           }else{
             alert("Not added ")
           }
@@ -251,3 +315,4 @@ function addBudget(){
 getAllbudget();
 displayOption();
 addBudget();
+addCategory();
