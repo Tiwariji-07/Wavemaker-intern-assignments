@@ -2,20 +2,29 @@ body{
     --primary-color :#2f486a;
     --secondary-color : #00ade5;
     --third-color : #ddebf8;
-    background-color: var(--third-color);
+    /* background-color: white; */
+    background-image: linear-gradient(to left top, #00ade5, #81bef0, #bad0f6, #e2e6fa, #ffffff);
+    /* background-image: linear-gradient(to right bottom, #ffffff, #cdcdd7, #9a9db1, #66718d, #2f486a); */
     overflow-x:hidden;
-
+    font-family: 'Lato', sans-serif;
+    /* font-family: 'Roboto', sans-serif; */
 }
 
 .heading{
     padding: .9em 0;
     /* border: 1px solid rebeccapurple; */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .login-page{
     display: none;
     position: absolute;
-    z-index: 999;
+    z-index: 9;
+    left: 0;
+    right: 0;
+    margin: auto;
     justify-content: center;
     align-items: center;
     /* padding: 6em 0; */
@@ -99,30 +108,49 @@ body{
     outline: none;
     border: none;
 }
-.sec-1 .banner{
-    background-color: var(--third-color);
+.banner{
+    /* padding: 0 !important;
+    margin: 0; */
+    padding: 2em 0;
+    background-color: transparent;
     /* text-align: center; */
     /* border: 1px solid rebeccapurple; */
     display: flex;
     justify-content: space-between;
     align-items: center;
-}
-.sec-1 h3{
-    /* display: inline; */
-    color: var(--secondary-color);
-    line-height: 10px;
-} 
-.sec-1 h4{
-    color: var(--secondary-color);
-}
-.sec-1 h1{
-    /* display: inline; */
-    color: var(--primary-color);
+    flex-wrap: wrap;
 }
 
+
 .banner-img{
-    max-width: 35em;
+    /* max-width: 35em; */
+    /* width: 100%; */
+    margin: auto;
+    object-fit: contain;
+    /* color: var(--secondary-color); */
 }
+
+.banner-left{
+    display: flex;
+    flex-direction: column;
+    padding: 1em;
+    /* gap: .3em; */
+}
+
+.title{
+    font-weight: 700;
+}
+
+.name{
+    color: var(--secondary-color);
+    font-size: 3em;
+}
+
+.abt{
+    color: var(--primary-color);
+    font-size: 1.5em;
+}
+
 
 footer{
     /* position:fixed;
@@ -134,4 +162,14 @@ footer{
     color: var(--third-color);
     font-size: 1em;
     font-weight: 700;
+}
+
+.layer{
+    display: none;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    z-index: 3;
+    background-color: var(--primary-color);
+    opacity: .4;
 }

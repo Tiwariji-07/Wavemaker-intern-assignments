@@ -1,4 +1,8 @@
+if(sessionStorage.getItem("loggedIn") != "true"){
+    window.location.href = "index.html";
+}
 
+const userId = sessionStorage.getItem('userId');
 // var editButton = document.createElement('button');
 // editButton.innerText= "Edit";
 // var att = document.createAttribute('class');
@@ -23,7 +27,7 @@ function formatDate(date) {
 
 function showReminders(){
 
-    fetch('http://localhost:8080/finwise/2/reminder', {
+    fetch(`http://localhost:8080/finwise/${userId}/reminder`, {
     method:'GET', 
     headers: {
         "Content-Type": "application/json",
@@ -33,6 +37,7 @@ function showReminders(){
     .then((data) => {
         var count = 0;
         var temp;
+        console.log(data);
         data.forEach((itemData) => {
             console.log(itemData);
             count=count+1;
@@ -52,18 +57,26 @@ function showReminders(){
 }
 
 function openForm() {
-    document.getElementById("myForm").style.display = "block";
+    document.getElementById("myForm").style.display = "flex";
+    document.getElementsByClassName('layer')[0].style.display="block";
+  document.getElementsByTagName('body')[0].style.overflowY="hidden";
 }
     
 function closeForm() {
     document.getElementById("myForm").style.display = "none";
+    document.getElementsByClassName('layer')[0].style.display="none";
+  document.getElementsByTagName('body')[0].style.overflowY="scroll";
 }
 function openDetailsForm() {
-document.getElementById("detailForm").style.display = "block";
+document.getElementById("detailForm").style.display = "flex";
+document.getElementsByClassName('layer')[0].style.display="block";
+  document.getElementsByTagName('body')[0].style.overflowY="hidden";
 }
 
 function closeDetailsForm() {
 document.getElementById("detailForm").style.display = "none";
+document.getElementsByClassName('layer')[0].style.display="none";
+  document.getElementsByTagName('body')[0].style.overflowY="scroll";
 }
 
 function addBillReminder(){
@@ -90,7 +103,7 @@ function addBillReminder(){
         // Format the plain form data as JSON
         let formDataJsonString = JSON.stringify(formDataObject);
         
-        fetch('http://localhost:8080/finwise/2/reminder/create', {
+        fetch(`http://localhost:8080/finwise/${userId}/reminder/create`, {
             method:'POST', 
             //Set the headers that specify you're sending a JSON body request and accepting JSON response
         headers: {
@@ -102,8 +115,9 @@ function addBillReminder(){
         .then((data)=>{
           if(data != null){
             console.log(data);
-            alert("reminder added")
+            // alert("reminder added")
             showReminders();
+            closeForm();
           }else{
             alert("Not added ")
           }
@@ -135,7 +149,7 @@ async function displayReminder(){
     var damount = document.getElementById('damount');
     var ddate = document.getElementById('ddate');
     // var dbillName = document.getElementById('dbillName');
-    fetch(`http://localhost:8080/finwise/2/reminder/${billId}`).then((response)=> response.json())
+    fetch(`http://localhost:8080/finwise/${userId}/reminder/${billId}`).then((response)=> response.json())
     .then((data)=>{
     //   if(data != null){
     //     console.log(data);
@@ -169,7 +183,7 @@ async function displayReminder(){
 function deleteReminder(){
     var id = document.getElementById('dbillId').value;
     console.log(id);
-    fetch(`http://localhost:8080/finwise/2/reminder/${id}`, {
+    fetch(`http://localhost:8080/finwise/${userId}/reminder/${id}`, {
             method:'DELETE', 
             //Set the headers that specify you're sending a JSON body request and accepting JSON response
         headers: {
@@ -180,7 +194,7 @@ function deleteReminder(){
         .then((data)=>{
           if(data != null){
             console.log(data);
-            alert("reminder deleted");
+            // alert("reminder deleted");
             closeDetailsForm();
             showReminders();
           }
@@ -211,7 +225,7 @@ function updateBillReminder(){
         // Format the plain form data as JSON
         let formDataJsonString = JSON.stringify(formDataObject);
         
-        fetch('http://localhost:8080/finwise/2/reminder/update', {
+        fetch(`http://localhost:8080/finwise/${userId}/reminder/update`, {
             method:'PUT', 
             //Set the headers that specify you're sending a JSON body request and accepting JSON response
         headers: {
@@ -223,7 +237,7 @@ function updateBillReminder(){
         .then((data)=>{
           if(data != null){
             console.log(data);
-            alert("reminder saved");
+            // alert("reminder saved");
             closeDetailsForm();
             showReminders();
           }else{

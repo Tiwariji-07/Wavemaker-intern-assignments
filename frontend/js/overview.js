@@ -1,15 +1,28 @@
+if(sessionStorage.getItem("loggedIn") != "true"){
+    window.location.href = "index.html";
+}
+
+const userId = sessionStorage.getItem('userId');
+
+console.log(sessionStorage.getItem("userId"));
+
 function openUserDetailsForm() {
-    document.getElementById("user-detail-page").style.display = "block";
+    document.getElementById("user-detail-page").style.display = "flex";
+    document.getElementsByClassName('layer')[0].style.display="block";
+  document.getElementsByTagName('body')[0].style.overflowY="hidden";
     displayUser();
 }
     
 function closeUserDetailsForm() {
     document.getElementById("user-detail-page").style.display = "none";
+    document.getElementsByClassName('layer')[0].style.display="none";
+  document.getElementsByTagName('body')[0].style.overflowY="scroll";
 }
 
 var reminderData = document.getElementById('reminder-data');
 
 var temp;
+var budgetList = document.getElementById('budget-list');
 
 const date= new Date()
 const month=("0" + (date.getMonth() + 1)).slice(-2)
@@ -20,7 +33,7 @@ var spending = document.getElementsByClassName('spent-amount')[0];
 var total = document.getElementsByClassName('total-amount')[0];
 var spendingBar = document.getElementById('spending-bar');
 
-fetch('http://localhost:8080/finwise/2/reminder', {
+fetch(`http://localhost:8080/finwise/${userId}/reminder`, {
     method:'GET', 
     headers: {
         "Content-Type": "application/json",
@@ -51,7 +64,7 @@ fetch('http://localhost:8080/finwise/2/reminder', {
 
 async function getTransactions(){
 
-    await fetch('http://localhost:8080/finwise/2/transactions', {
+    await fetch(`http://localhost:8080/finwise/${userId}/transactions`, {
         method:'GET', 
         headers: {
             "Content-Type": "application/json",
@@ -96,7 +109,7 @@ function displayUser(){
     var demail = document.getElementById('demail');
     var dpassword = document.getElementById('dpassword');
     var doccupation = document.getElementById('doccupation');
-    fetch(`http://localhost:8080/finwise/user/2`).then((response)=> response.json())
+    fetch(`http://localhost:8080/finwise/user/${userId}`).then((response)=> response.json())
     .then((data)=>{
     //   if(data != null){
     //     console.log(data);
@@ -129,6 +142,8 @@ function displayUser(){
 }
 
 function logout(){
+    sessionStorage.setItem('userId',0);
+    sessionStorage.setItem('loggedIn','false')
     window.location.href = "index.html";
 }
 
@@ -173,7 +188,7 @@ document.addEventListener('DOMContentLoaded', function() {
     let formDataJsonString = JSON.stringify(formDataObject);
 
         console.log(formDataJsonString);
-        fetch('http://localhost:8080/finwise/2/budget/period', {
+        fetch(`http://localhost:8080/finwise/${userId}/budget/period`, {
             method:'POST', 
             //Set the headers that specify you're sending a JSON body request and accepting JSON response
         headers: {
@@ -191,6 +206,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 spentAmount += itemData.spentAmount;
                 console.log(itemData);
                 console.log(totalAmount+" "+spentAmount);
+                setEachCard(itemData);
             })
             remainingAmount = totalAmount - spentAmount;
             var percentage = (spentAmount / totalAmount) * 100;
@@ -205,6 +221,56 @@ document.addEventListener('DOMContentLoaded', function() {
         console.log(totalAmount+" "+spentAmount+" "+remainingAmount);
         })
  }, false);
+
+ function setEachCard(budget){
+    
+    var budgetCard = document.createElement('div');
+    budgetCard.classList.add('col-sm-5','col-xs-12','budget-card');
+    var categoryName = document.createElement('h4');
+    var spending = document.createElement('div');
+    spending.classList.add('spending-c');
+    var spendingBar = document.createElement('div');
+    spendingBar.classList.add('spending-bar-c');
+    // var cardBarFooter = document.createElement('div');
+    // cardBarFooter.classList.add('bar-footer');
+    // var cardSpentAmount = document.createElement('span');
+    // cardSpentAmount.classList.add('spent-amount');
+    // var cardTotalAmount = document.createElement('span');
+    // cardTotalAmount.classList.add('total-amount');
+    
+
+    var spentAmount=0;
+    var remainingAmount=0;
+    var totalAmount=0;
+    categoryName.innerHTML = budget.category.categoryName;
+    spentAmount=budget.spentAmount;
+    totalAmount = budget.budgetAmount;
+    // cardSpentAmount.innerText = spentAmount;
+    // cardTotalAmount.innerText = totalAmount;
+    var percentage = (spentAmount / totalAmount) * 100;
+    if(percentage >=100){
+        percentage = 100;
+        spendingBar.style.borderRadius= "1em";
+    }
+    spendingBar.style.width = percentage+"%";
+    spending.appendChild(spendingBar);
+    budgetCard.appendChild(categoryName);
+    budgetCard.appendChild(spending);
+    // // cardBarFooter.appendChild('spent');
+    // cardBarFooter.appendChild(cardSpentAmount);
+    // // cardBarFooter.appendChild('of');
+    // cardBarFooter.appendChild(cardTotalAmount);
+    // budgetCard.appendChild(cardBarFooter);
+    var barFooter = `<div class="card-bar-footer">
+                        Spent
+                        <span class="card-spent-amount">${spentAmount}</span>
+                        of
+                        <span class="card-total-amount">${totalAmount}</span>
+                    </div>`
+    budgetCard.insertAdjacentHTML('beforeend',barFooter);
+    budgetList.appendChild(budgetCard);
+    console.log(budgetCard);
+}
 
 updateUser();
 

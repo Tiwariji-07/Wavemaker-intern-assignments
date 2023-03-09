@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="css/budget.css">
 </head>
 <body>
+    <div class="layer"></div>
     <header>
         <nav class="navbar heading">
             <div class="container">
@@ -49,6 +50,43 @@
             </div>
         </nav>
     </header>
+    <section class="form-popup" id="add-budget-page">
+        <div class="add-budget-form">
+            <form method="post" class="form-container" id="add-budget-form">
+                <div class="ac-form">
+                    <h1>Add Budget</h1>
+                    <div class="form-group grp">
+                        <label for="budgetAmount"><b>Budget Limit</b></label>
+                        <input type="number" placeholder="Enter Amount" name="budgetAmount" id="budgetAmount" required>
+                    </div>
+                    <div class="form-group grp">
+                        <label for="date"><b>Set month</b></label>
+                        <input type="date" name="budgetDate" id="date" required>
+                    </div>
+                    <div class="form-group grp">
+                        <label for="Category"><b>Category</b></label>
+                        <select name="category" id="category">
+                            
+                        </select>
+                    </div>
+                    <div class="recurring-buttons grp">
+                        <label for="inlineRadio1">Is it recurring</label>
+                        <div class="form-group" id="recurring">
+                            <label class="radio-inline">
+                                <input type="radio" name="isRecurring" id="inlineRadio1" value=true > Yes
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" name="isRecurring" id="inlineRadio2" value=false> No
+                            </label>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn">Add</button>
+                    <button type="button" class="btn cancel" onclick="closeBudgetForm()">Close</button>
+                </div>
+              </form>
+        </div>
+    </section>
     <section class="container">
         <section>
             <div class="budget-header">
@@ -58,11 +96,11 @@
                         <div class="form-froup">
                             <label for="budgetMonth">Budget Month</label>
                             <input type="month" name="budgetDate" id="budgetMonth">
-                            <button type="submit">Get</button>
+                            <button type="submit" class="btn">Get</button>
                         </div>
                     </form>
                 </div>
-                <button class="btn">Add</button>
+                <button class="btn" onclick="openBudgetForm()">Add</button>
             </div>
         </section>
         <section class="budget-section">
@@ -92,19 +130,19 @@
         <section class="jumbotron j2">
             <div class="row">
                 <div class="budget-info">
-                    <div class="budget-list">
-                        <div class="col-sm-5 col-xs-12 budget-card">
+                    <div class="budget-list" id="budget-list">
+                        <!-- <div class="col-sm-5 col-xs-12 budget-card">
                             <h4>Category Name</h4>
                             <div class="spending">
-                                <div class="spending-bar" id="spending-bar"></div>
+                                <div class="spending-bar"></div>
                             </div>
-                        </div>
-                        <div class="col-sm-5 col-xs-12 budget-card">
+                        </div> -->
+                        <!-- <div class="col-sm-5 col-xs-12 budget-card">
                             <h4>Category Name</h4>
                             <div class="spending">
-                                <div class="spending-bar" id="spending-bar"></div>
+                                <div class="spending-bar"></div>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
             </div>

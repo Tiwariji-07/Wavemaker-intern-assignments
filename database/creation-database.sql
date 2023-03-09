@@ -23,11 +23,11 @@ create table user(id int not null auto_increment,
 	email varchar(50) not null unique,
 	password varchar(50) not null,
 	gender varchar(10),
-	dob date,
 	occupation varchar(50),
 	primary key(id)
 );
 
+alter table user drop column dob;
 
 create table bill_reminder(id int not null auto_increment,
 	user_id int not null,

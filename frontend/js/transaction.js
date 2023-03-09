@@ -1,32 +1,50 @@
 // var transactions = [];
 // var transaction = {transactionType:"",category:"",debitAmount:0,creditAmount:0,month:0,year:0}
+if(sessionStorage.getItem("loggedIn") != "true"){
+  window.location.href = "index.html";
+}
+
+const userId = sessionStorage.getItem('userId');
+
 function openTranForm() {
-  document.getElementById("transaction-income-page").style.display = "block";
+  document.getElementById("transaction-income-page").style.display = "flex";
+  document.getElementsByClassName('layer')[0].style.display="block";
+  document.getElementsByTagName('body')[0].style.overflowY="hidden";
 }
 
 function closeTranForm() {
   document.getElementById("transaction-income-page").style.display = "none";
+  document.getElementsByClassName('layer')[0].style.display="none";
+  document.getElementsByTagName('body')[0].style.overflowY="scroll";
 }
 
 function openTranExpenseForm() {
-  document.getElementById("transaction-expense-page").style.display = "block";
+  document.getElementById("transaction-expense-page").style.display = "flex";
+  document.getElementsByClassName('layer')[0].style.display="block";
+  document.getElementsByTagName('body')[0].style.overflowY="hidden";
 }
 
 function closeTranExpenseForm() {
   document.getElementById("transaction-expense-page").style.display = "none";
+  document.getElementsByClassName('layer')[0].style.display="none";
+  document.getElementsByTagName('body')[0].style.overflowY="scroll";
 }
 
 function openDetailsForm() {
-  document.getElementById("detailForm").style.display = "block";
+  document.getElementById("detailForm").style.display = "flex";
+  document.getElementsByClassName('layer')[0].style.display="block";
+  document.getElementsByTagName('body')[0].style.overflowY="hidden";
 }
   
 function closeDetailsForm() {
   document.getElementById("detailForm").style.display = "none";
+  document.getElementsByClassName('layer')[0].style.display="none";
+  document.getElementsByTagName('body')[0].style.overflowY="scroll";
 }
 
 function getTransactions(){
 
-    fetch('http://localhost:8080/finwise/2/transactions', {
+    fetch(`http://localhost:8080/finwise/${userId}/transactions`, {
     method:'GET', 
     headers: {
         "Content-Type": "application/json",
@@ -87,7 +105,7 @@ function addIncome(){
         // Format the plain form data as JSON
         let formDataJsonString = JSON.stringify(formDataObject);
         console.log(formDataJsonString);
-        fetch('http://localhost:8080/finwise/2/transactions/1/create', {
+        fetch(`http://localhost:8080/finwise/${userId}/transactions/1/create`, {
             method:'POST', 
             //Set the headers that specify you're sending a JSON body request and accepting JSON response
         headers: {
@@ -99,8 +117,9 @@ function addIncome(){
         .then((data)=>{
           if(data != null){
             console.log(data);
-            alert("transaction added")
+            // alert("transaction added")
             getTransactions();
+            closeTranForm();
           }else{
             alert("Not added ")
           }
@@ -132,7 +151,7 @@ function addExpense(){
         // Format the plain form data as JSON
         let formDataJsonString = JSON.stringify(formDataObject);
         console.log(formDataJsonString);
-        fetch('http://localhost:8080/finwise/2/transactions/2/create', {
+        fetch(`http://localhost:8080/finwise/${userId}/transactions/2/create`, {
             method:'POST', 
             //Set the headers that specify you're sending a JSON body request and accepting JSON response
         headers: {
@@ -144,8 +163,9 @@ function addExpense(){
         .then((data)=>{
           if(data != null){
             console.log(data);
-            alert("transaction added")
+            // alert("transaction added")
             getTransactions();
+            closeTranExpenseForm();
           }else{
             alert("Not added ")
           }
@@ -155,7 +175,7 @@ function addExpense(){
 
 const batchTrack = document.getElementById("category");
 const getCategories = async () => {
-  const response =await fetch("http://localhost:8080/finwise/2/category");
+  const response =await fetch(`http://localhost:8080/finwise/${userId}/category`);
   console.log(response);
   const data = await response.json();
   return data;
@@ -195,7 +215,7 @@ async function displayTransaction(){
   var dtCredit = document.getElementById('dtcredit');
   var dtDescription = document.getElementById('dtdescription');
   // var dbillName = document.getElementById('dbillName');
-  fetch(`http://localhost:8080/finwise/2/transactions/${transactionId}`).then((response)=> response.json())
+  fetch(`http://localhost:8080/finwise/${userId}/transactions/${transactionId}`).then((response)=> response.json())
   .then((data)=>{
   //   if(data != null){
   //     console.log(data);
@@ -227,7 +247,7 @@ async function displayTransaction(){
 function deleteTransaction(){
   var id = document.getElementById('dtid').value;
     console.log(id);
-    fetch(`http://localhost:8080/finwise/2/transactions/${id}`, {
+    fetch(`http://localhost:8080/finwise/${userId}/transactions/${id}`, {
             method:'DELETE', 
             //Set the headers that specify you're sending a JSON body request and accepting JSON response
         headers: {
@@ -238,7 +258,7 @@ function deleteTransaction(){
         .then((data)=>{
           if(data != null){
             console.log(data);
-            alert("Transaction deleted");
+            // alert("Transaction deleted");
             closeDetailsForm();
             getTransactions();
           }

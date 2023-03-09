@@ -2,7 +2,7 @@ body{
     --primary-color :#2f486a;
     --secondary-color : #00ade5;
     --third-color : #ddebf8;
-    background-color: var(--third-color);
+    background-image: linear-gradient(to bottom, #ddebf8, #bbdbf4, #95cbf0, #67bceb, #00ade5);
     overflow-x:hidden;
 
 }
@@ -91,21 +91,119 @@ body{
     /* justify-content: center;
     align-items: center; */
     padding: 1em;
+    /* border: 1px solid red; */
 }
 
 .budget-list{
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-between;
     gap: 1em;
     flex-wrap: wrap;
-    /* padding-left: 2em; */
+    /* border: 1px solid red; */
+    padding: 2em;
 }
 
 .budget-card{
     padding: 1em;
-    background-color: var(--secondary-color);
+    background-color: var(--third-color);
     border-radius: 1em;
-    color: white;
+    color: var(--primary-color);
+    /* border: 1px solid red; */
     /* padding: 1em 1em;
     margin: 1em 1em; */
 }
+
+.budget-card h4{
+    /* color: var(--secondary-color); */
+    font-size: 2em;
+    font-weight: 700;
+}
+
+.spending-c{
+    width: 80%;
+    background-color:white ;
+    height: 1.5em;
+    padding: 0;
+    /* opacity: .2; */
+    border-radius: 1em;
+}
+
+.spending-bar-c{
+    width: 40%;
+    background-color: var(--secondary-color);
+    height: 100%;
+    border-radius: 1em 0 0 1em;
+    /* z-index: 3; */
+}
+.btn{
+    background-color: var(--secondary-color);
+    color: white;
+    display: inline;
+}
+
+.btn:hover,.btn:focus{
+    color: white;
+    border: none;
+    outline: none;
+}
+#budgetMonth{
+    outline: none;
+    border: none;
+    border-radius: .3em;
+    padding: .39em;
+}
+
+.card-bar-footer{
+    padding-top: .5em;
+    font-size: 1.4em;
+}
+
+.card-bar-footer span{
+    font-weight: 700;
+}
+
+#add-budget-page{
+    display: none;
+    position: absolute;
+    z-index: 9;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    justify-content: center;
+    align-items: center;
+}
+.add-budget-form{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+.form-container{
+    padding: 2em;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-radius: 20px;
+}
+
+/* .form-container input{
+    width: 100%;
+} */
+
+.grp{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.ac-form{
+    width: 20em;
+    display: flex;
+    /* flex-direction: column; */
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 1em;
+    flex-wrap: wrap;
+}
+

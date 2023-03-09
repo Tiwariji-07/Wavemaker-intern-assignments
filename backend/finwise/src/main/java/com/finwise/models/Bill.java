@@ -25,8 +25,8 @@ public class Bill {
     private boolean isRecurring;
     @Column(name = "is_active")
     private boolean isActive;
-    @Column(name = "description")
-    private String description;
+//    @Column(name = "description")
+//    private String description;
 
 //    private User user;
 //
@@ -94,13 +94,13 @@ public class Bill {
         isActive = active;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
+//    public String getDescription() {
+//        return description;
+//    }
+//
+//    public void setDescription(String description) {
+//        this.description = description;
+//    }
 
     @Override
     public String toString() {
@@ -112,7 +112,7 @@ public class Bill {
                 ", billAmount=" + billAmount +
                 ", isRecurring=" + isRecurring +
                 ", isActive=" + isActive +
-                ", description='" + description + '\'' +
+//                ", description='" + description + '\'' +
 //                ", user=" + user +
                 '}';
     }

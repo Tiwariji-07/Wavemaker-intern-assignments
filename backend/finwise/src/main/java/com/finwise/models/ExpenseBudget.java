@@ -11,7 +11,7 @@ public class ExpenseBudget {
     private int expenseBudgetId;
     @Column(name = "user_id")
     private int userId;
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne
     @JoinColumn(name = "category_id", referencedColumnName = "id")
     private Category category;
     @Column(name = "budget_limit")

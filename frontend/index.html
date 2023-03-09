@@ -5,11 +5,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Finwise</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;0,900;1,300&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="bootstrap-3.3.7/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="css/index.css">
     <!-- <link rel="stylesheet" href="css/"> -->
 </head>
 <body>
+    <div class="layer"></div>
     <header>
         <nav class="navbar heading">
             <div class="container">
@@ -35,7 +39,8 @@
     </header>
     <section>
         <section >
-            <div class="container login-page row" id="login-page">
+            
+            <div class="login-page row" id="login-page">
                 <div class="login-form col-md-6 col-xs-10">
                     <div class="row">
                         <form class="col-sm-6 col-xs-11" method="post" id="login-form">
@@ -58,7 +63,7 @@
             
         </section>
         <section >
-            <div class="container login-page row" id="register-page">
+            <div class="login-page row" id="register-page">
                 <div class="login-form col-md-5 col-xs-10">
                     <div class="row">
                         <form class="col-sm-12 col-xs-11" method="post" id="register-form">
@@ -110,13 +115,37 @@
             
         </section>
         <section class="sec-1 container">
-            <div class="jumbotron banner">
-                <div class="banner-left">
-                    <h3>Get Wise with</h3>
-                    <h1>Finwise</h1>
-                    <h4><b>Track your money and see where it goes.</b></h4>
+            <div class="banner row">
+                <div class="banner-left col-sm-6 col-xs-12">
+                    <h1 class="title">Make every rupee count with</h1>
+                    <span class="name">Finwise</span>
+                    <span class="abt">Track your spendings and income. </span>
                 </div>
-                <img src="assets/banner-img.svg" alt="money" class="banner-img img-responsive">
+                <img src="assets/Personal-finance.svg" alt="money" class="banner-img img img-responsive col-sm-6 col-xs-11">
+            </div>
+        </section>
+        <section class="container">
+            <div class="banner row">
+                <img src="assets/Budget-management-by-accountant.svg" alt="money" class="banner-img img img-responsive col-sm-6 col-xs-11">
+                <div class="banner-left col-sm-6 col-xs-12">
+                    <h1 class="title">Your budget,your way</h1>
+                    <!-- <span class="name">Finwise</span> -->
+                    <span class="abt">Create spending limit for various categories,
+                        track your budget and achieve your financial goals.
+                    </span>
+                </div>
+            </div>
+        </section>
+        <section class="container">
+            <div class="banner row">
+                <div class="banner-left col-sm-6 col-xs-12">
+                    <h1 class="title">Track your income and expenses</h1>
+                    <!-- <span class="name">Finwise</span> -->
+                    <span class="abt">Track every transaction wheter it be an income
+                        or an expense and comply to your monthly budget.
+                    </span>
+                </div>
+                <img src="assets/Statistics.svg" alt="money" class="banner-img img img-responsive col-sm-6 col-xs-11">
             </div>
         </section>
     </section>

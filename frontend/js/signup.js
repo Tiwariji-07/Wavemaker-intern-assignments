@@ -1,10 +1,14 @@
 
 function showRegister(){
   document.getElementById('register-page').style.display="flex";
+  document.getElementsByClassName('layer')[0].style.display="block";
+  document.getElementsByTagName('body')[0].style.overflowY="hidden";
 }
 
 function closeRegister(){
   document.getElementById('register-page').style.display="none";
+  document.getElementsByClassName('layer')[0].style.display="none";
+  document.getElementsByTagName('body')[0].style.overflowY="scroll";
 }
 
 const form1 = document.getElementById('register-form');
@@ -33,7 +37,8 @@ form1.addEventListener('submit', (e)=>{
         console.log(data);
         alert("User with this email already exists !!!")
       }else{
-        alert("Successfully registered. ")
+        alert("Successfully registered. Please login ")
+        closeRegister();
       }
     })
 });

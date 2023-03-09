@@ -1,9 +1,13 @@
 function showLogin(){
   document.getElementById('login-page').style.display="flex";
+  document.getElementsByClassName('layer')[0].style.display="block";
+  document.getElementsByTagName('body')[0].style.overflowY="hidden";
 }
 
 function closeLogin(){
   document.getElementById('login-page').style.display="none";
+  document.getElementsByClassName('layer')[0].style.display="none";
+  document.getElementsByTagName('body')[0].style.overflowY="scroll";
 }
 
 // document.onkeydown = function(evt) {
@@ -46,6 +50,8 @@ form.addEventListener('submit', (e)=>{
         res.then((user)=>{
             console.log(user.userId);
             if(user.userId != 0){
+              sessionStorage.setItem("userId", user.userId);
+              sessionStorage.setItem("loggedIn", "true");
                 // alert("succesfully logged in")
                 window.location.href = "overview.html"
             }else{
