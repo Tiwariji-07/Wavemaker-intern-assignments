@@ -1,5 +1,6 @@
 package com.finwise.controllers;
 
+import com.finwise.models.BudgetPeriod;
 import com.finwise.models.Category;
 import com.finwise.services.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,5 +39,10 @@ public class CategoryController {
     @GetMapping("/{id}")
     public Category getCategoryById(@PathVariable("id") int id){
         return categoryService.getCategoryById(id);
+    }
+
+    @PostMapping("/unused")
+    public List<Category> unusedCategories(@RequestBody BudgetPeriod budgetPeriod, @PathVariable("user_id") int userId){
+        return categoryService.getUnusedCategories(budgetPeriod,userId);
     }
 }

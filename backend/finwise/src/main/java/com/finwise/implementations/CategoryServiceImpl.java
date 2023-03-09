@@ -1,8 +1,7 @@
 package com.finwise.implementations;
 
+import com.finwise.models.*;
 import com.finwise.models.Category;
-import com.finwise.models.Category;
-import com.finwise.models.User;
 import com.finwise.services.CategoryService;
 import com.finwise.services.UserService;
 import org.hibernate.SQLQuery;
@@ -12,6 +11,7 @@ import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -74,5 +74,39 @@ public class CategoryServiceImpl implements CategoryService {
         transaction.commit();
         session.close();
         return category;
+    }
+
+    public List<Category> getUnusedCategories(BudgetPeriod budgetPeriod,int userId) {
+        Session session = sessionFactory.openSession();
+        Transaction transaction= session.beginTransaction();
+        String sql = "SELECT * FROM expense_budget WHERE user_id = :user_id";
+        SQLQuery query = session.createSQLQuery(sql);
+        query.addEntity(ExpenseBudget.class);
+        query.setParameter("user_id", userId);
+        List<ExpenseBudget> results = (List<ExpenseBudget>) query.list();
+        List<Category> usedCategories = new ArrayList<Category>();
+        for(ExpenseBudget expenseBudget:results){
+            if(expenseBudget.getBudgetMonth() == budgetPeriod.getMonth() && expenseBudget.getBudgetYear() == budgetPeriod.getYear()){
+                usedCategories.add(expenseBudget.getCategory());
+            }
+        }
+        List<Category> categoryList = new ArrayList<Category>();
+        List<Category> unusedCategories = getAllCategories(userId);
+        categoryList = getAllCategories(userId);
+        int count = 0;
+        for(Category category:categoryList){
+            for(Category category1: usedCategories){
+                if(category1.getCategoryId() == category.getCategoryId()){
+                    unusedCategories.set(count,null);
+                }
+            }
+            count++;
+        }
+//        for(Category category:usedCategories){
+//            categoryList.remove(category);
+//        }
+        transaction.commit();
+        session.close();
+        return unusedCategories;
     }
 }
