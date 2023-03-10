@@ -10,6 +10,13 @@ body{
     /* font-family: 'Roboto', sans-serif; */
 }
 
+.profile-icon{
+    font-weight: 900;
+    font-size: 1.6em;
+    margin-top: .3em;
+    cursor: pointer;
+}
+
 .heading{
     padding: .9em 0;
     /* border: 1px solid rebeccapurple; */

@@ -8,7 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@CrossOrigin(value = "http://127.0.0.1:5500/")
+@CrossOrigin
 public class LoginController {
     @Autowired
     LoginService loginService;

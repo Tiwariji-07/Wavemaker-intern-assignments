@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@CrossOrigin(value = "http://127.0.0.1:5500/")
+@CrossOrigin
 @RequestMapping(value = "/user")
 public class UserController {
 

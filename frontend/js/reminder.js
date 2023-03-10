@@ -248,8 +248,36 @@ function updateBillReminder(){
     
 }
 
+function reminderPopup(){
+    var currentDate = new Date().toDateString();
+    console.log(currentDate);
+    var newDate = currentDate.substring(4,10) + ", " + currentDate.substring(11,);
+        console.log(newDate);
+    fetch(`http://localhost:8080/finwise/${userId}/reminder`, {
+    method:'GET', 
+    headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+    }
+    }).then((response) => response.json())
+    .then((data) => {
+        // var count = 0;
+        // var temp;
+        // console.log(data);
+        data.forEach((itemData) => {
+            var reminderDate  = itemData.reminderDate;
+            console.log(reminderDate);
+            if(newDate === reminderDate){
+                alert(`Pay your ${itemData.billName} bill.`)
+            }
+        });
+        // document.getElementById('data').innerHTML = temp;
+    })
+}
+
 
 showReminders();
 displayReminder();
 addBillReminder();
 updateBillReminder();
+reminderPopup();
