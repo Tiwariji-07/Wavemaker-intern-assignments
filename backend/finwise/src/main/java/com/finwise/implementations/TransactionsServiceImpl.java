@@ -10,6 +10,7 @@ import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -187,5 +188,17 @@ public class TransactionsServiceImpl implements TransactionsService {
         transaction.commit();
         session.close();
         return transactions;
+    }
+
+    public List<Transactions> getTransactionOfPeriod(BudgetPeriod budgetPeriod,int userId) {
+        List<Transactions> transactions = getAllTransactions(userId);
+        List<Transactions> transactionsList = new ArrayList<Transactions>();
+        for(Transactions transactions1: transactions){
+            if(transactions1.getTransactionMonth() == budgetPeriod.getMonth() &&
+                    transactions1.getTransactionYear() == budgetPeriod.getYear()){
+                transactionsList.add(transactions1);
+            }
+        }
+        return transactionsList;
     }
 }

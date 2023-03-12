@@ -12,6 +12,11 @@ import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Date;
+import java.time.LocalDate;
+import java.time.Month;
+import java.time.YearMonth;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -75,5 +80,20 @@ public class BillReminderServiceImpl implements BillReminderService {
         transaction.commit();
         session.close();
         return bill;
+    }
+
+    public List<Bill> getRemindersByPeriod(BudgetPeriod budgetPeriod, int userId) {
+        List<Bill> bills = getAllReminders(userId);
+        List<Bill> billList = new ArrayList<Bill>();
+//        YearMonth thisYearMonth = YearMonth.of(budgetPeriod.getYear(), budgetPeriod.getMonth());
+        for(Bill bill1: bills){
+            Date billDate = bill1.getReminderDate();
+            LocalDate billDate1 =  billDate.toLocalDate();
+            if(bill1.isRecurring() || (billDate1.getMonthValue() == budgetPeriod.getMonth() &&
+                billDate1.getYear() == budgetPeriod.getYear())){
+                billList.add(bill1);
+            }
+        }
+        return billList;
     }
 }

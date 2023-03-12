@@ -6,6 +6,16 @@ if(sessionStorage.getItem("loggedIn") != "true"){
 
 const userId = sessionStorage.getItem('userId');
 
+const monthControl = document.querySelector('#budgetMonth');
+var rDate = document.getElementById('date');
+// rDate.min = new Date().toLocaleDateString('fr-ca');
+const date= new Date()
+const month=("0" + (date.getMonth() + 1)).slice(-2)
+const year=date.getFullYear()
+rDate.value = `${year}-${month}`;
+monthControl.value = `${year}-${month}`;
+
+
 function openTranForm() {
   document.getElementById("transaction-income-page").style.display = "flex";
   document.getElementsByClassName('layer')[0].style.display="block";
@@ -43,43 +53,115 @@ function closeDetailsForm() {
 }
 
 function getTransactions(){
+  const form1 = document.getElementById('periodForm');
+    form1.addEventListener('submit', (e)=>{
+        e.preventDefault();
+        
+        // budgetList.removeChild();
+        const formData = new FormData(form1);
+        // const data = new URLSearchParams(formData);
+        //Create an object from the form data entries
+        let formDataObject = Object.fromEntries(formData.entries());
+        // Format the plain form data as JSON
+        var period = formDataObject.budgetDate.split("-");
+        var year = period[0];
+        var month = period[1];
+        delete formDataObject.budgetDate;
+        formDataObject.month = month;
+        formDataObject.year = year;
+        // console.log(formDataObject);
+        let formDataJsonString = JSON.stringify(formDataObject);
 
-    fetch(`http://localhost:8080/finwise/${userId}/transactions`, {
-    method:'GET', 
-    headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-    }
-    }).then((response) => response.json())
-    .then((data) => {
-        var count = 0;
-        var temp;
-        data.forEach((itemData) => {
-            // var category = getCategory(itemData.categoryId);
-            count=count+1;
-            // console.log(itemData.category);
-            temp += "<tr>";
-            temp += "<td>" + count + "</td>";
-            temp += "<td>" + itemData.transactionId + "</td>";
-            temp += "<td>" + itemData.transactionType.transactionTypeName + "</td>";
-            // var category = itemData.category;
-            if(!("category" in itemData)){
-                console.log(itemData);
-                temp += "<td>" + "-" + "</td>";
-            }else{
-                temp += "<td>" + itemData.category.categoryName + "</td>";
-            }
-            temp += "<td>" + itemData.debitAmount + "</td>";
-            temp += "<td>" + itemData.creditAmount + "</td>";
-            temp += "<td>" + itemData.transactionMonth +"/"+itemData.transactionYear + "</td>";
-            // temp+= "<td><button>Edit</button></td>";
-            // temp+= "<td><button>Delete</button></td>";
-            temp += "</tr>";
-            
-        });
-        document.getElementById('data').innerHTML = temp;
-    })
+      fetch(`http://localhost:8080/finwise/${userId}/transactions/period`, {
+      method:'POST', 
+      headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+      },
+      body: formDataJsonString
+      }).then((response) => response.json())
+      .then((data) => {
+          var count = 0;
+          var temp="";
+          if(data.length != 0 ){
+            data.forEach((itemData) => {
+                // var category = getCategory(itemData.categoryId);
+                count=count+1;
+                // console.log(itemData.category);
+                temp += "<tr>";
+                temp += "<td>" + count + "</td>";
+                temp += "<td>" + itemData.transactionId + "</td>";
+                temp += "<td>" + itemData.transactionType.transactionTypeName + "</td>";
+                // var category = itemData.category;
+                if(!("category" in itemData)){
+                    console.log(itemData);
+                    temp += "<td>" + "-" + "</td>";
+                }else{
+                    temp += "<td>" + itemData.category.categoryName + "</td>";
+                }
+                temp += "<td>" + itemData.debitAmount + "</td>";
+                temp += "<td>" + itemData.creditAmount + "</td>";
+                temp += "<td>" + itemData.transactionMonth +"/"+itemData.transactionYear + "</td>";
+                // temp+= "<td><button>Edit</button></td>";
+                // temp+= "<td><button>Delete</button></td>";
+                temp += "</tr>";
+                
+            });
+        }else{
+          temp = `<tr>No data</tr>`;
+        }
+          document.getElementById('data').innerHTML = temp;
+      })
+    });
 }
+
+document.addEventListener('DOMContentLoaded', function() {
+  var formDataObject = {};
+
+  formDataObject.month = month;
+      formDataObject.year = year;
+  let formDataJsonString = JSON.stringify(formDataObject);
+  fetch(`http://localhost:8080/finwise/${userId}/transactions/period`, {
+      method:'POST', 
+      headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+      },
+      body: formDataJsonString
+      }).then((response) => response.json())
+      .then((data) => {
+          var count = 0;
+          var temp="";
+          if(data.length != 0 ){
+            data.forEach((itemData) => {
+                // var category = getCategory(itemData.categoryId);
+                count=count+1;
+                // console.log(itemData.category);
+                temp += "<tr>";
+                temp += "<td>" + count + "</td>";
+                temp += "<td>" + itemData.transactionId + "</td>";
+                temp += "<td>" + itemData.transactionType.transactionTypeName + "</td>";
+                // var category = itemData.category;
+                if(!("category" in itemData)){
+                    console.log(itemData);
+                    temp += "<td>" + "-" + "</td>";
+                }else{
+                    temp += "<td>" + itemData.category.categoryName + "</td>";
+                }
+                temp += "<td>" + itemData.debitAmount + "</td>";
+                temp += "<td>" + itemData.creditAmount + "</td>";
+                temp += "<td>" + itemData.transactionMonth +"/"+itemData.transactionYear + "</td>";
+                // temp+= "<td><button>Edit</button></td>";
+                // temp+= "<td><button>Delete</button></td>";
+                temp += "</tr>";
+                
+            });
+        }else{
+          temp = `<tr>No data</tr>`;
+        }
+          document.getElementById('data').innerHTML = temp;
+      })
+},false);
 
 
 
@@ -118,8 +200,9 @@ function addIncome(){
           if(data != null){
             console.log(data);
             // alert("transaction added")
-            getTransactions();
+            // getTransactions();
             closeTranForm();
+            window.location.reload();
           }else{
             alert("Not added ")
           }
@@ -164,8 +247,10 @@ function addExpense(){
           if(data != null){
             console.log(data);
             // alert("transaction added")
-            getTransactions();
-            closeTranExpenseForm();
+            // getTransactions();
+            closeTranExpenseForm(); 
+            window.location.reload();
+
           }else{
             alert("Not added ")
           }
@@ -174,6 +259,7 @@ function addExpense(){
 }
 
 const batchTrack = document.getElementById("category");
+// var dtCategory1 = document.getElementById('dtcategory1');
 const getCategories = async () => {
   const response =await fetch(`http://localhost:8080/finwise/${userId}/category`);
   console.log(response);
@@ -190,6 +276,7 @@ const displayOption = async () => {
       newOption.value = option.categoryId + " " + option.categoryName;
       newOption.text = option.categoryName;
       batchTrack.appendChild(newOption);
+      // dtCategory1.appendChild(newOption);
     }
 
   // });
@@ -210,6 +297,7 @@ async function displayTransaction(){
   var dtId = document.getElementById('dtid');
   var dtType = document.getElementById('dttype');
   var dtCategory = document.getElementById('dtcategory');
+  var dtCategory1 = document.getElementById('dtcategory1');
   var dtdate = document.getElementById('dtdate');
   var dtDebit = document.getElementById('dtdebit');
   var dtCredit = document.getElementById('dtcredit');
@@ -227,7 +315,13 @@ async function displayTransaction(){
       console.log(data);
       dtId.value = data.transactionId;
       dtType.value = data.transactionType.transactionTypeName;
-      dtCategory.value = data.category.categoryName;
+      if(("category" in data )){
+        dtCategory1.style.display ="block";
+        dtCategory.style.display ="block";
+        dtCategory.value = data.category.categoryName;
+      }else{
+        dtCategory1.style.display ="none";
+      }
       var month = ("0" + (data.transactionMonth)).slice(-2);
       dtdate.value = data.transactionYear+"-"+month;
       console.log(dtdate.value);
@@ -260,7 +354,8 @@ function deleteTransaction(){
             console.log(data);
             // alert("Transaction deleted");
             closeDetailsForm();
-            getTransactions();
+            // getTransactions();
+            window.location.reload();
           }
     })
 }

@@ -10,6 +10,7 @@ const date= new Date()
 const month=("0" + (date.getMonth() + 1)).slice(-2)
 const year=date.getFullYear()
 monthControl.value = `${year}-${month}`;
+monthControl2.min = `${year}-${month}`;
 monthControl2.value = `${year}-${month}`;
 
 var amountLeft = document.getElementsByClassName('amount-left')[0];
@@ -61,7 +62,7 @@ function getAllbudget(){
         delete formDataObject.budgetDate;
         formDataObject.month = month;
         formDataObject.year = year;
-        console.log(formDataObject);
+        // console.log(formDataObject);
         let formDataJsonString = JSON.stringify(formDataObject);
 
         console.log(formDataJsonString);
@@ -136,7 +137,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 percentage = 100;
                 spendingBar.style.borderRadius= "1em";
             }
-            amountLeft.innerHTML = remainingAmount;
+            amountLeft.innerHTML = `₹${remainingAmount}`;
             spending.innerHTML = spentAmount;
             total.innerHTML = totalAmount;
             spendingBar.style.width = percentage+"%";
@@ -185,9 +186,9 @@ function setEachCard(budget){
     // cardBarFooter.appendChild(cardTotalAmount);
     // budgetCard.appendChild(cardBarFooter);
     var barFooter = `<div class="card-bar-footer">
-                        Spent
+                        Spent ₹
                         <span class="card-spent-amount">${spentAmount}</span>
-                        of
+                        of ₹
                         <span class="card-total-amount">${totalAmount}</span>
                     </div>`
     budgetCard.insertAdjacentHTML('beforeend',barFooter);
@@ -204,14 +205,13 @@ const getCategories = async () => {
     let formDataJsonString = JSON.stringify(formDataObject);
 
     console.log(formDataJsonString);
-    const response =await fetch(`http://localhost:8080/finwise/${userId}/category/unused`, {
-        method:'POST', 
+    const response =await fetch(`http://localhost:8080/finwise/${userId}/category`, {
+        method:'GET', 
           //Set the headers that specify you're sending a JSON body request and accepting JSON response
         headers: {
           "Content-Type": "application/json",
             Accept: "application/json",
-        },
-        body: formDataJsonString
+        }
       });
   console.log(response);
   const data = await response.json();
@@ -243,13 +243,16 @@ async function addBudget(){
         // const data = new URLSearchParams(formData);
         //Create an object from the form data entries
         let formDataObject = Object.fromEntries(budgetData.entries());
-
+        var period = formDataObject.budgetDate.split("-");
+        var year = period[0];
+        var month = period[1];
+        delete formDataObject.budgetDate;
         formDataObject.budgetMonth = month;
         formDataObject.budgetYear = year;
-        delete formDataObject.budgetDate;
+        console.log(formDataObject);
         var categoryValue = formDataObject.category.split(" ");
         formDataObject.category = {categoryId:categoryValue[0],
-          categoryName:categoryValue[1],userId:2};
+            categoryName:categoryValue[1],userId:`${userId}`};
         console.log(formDataObject);
         // Format the plain form data as JSON
         let formDataJsonString = JSON.stringify(formDataObject);
@@ -299,14 +302,14 @@ function addCategory(){
             body: formDataJsonString
         }).then((response)=> response.json())
         .then((data)=>{
-          if(data != null){
+          if(data.userId != 0){
             console.log(data);
             alert("Category added");
             closeCategoryForm();
             getAllbudget();
             window.location.reload();
           }else{
-            alert("Not added ")
+            alert("Category already exists!")
           }
         })
     });

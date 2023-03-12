@@ -1,6 +1,7 @@
 package com.finwise.services;
 
 import com.finwise.models.Bill;
+import com.finwise.models.BudgetPeriod;
 
 import java.util.List;
 
@@ -14,4 +15,6 @@ public interface BillReminderService {
     Bill deleteBillReminder(int id);
 
     Bill getBillReminderById(int id);
+
+    List<Bill> getRemindersByPeriod(BudgetPeriod budgetPeriod,int userId);
 }

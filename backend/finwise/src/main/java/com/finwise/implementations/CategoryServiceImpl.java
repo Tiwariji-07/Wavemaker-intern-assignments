@@ -40,11 +40,27 @@ public class CategoryServiceImpl implements CategoryService {
         Transaction transaction= session.beginTransaction();
 //        User user = userService.getUserById(userId);
         category.setUserId(userId);
+        List<Category> categories = getAllCategories(userId);
+        Category category2 = new Category();
+//        category2.
+        boolean flag=false;
+        for(Category category1: categories){
+            if(category1.getCategoryName().equalsIgnoreCase(category.getCategoryName())){
+                flag=true;
+            }
+        }
+        if(!flag){
+            category2.setCategoryId(category.getCategoryId());
+            category2.setCategoryName(category.getCategoryName());
+            category2.setUserId(category.getUserId());
+            session.save(category2);
+        }
+
 //        category.setUser(user);
-        session.save(category);
+
         transaction.commit();
         session.close();
-        return category;
+        return category2;
     }
 
     public Category updateCategory(Category category,int userId) {

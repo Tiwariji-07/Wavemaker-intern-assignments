@@ -53,7 +53,16 @@
     <section class="transaction-page">
         <section class="container">
             <div class="reminder-header">
-                <h1 class="reminder-heading">Transactions</h1>
+                <div>
+                    <h1 class="reminder-heading">Transactions</h1>
+                    <form method="post" id="periodForm">
+                        <div class="form-froup">
+                            <label for="budgetMonth">Budget Month</label>
+                            <input type="month" name="budgetDate" id="budgetMonth">
+                            <button type="submit" class="btn">Get</button>
+                        </div>
+                    </form>
+                </div>
                 <div class="tran-btns">
                     <button class="btn reminder-btn" onclick="closeTranForm(),openTranExpenseForm()">Add Expense</button>
                     <button class="btn reminder-btn" onclick="closeTranExpenseForm(),openTranForm()">Add Income</button>
@@ -74,7 +83,7 @@
                                 <th>Category</th>
                                 <th>Debit</th>
                                 <th>Credit</th>
-                                <th>Date</th>
+                                <th>Month</th>
                               </tr>
                             </thead>
                             <tbody id="data">
@@ -96,7 +105,7 @@
                     </div>
                     <div class="form-group grp">
                         <label for="date"><b>Transaction Date</b></label>
-                        <input type="date" name="transactionDate" id="date" required>
+                        <input type="month" name="transactionDate" id="date" required>
                     </div>
                     <div class="form-group grp">
                         <label for="desc"><b>Description</b></label>
@@ -121,7 +130,7 @@
                     </div>
                     <div class="form-group grp">
                         <label for="date"><b>Transaction Date</b></label>
-                        <input type="date" name="transactionDate" id="date" required>
+                        <input type="month" name="transactionDate" id="date" required>
                     </div>
                     <div class="form-group grp">
                         <label for="Category"><b>Category</b></label>
@@ -154,7 +163,7 @@
                         <label for="dttype"><b>Type</b></label>
                         <input type="text" placeholder="Enter Type Name" name="billName" id="dttype" required readonly>
                     </div>
-                    <div class="form-group grp">
+                    <div class="form-group grp" id="dtcategory1">
                         <label for="dtcategory"><b>Category</b></label>
                         <input type="text" placeholder="Enter category" name="billAmount" id="dtcategory" required readonly>
                     </div>

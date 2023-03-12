@@ -1,6 +1,8 @@
 package com.finwise.controllers;
 
 import com.finwise.models.Bill;
+import com.finwise.models.BudgetPeriod;
+import com.finwise.models.Transactions;
 import com.finwise.services.BillReminderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -40,4 +42,8 @@ public class BillReminderController {
         return billReminderService.getBillReminderById(id);
     }
 
+    @PostMapping("/period")
+    public List<Bill> getBillOfPeriod(@RequestBody BudgetPeriod budgetPeriod, @PathVariable("user_id") int userId){
+        return billReminderService.getRemindersByPeriod(budgetPeriod, userId);
+    }
 }

@@ -9,6 +9,10 @@ const userId = sessionStorage.getItem('userId');
 // att.value = "btn reminder-btn"
 // editButton.setAttributeNode(att);
 
+var rDate = document.getElementById('date');
+rDate.min = new Date().toLocaleDateString('fr-ca');
+var rdDate = document.getElementById('ddate');
+rdDate.min = new Date().toLocaleDateString('fr-ca');
 
 function formatDate(date) {
     var d = new Date(date),
@@ -24,34 +28,67 @@ function formatDate(date) {
     return [year, month, day].join('-');
 }
 
+var activeDates = [];
 
-function showReminders(){
-
-    fetch(`http://localhost:8080/finwise/${userId}/reminder`, {
-    method:'GET', 
+async function showReminders(currMonth,currYear){
+    var formDataObject = {};
+    
+    formDataObject.month = currMonth;
+    formDataObject.year = currYear;
+    console.log(formDataObject);
+    let formDataJsonString = JSON.stringify(formDataObject);
+    await fetch(`http://localhost:8080/finwise/${userId}/reminder/period`, {
+    method:'POST', 
     headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
-    }
+    },
+    body: formDataJsonString
     }).then((response) => response.json())
     .then((data) => {
         var count = 0;
-        var temp;
-        console.log(data);
-        data.forEach((itemData) => {
-            console.log(itemData);
-            count=count+1;
-            temp += "<tr>";
-            temp += "<td>" + count + "</td>";
-            temp += "<td>" + itemData.billId + "</td>";
-            temp += "<td>" + itemData.billName + "</td>";
-            temp += "<td>" + itemData.reminderDate + "</td>";
-            temp += "<td>" + itemData.billAmount + "</td>";
-            // temp+= "<td><button>Edit</button></td>";
-            // temp+= "<td><button>Delete</button></td>";
-            temp += "</tr>";
-        });
+        var temp="";
+        console.log(data.length);
+        // clg
+        if(data.length !=0){
+            data.forEach((itemData) => {
+                console.log(itemData);
+                count=count+1;
+                var recurringDate;
+                var rd;
+                if(itemData.isRecurring){
+                    var d = new Date(formatDate(itemData.reminderDate)).getDate();
+                    console.log(d);
+                    var r = new Date(formatDate(itemData.reminderDate)).setMonth(currMonth-1);
+                    var d1 = new Date(r).getDate();
+                    console.log(d1);
+                    if(d <= d1 ){
+                     recurringDate = new Date(formatDate(itemData.reminderDate)).setMonth(currMonth-1);
+                     rd = new Date(recurringDate).toDateString();
+                    //  recurringDate.toLocaleString();
+                    // console.log(rd);
+                    }else{
+                        return;
+                    }
+                }else{
+                    rd = itemData.reminderDate;
+                }
+                temp += "<tr>";
+                temp += "<td>" + count + "</td>";
+                temp += "<td>" + itemData.billId + "</td>";
+                temp += "<td>" + itemData.billName + "</td>";
+                temp += "<td>" + rd + "</td>";
+                temp += "<td>" + itemData.billAmount + "</td>";
+                // temp+= "<td><button>Edit</button></td>";
+                // temp+= "<td><button>Delete</button></td>";
+                temp += "</tr>";
+                activeDates.push(formatDate(rd));
+            });
+        }else{
+            temp = `<tr>No data</tr>`
+        }
         document.getElementById('data').innerHTML = temp;
+        // calender();
     })
     
 }
@@ -116,8 +153,12 @@ function addBillReminder(){
           if(data != null){
             console.log(data);
             // alert("reminder added")
-            showReminders();
+            showAlert("Added successfully !");
+            setTimeout(hideAlert,2000)
+            // showReminders();
             closeForm();
+            // window.location.reload();
+            renderCalendar();
           }else{
             alert("Not added ")
           }
@@ -180,10 +221,10 @@ async function displayReminder(){
     }
 }
 
-function deleteReminder(){
+async function deleteReminder(){
     var id = document.getElementById('dbillId').value;
     console.log(id);
-    fetch(`http://localhost:8080/finwise/${userId}/reminder/${id}`, {
+    await fetch(`http://localhost:8080/finwise/${userId}/reminder/${id}`, {
             method:'DELETE', 
             //Set the headers that specify you're sending a JSON body request and accepting JSON response
         headers: {
@@ -195,10 +236,15 @@ function deleteReminder(){
           if(data != null){
             console.log(data);
             // alert("reminder deleted");
+            showAlert("Deleted Successfully.");
+            setTimeout(hideAlert,2000)
             closeDetailsForm();
-            showReminders();
+            
+            // renderCalendar();
+            // showReminders();
           }
     })
+    window.location.reload();
 }
 
 function updateBillReminder(){
@@ -238,8 +284,12 @@ function updateBillReminder(){
           if(data != null){
             console.log(data);
             // alert("reminder saved");
+            // showAlert("Updated Successfully");
+            // setTimeout(hideAlert,2000)
             closeDetailsForm();
-            showReminders();
+            window.location.reload();
+            // renderCalendar();s
+            // showReminders();
           }else{
             alert("Not added ");
           }
@@ -248,6 +298,18 @@ function updateBillReminder(){
     
 }
 
+var successAlert = document.getElementsByClassName('my-alerts')[0];
+var messageField = document.getElementsByClassName('message')[0];
+function showAlert(message){
+    successAlert.style.display = 'flex'
+    successAlert.style.paddingTop = "2em";
+    messageField.innerText = message;
+    
+}
+
+function hideAlert(){
+    successAlert.style.display = 'none'
+}
 function reminderPopup(){
     var currentDate = new Date().toDateString();
     console.log(currentDate);
@@ -266,9 +328,12 @@ function reminderPopup(){
         // console.log(data);
         data.forEach((itemData) => {
             var reminderDate  = itemData.reminderDate;
-            console.log(reminderDate);
+            // console.log(reminderDate);
             if(newDate === reminderDate){
-                alert(`Pay your ${itemData.billName} bill.`)
+                // alert(`Pay your ${itemData.billName} bill.`)
+                var message = `Please pay your ${itemData.billName} bill of Rs.${itemData.billAmount}`
+                showAlert(message);
+                setTimeout(hideAlert,2000)
             }
         });
         // document.getElementById('data').innerHTML = temp;
@@ -276,8 +341,75 @@ function reminderPopup(){
 }
 
 
-showReminders();
+// function calender(){
+    const daysTag = document.querySelector(".days"),
+    currentDate = document.querySelector(".current-date"),
+    prevNextIcon = document.querySelectorAll(".icons span");
+    // getting new date, current year and month
+    let date = new Date(),
+    currYear = date.getFullYear(),
+    currMonth = date.getMonth();
+    // storing full name of all months in array
+    const months = ["January", "February", "March", "April", "May", "June", "July",
+                "August", "September", "October", "November", "December"];
+    const renderCalendar =async () => {
+        await showReminders(currMonth+1,currYear)
+        let firstDayofMonth = new Date(currYear, currMonth, 1).getDay(), // getting first day of month
+        lastDateofMonth = new Date(currYear, currMonth + 1, 0).getDate(), // getting last date of month
+        lastDayofMonth = new Date(currYear, currMonth, lastDateofMonth).getDay(), // getting last day of month
+        lastDateofLastMonth = new Date(currYear, currMonth, 0).getDate(); // getting last date of previous month
+        let liTag = "";
+        for (let i = firstDayofMonth; i > 0; i--) { // creating li of previous month last days
+            liTag += `<li class="inactive">${lastDateofLastMonth - i + 1}</li>`;
+        }
+        for (let i = 1; i <= lastDateofMonth; i++) { // creating li of all days of current month
+            // adding active class to li if the current day, month, and year matched
+            let isToday ="";
+            activeDates.forEach((date)=>{
+                var date1 = new Date(date);
+                // console.log(date1);
+                if(i === date1.getDate() && currMonth === date1.getMonth()
+                        && currYear === date1.getFullYear()){
+                            isToday = "active";
+                }
+            });
+            if(i === new Date().getDate() && currMonth === new Date().getMonth() 
+                && currYear === new Date().getFullYear()){
+                    isToday = "present"
+                }
+            
+            
+            liTag += `<li class="${isToday}">${i}</li>`;
+        }
+        for (let i = lastDayofMonth; i < 6; i++) { // creating li of next month first days
+            liTag += `<li class="inactive">${i - lastDayofMonth + 1}</li>`
+        }
+        // for(let i )
+        currentDate.innerText = `${months[currMonth]} ${currYear}`; // passing current mon and yr as currentDate text
+        daysTag.innerHTML = liTag;
+    }
+    renderCalendar();
+    prevNextIcon.forEach(icon => { // getting prev and next icons
+        icon.addEventListener("click", () => { // adding click event on both icons
+            // if clicked icon is previous icon then decrement current month by 1 else increment it by 1
+            currMonth = icon.id === "prev" ? currMonth - 1 : currMonth + 1;
+            if(currMonth < 0 || currMonth > 11) { // if current month is less than 0 or greater than 11
+                // creating a new date of current year & month and pass it as date value
+                date = new Date(currYear, currMonth, new Date().getDate());
+                currYear = date.getFullYear(); // updating current year with new date year
+                currMonth = date.getMonth(); // updating current month with new date month
+            } else {
+                date = new Date(); // pass the current date as date value
+            }
+            renderCalendar(); // calling renderCalendar function
+            
+        });
+    });
+// }
+
+// showReminders();
 displayReminder();
 addBillReminder();
 updateBillReminder();
 reminderPopup();
+// calender();

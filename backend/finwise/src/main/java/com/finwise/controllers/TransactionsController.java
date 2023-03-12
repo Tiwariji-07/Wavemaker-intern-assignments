@@ -1,5 +1,6 @@
 package com.finwise.controllers;
 
+import com.finwise.models.BudgetPeriod;
 import com.finwise.models.ExpenseBudget;
 import com.finwise.models.Transactions;
 import com.finwise.services.ExpenseBudgetService;
@@ -42,5 +43,10 @@ public class TransactionsController {
     @GetMapping("/{id}")
     public Transactions getTransactionsById(@PathVariable("id") int id){
         return transactionsService.getTransactionsById(id);
+    }
+
+    @PostMapping("/period")
+    public List<Transactions> getTransactionsOfPeriod(@RequestBody BudgetPeriod budgetPeriod, @PathVariable("user_id") int userId){
+        return transactionsService.getTransactionOfPeriod(budgetPeriod,userId);
     }
 }

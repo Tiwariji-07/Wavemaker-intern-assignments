@@ -55,6 +55,11 @@ body{
     /* border: 1px solid black; */
 }
 
+.overview-right{
+    /* padding-left: 5em; */
+    /* text-align: center; */
+}
+
 .budget-title{
     display: flex;
     flex-direction: column;
@@ -115,7 +120,7 @@ body{
     display: flex;
     padding-top: .3em;
     /* align-items: center; */
-    gap: .4em;
+    gap: .2em;
     /* justify-content: center; */
     font-size: 1.6em;
 }
@@ -200,4 +205,76 @@ body{
 
 .card-bar-footer span{
     font-weight: 700;
+}
+
+.accounts{
+    /* border: 1px solid red; */
+    /* display: flex; */
+    text-align: center;
+    /* border-right: 1px solid var(--secondary-color); */
+}
+
+.line{
+    background-color: var(--secondary-color);
+}
+.balance{
+    padding: 1em 0;
+    /* padding-right: 3em; */
+}
+
+.balance h6{
+    /* line-height: 1em; */
+    padding: 0;
+}
+
+.balance span{
+    color: var(--primary-color);
+    font-size: 2em;
+    line-height: .7em;
+
+}
+
+.account-overview{
+    padding: 2em;
+}
+
+.account-overview img{
+    width: 4em;
+    border-radius: 50%;
+    /* padding-top: .2em; */
+    /* padding: 0; */
+}
+
+.info{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    text-align: center;
+    padding-bottom: 1em;
+    padding-left: 0;
+}
+
+.info span{
+    color: green;
+    font-size: 2em;
+    line-height: .7em;
+
+}
+
+.income{
+    /* border: 1px solid rebeccapurple; */
+}
+
+.ex span{
+    color: red;
+    font-size: 2em;
+    line-height: .7em;
+
+}
+
+.acc-info{
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

@@ -110,22 +110,50 @@
         <section class="container">
             <div class="jumbotron">
                 <div class="row">
-                    <div class="col-md-6 col-xs-11">
-                        <h2>Amount left</h2>
+                    <div class="col-md-7 col-xs-11 accounts">
+                        <div class="row">
+                            <h2 >Account Overview</h2>
+                            <div class="balance col-xs-12" id="balance">
+                                <h6>Savings</h6>
+                                <span>₹ 200</span>
+                            </div>
+                            <div class="row account-overview">
+                                <div class="income col-xs-6">
+                                    <div class="row acc-info">
+                                        <img src="assets/up-arrow.png" alt="+" class="col-xs-6 img img-responsive">
+                                        <div class="col-xs-6 info" id="acc-income">
+                                            <h6>Income</h6>
+                                            <span>₹ 1000</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="expense col-xs-6">
+                                    <div class="row acc-info">
+                                        <img src="assets/down-arraw.png" alt="-" class="col-xs-6">
+                                        <div class="col-xs-6 info ex" id="acc-expense">
+                                            <h6>Expense</h6>
+                                            <span>₹ 800</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <div class="col-xs-12 visible-xs-* line"></div> -->
+                    <div class="col-md-5 col-xs-11 overview-right">
+                        <h2>Budget Data</h2>
                         <h3 class="amount-left">1800</h3>
+                        <!-- <h4>left</h4> -->
                         <div class="spending">
                             <div class="spending-bar" id="spending-bar"></div>
                         </div>
                         <div class="bar-footer">
-                            spent
+                            spent ₹
                             <span class="spent-amount">200</span>
-                            of
+                            of ₹
                             <span class="total-amount">2000</span>
                         </div>
                     </div>
-                    <!-- <div class="col-md-6 col-xs-11">
-                        <h2></h2>
-                    </div> -->
                 </div>
             </div>
 

@@ -42,62 +42,94 @@ fetch(`http://localhost:8080/finwise/${userId}/reminder`, {
     }).then((response) => response.json())
     .then((data) => {
         var count = 0;
-        
-        data.forEach((itemData) => {
-            console.log(itemData);
-            count=count+1;
-            if(count <= 4){
-                temp += "<tr>";
-                temp += "<td>" + count + "</td>";
-                temp += "<td>" + itemData.billName + "</td>";
-                temp += "<td>" + itemData.reminderDate + "</td>";
-                temp += "<td>" + itemData.billAmount + "</td>";
-                // temp+= "<td><button>Edit</button></td>";
-                // temp+= "<td><button>Delete</button></td>";
-                temp += "</tr>";
-                // console.log(temp1);
-            }
-        });
-        reminderData.innerHTML = temp;
-})
-
-
-async function getTransactions(){
-
-    await fetch(`http://localhost:8080/finwise/${userId}/transactions`, {
-        method:'GET', 
-        headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
-        }
-        }).then((response) => response.json())
-        .then((data) => {
-            var count = 0;
-            var temp;
+        var temp="";
+        if(data.length != 0){
             data.forEach((itemData) => {
-                // var category = getCategory(itemData.categoryId);
+                console.log(itemData);
                 count=count+1;
-                console.log(itemData.category);
                 if(count <= 4){
                     temp += "<tr>";
                     temp += "<td>" + count + "</td>";
-                    temp += "<td>" + itemData.transactionType.transactionTypeName + "</td>";
-                    // var category = itemData.category;
-                    if(!("category" in itemData)){
-                        console.log(itemData);
-                        temp += "<td>" + "-" + "</td>";
-                    }else{
-                        temp += "<td>" + itemData.category.categoryName + "</td>";
-                    }
-                    temp += "<td>" + itemData.debitAmount + "</td>";
-                    temp += "<td>" + itemData.creditAmount + "</td>";
-                    temp += "<td>" + itemData.transactionMonth +"/"+itemData.transactionYear + "</td>";
+                    temp += "<td>" + itemData.billName + "</td>";
+                    temp += "<td>" + itemData.reminderDate + "</td>";
+                    temp += "<td>" + itemData.billAmount + "</td>";
                     // temp+= "<td><button>Edit</button></td>";
                     // temp+= "<td><button>Delete</button></td>";
                     temp += "</tr>";
+                    // console.log(temp1);
                 }
-                
             });
+        }else{
+            temp = `<tr>No data</tr>`;
+        }
+        
+        reminderData.innerHTML = temp;
+})
+
+var income = 0;
+var expense = 0;
+var savings = 0;
+var accountIncome = document.getElementById('acc-income');
+var accountExpense = document.getElementById('acc-expense');
+var accountBalance = document.getElementById('balance');
+
+async function getTransactions(){
+    var formDataObject = {};
+
+    formDataObject.month = month;
+        formDataObject.year = year;
+    let formDataJsonString = JSON.stringify(formDataObject);
+    await fetch(`http://localhost:8080/finwise/${userId}/transactions/period`, {
+        method:'POST', 
+        headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+        },
+        body: formDataJsonString
+        }).then((response) => response.json())
+        .then((data) => {
+            var count = 0;
+            var temp="";
+            if(data.length != 0){
+                data.forEach((itemData) => {
+                    // var category = getCategory(itemData.categoryId);
+                    income += itemData.creditAmount;
+                    expense += itemData.debitAmount;
+                    count=count+1;
+                    console.log(itemData.category);
+                    if(count <= 4){
+                        temp += "<tr>";
+                        temp += "<td>" + count + "</td>";
+                        temp += "<td>" + itemData.transactionType.transactionTypeName + "</td>";
+                        // var category = itemData.category;
+                        if(!("category" in itemData)){
+                            console.log(itemData);
+                            temp += "<td>" + "-" + "</td>";
+                        }else{
+                            temp += "<td>" + itemData.category.categoryName + "</td>";
+                        }
+                        temp += "<td>" + itemData.debitAmount + "</td>";
+                        temp += "<td>" + itemData.creditAmount + "</td>";
+                        temp += "<td>" + itemData.transactionMonth +"/"+itemData.transactionYear + "</td>";
+                        // temp+= "<td><button>Edit</button></td>";
+                        // temp+= "<td><button>Delete</button></td>";
+                        temp += "</tr>";
+                    }
+                    
+                });
+            }else{
+                temp = `<tr>No data</tr>`;
+            }
+        savings = income - expense;
+        var incomeData= `<h6>Income</h6>
+        <span>₹ ${income}</span>`;
+        var expenseData =`<h6>Expense</h6>
+        <span>₹ ${expense}</span>`;
+        var balanceData =`<h6>Saving</h6>
+        <span>₹ ${savings}</span>`;
+        accountExpense.innerHTML = expenseData;
+        accountIncome.innerHTML = incomeData;
+        accountBalance.innerHTML = balanceData;
         document.getElementById('transaction-data').innerHTML = temp;
     })
 }
@@ -214,7 +246,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 percentage = 100;
                 spendingBar.style.borderRadius= "1em";
             }
-            amountLeft.innerHTML = remainingAmount;
+            amountLeft.innerHTML = `₹ ${remainingAmount} left`;
             spending.innerHTML = spentAmount;
             total.innerHTML = totalAmount;
             spendingBar.style.width = percentage+"%";
@@ -262,9 +294,9 @@ document.addEventListener('DOMContentLoaded', function() {
     // cardBarFooter.appendChild(cardTotalAmount);
     // budgetCard.appendChild(cardBarFooter);
     var barFooter = `<div class="card-bar-footer">
-                        Spent
+                        Spent ₹
                         <span class="card-spent-amount">${spentAmount}</span>
-                        of
+                        of ₹
                         <span class="card-total-amount">${totalAmount}</span>
                     </div>`
     budgetCard.insertAdjacentHTML('beforeend',barFooter);
