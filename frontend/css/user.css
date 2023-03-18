@@ -92,3 +92,8 @@ footer{
     font-size: 1em;
     font-weight: 700;
 }
+
+.btns{
+    background-color: var(--secondary-color);
+    color: white;
+}

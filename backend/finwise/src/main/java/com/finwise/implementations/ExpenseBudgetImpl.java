@@ -44,9 +44,18 @@ public class ExpenseBudgetImpl implements ExpenseBudgetService {
         boolean flag=false;
         ExpenseBudget expenseBudget2 = new ExpenseBudget();
         for(ExpenseBudget expenseBudget1:expenseBudgets){
-            if((expenseBudget.isRecurring() || (expenseBudget1.getBudgetMonth() == expenseBudget.getBudgetMonth() &&
-                expenseBudget1.getBudgetYear() == expenseBudget.getBudgetYear())) &&
-                expenseBudget1.getCategory().getCategoryId() == expenseBudget.getCategory().getCategoryId()){
+//            if((expenseBudget.isRecurring() || (expenseBudget1.getBudgetMonth() == expenseBudget.getBudgetMonth() &&
+//                expenseBudget1.getBudgetYear() == expenseBudget.getBudgetYear())) &&
+//                expenseBudget1.getCategory().getCategoryId() == expenseBudget.getCategory().getCategoryId()){
+//                float budgetAmount = expenseBudget1.getBudgetAmount();
+//                expenseBudget1.setBudgetAmount(budgetAmount + expenseBudget.getBudgetAmount());
+//                expenseBudget1.setRecurring(expenseBudget.isRecurring());
+//                flag = true;
+//                session.saveOrUpdate(expenseBudget1);
+//            }
+            if(expenseBudget1.getBudgetMonth() == expenseBudget.getBudgetMonth() &&
+                    expenseBudget1.getBudgetYear() == expenseBudget.getBudgetYear() &&
+                    expenseBudget1.getCategory().getCategoryId() == expenseBudget.getCategory().getCategoryId()){
                 float budgetAmount = expenseBudget1.getBudgetAmount();
                 expenseBudget1.setBudgetAmount(budgetAmount + expenseBudget.getBudgetAmount());
                 expenseBudget1.setRecurring(expenseBudget.isRecurring());
@@ -97,8 +106,12 @@ public class ExpenseBudgetImpl implements ExpenseBudgetService {
         List<ExpenseBudget> expenseBudgets = getAllExpenseBudget(userId);
         List<ExpenseBudget> expenseBudgets1 = new ArrayList<ExpenseBudget>();
         for(ExpenseBudget expenseBudget : expenseBudgets){
-            if(expenseBudget.isRecurring() || (expenseBudget.getBudgetMonth() == budgetPeriod.getMonth() &&
-            expenseBudget.getBudgetYear() == budgetPeriod.getYear())){
+//            if(expenseBudget.isRecurring() || (expenseBudget.getBudgetMonth() == budgetPeriod.getMonth() &&
+//            expenseBudget.getBudgetYear() == budgetPeriod.getYear())){
+//                expenseBudgets1.add(expenseBudget);
+//            }
+            if(expenseBudget.getBudgetMonth() == budgetPeriod.getMonth() &&
+                    expenseBudget.getBudgetYear() == budgetPeriod.getYear()){
                 expenseBudgets1.add(expenseBudget);
             }
         }

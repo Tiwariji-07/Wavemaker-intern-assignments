@@ -9,9 +9,13 @@
     <link rel="stylesheet" href="bootstrap-3.3.7/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="css/index.css">
     <link rel="stylesheet" href="css/overview.css">
+    <link rel="stylesheet" href="css/loader.css">
     <link rel="stylesheet" href="css/budget.css">
 </head>
 <body>
+    <div class="loader" id="loader">
+        <div class="justify-content-center jimu-primary-loading"></div>
+    </div>
     <div class="layer"></div>
     <header>
         <nav class="navbar heading">
@@ -56,20 +60,20 @@
                 <div class="ac-form">
                     <h1>Add Budget</h1>
                     <div class="form-group grp">
-                        <label for="budgetAmount"><b>Budget Limit</b></label>
+                        <label for="budgetAmount"><b>Budget Limit *</b></label>
                         <input type="number" placeholder="Enter Amount" name="budgetAmount" id="budgetAmount" required>
                     </div>
                     <div class="form-group grp">
-                        <label for="budgetMonth2"><b>Month</b></label>
+                        <label for="budgetMonth2"><b>Month *</b></label>
                         <input type="month" name="budgetDate" id="budgetMonth2" required style="font-size: 1.2em;font-weight: 700;">
                     </div>
                     <div class="form-group grp">
-                        <label for="Category"><b>Category</b></label>
+                        <label for="Category"><b>Category *</b></label>
                         <select name="category" id="category">
                             
                         </select>
                     </div>
-                    <div class="recurring-buttons grp">
+                    <!-- <div class="recurring-buttons grp">
                         <label for="inlineRadio1">Is it recurring</label>
                         <div class="form-group" id="recurring">
                             <label class="radio-inline">
@@ -79,7 +83,7 @@
                                 <input type="radio" name="isRecurring" id="inlineRadio2" value=false> No
                             </label>
                         </div>
-                    </div>
+                    </div> -->
 
                     <button type="submit" class="btn">Add</button>
                     <button type="button" class="btn cancel" onclick="closeBudgetForm()">Close</button>
@@ -93,7 +97,7 @@
                 <div class="ac-form">
                     <h1>Add Category</h1>
                     <div class="form-group grp">
-                        <label for="categoryName"><b>Category Name</b></label>
+                        <label for="categoryName"><b>Category Name *</b></label>
                         <input type="text" placeholder="Enter category" name="categoryName" id="categoryName" required>
                     </div>
                     <button type="submit" class="btn">Add</button>
@@ -102,7 +106,7 @@
               </form>
         </div>
     </section>
-    <section class="container">
+    <section class="container" id="container">
         <section>
             <div class="budget-header">
                 <div class="budget-title">
@@ -116,8 +120,8 @@
                     </form>
                 </div>
                 <div class="budget-btns">
-                    <button class="btn" onclick="openCategoryForm()">+ Category</button>
-                    <button class="btn" onclick="openBudgetForm()">+ Budget</button>
+                    <button class="btn add-btn" onclick="openCategoryForm()"><img src="assets/add-icon.png" alt="add"> Category</button>
+                    <button class="btn add-btn" onclick="openBudgetForm()"><img src="assets/add-icon.png" alt="add"> Budget</button>
                 </div>
             </div>
         </section>
@@ -177,5 +181,6 @@
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="bootstrap-3.3.7/dist/js/bootstrap.min.js"></script>
     <script src="js/budget.js"></script>
+    <script src="js/loader.js"></script>
 </body>
 </html>

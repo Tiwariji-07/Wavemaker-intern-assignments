@@ -45,12 +45,34 @@ public class BillReminderServiceImpl implements BillReminderService {
         Session session = sessionFactory.openSession();
         Transaction transaction= session.beginTransaction();
         bill.setUserId(userId);
+        List<Bill> bills = getAllReminders(userId);
+        boolean exists=false;
+        for(Bill bill1: bills){
+            if(bill1.isRecurring()){
+                if(bill1.getBillName().equalsIgnoreCase(bill.getBillName())){
+                    exists =true;
+                    break;
+                }
+            }else if(bill1.getReminderDate().compareTo(bill.getReminderDate())==0){
+                if(bill1.getBillName().equalsIgnoreCase(bill.getBillName())){
+                    exists =true;
+                    break;
+                }
+            }
+        }
 //        User user = userService.getUserById(userId);
 //        bill.setUser(user);
-        session.save(bill);
-        transaction.commit();
-        session.close();
-        return bill;
+        if(!exists){
+            session.save(bill);
+            transaction.commit();
+            session.close();
+            return bill;
+        }else{
+            Bill bill2=new Bill();
+            return bill2;
+        }
+
+
     }
 
     public Bill updateBillReminder(Bill bill,int userId) {

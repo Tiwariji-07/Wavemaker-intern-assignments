@@ -51,6 +51,7 @@ form.addEventListener('submit', (e)=>{
             console.log(user.userId);
             if(user.userId != 0){
               sessionStorage.setItem("userId", user.userId);
+              sessionStorage.setItem("email", user.email);
               sessionStorage.setItem("loggedIn", "true");
                 // alert("succesfully logged in")
                 window.location.href = "overview.html"

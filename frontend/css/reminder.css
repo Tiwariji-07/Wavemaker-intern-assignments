@@ -141,6 +141,10 @@ input{
     font-size: .9em;
 }
 
+.reminder-table tr:hover{
+  background-color: #95cbf0 !important;
+}
+
 .transaction-page{
     min-height: 84vh;
 }
@@ -155,10 +159,11 @@ footer{
     /* width: 80%; */
     width: 100vw;
     /* padding-top: 3em; */
-    padding-top: 0;
+    /* padding-top: 0; */
     border-radius: 1em;
     text-align: center;
     position: fixed;
+    bottom: 1.5em;
     justify-content: center;
     align-items: center;
     z-index: 89;
@@ -168,6 +173,7 @@ footer{
 .message{
     width: 70%;
     font-weight: 700;
+    color: var(--primary-color);
 }
 
 /* calender */
@@ -264,6 +270,9 @@ footer{
 .days li.active{
   color: #fff;
 }
+/* .days li.completed{
+  color: #fff;
+} */
 .days li::before{
   position: absolute;
   content: "";
@@ -281,6 +290,55 @@ footer{
 .days li.present::before{
   background: var(--secondary-color);
 }
+.days li.completed::before{
+  background: orange;
+}
 .days li:not(.active):hover::before{
   background: #f2f2f2;
+}
+.representation{
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+.reps{
+  display: flex;
+  gap: 1em;
+}
+
+.rep1{
+  height: 1.5em;
+  width: 1.5em;
+  background-color: orange;
+  border-radius: 50%;
+  align-items: center;
+}
+.rep2{
+  height: 1.5em;
+  width: 1.5em;
+  background-color: #9B59B6;
+  border-radius: 50%;
+  align-items: center;
+}
+.rep3{
+  height: 1.5em;
+  width: 1.5em;
+  background-color: var(--secondary-color);
+  border-radius: 50%;
+  align-items: center;
+}
+
+/* popover */
+
+.popover-title {
+  background-color: #73AD21; 
+  color: #FFFFFF; 
+  font-size: 28px;
+  text-align:center;
+}
+/* Popover Body */
+.popover-content {
+  background-color: coral;
+  color: #FFFFFF;
+  padding: 25px;
 }

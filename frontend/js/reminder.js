@@ -78,11 +78,11 @@ async function showReminders(currMonth,currYear){
                 temp += "<td>" + itemData.billId + "</td>";
                 temp += "<td>" + itemData.billName + "</td>";
                 temp += "<td>" + rd + "</td>";
-                temp += "<td>" + itemData.billAmount + "</td>";
+                temp += "<td>₹ " + itemData.billAmount + "</td>";
                 // temp+= "<td><button>Edit</button></td>";
                 // temp+= "<td><button>Delete</button></td>";
                 temp += "</tr>";
-                activeDates.push(formatDate(rd));
+                activeDates.push([itemData.billName,itemData.billAmount,formatDate(rd)]);
             });
         }else{
             temp = `<tr>No data</tr>`
@@ -150,8 +150,9 @@ function addBillReminder(){
             body: formDataJsonString
         }).then((response)=> response.json())
         .then((data)=>{
-          if(data != null){
             console.log(data);
+          if("billName" in data){
+            
             // alert("reminder added")
             showAlert("Added successfully !");
             setTimeout(hideAlert,2000)
@@ -160,7 +161,12 @@ function addBillReminder(){
             // window.location.reload();
             renderCalendar();
           }else{
-            alert("Not added ")
+            showAlert("Reminder with same name and date exists !");
+            setTimeout(hideAlert,2000)
+            // showReminders();
+            closeForm();
+            // window.location.reload();
+            renderCalendar();
           }
         })
     });
@@ -326,11 +332,22 @@ function reminderPopup(){
         // var count = 0;
         // var temp;
         // console.log(data);
+        var email = sessionStorage.getItem('email');
+        console.log(email);
         data.forEach((itemData) => {
             var reminderDate  = itemData.reminderDate;
             // console.log(reminderDate);
             if(newDate === reminderDate){
                 // alert(`Pay your ${itemData.billName} bill.`)
+                Email.send({
+                    SecureToken : "5dd38047-7974-41e9-b4b0-854a017a0969",
+                    To : email,
+                    From : "deathracer384@gmail.com",
+                    Subject : "Reminder from finwise",
+                    Body : `Please pay your ${itemData.billName} bill of Rs.${itemData.billAmount}`
+                }).then(
+                  message => alert(message)
+                );
                 var message = `Please pay your ${itemData.billName} bill of Rs.${itemData.billAmount}`
                 showAlert(message);
                 setTimeout(hideAlert,2000)
@@ -365,21 +382,34 @@ function reminderPopup(){
         for (let i = 1; i <= lastDateofMonth; i++) { // creating li of all days of current month
             // adding active class to li if the current day, month, and year matched
             let isToday ="";
-            activeDates.forEach((date)=>{
-                var date1 = new Date(date);
+            var props = "";
+            if(i === new Date().getDate() && currMonth === new Date().getMonth() 
+                && currYear === new Date().getFullYear()){
+                    isToday = "present"
+                    props = "";
+                }
+            activeDates.forEach((bill)=>{
+                var date1 = new Date(bill[2]);
                 // console.log(date1);
                 if(i === date1.getDate() && currMonth === date1.getMonth()
                         && currYear === date1.getFullYear()){
                             isToday = "active";
-                }
+                            props = `data-trigger="hover" data-toggle="popover" title="Bill Name: ${bill[0]}\n\nAmount: ₹${bill[1]}" data-content="${bill[1]}"`
+                }else if(i === date1.getDate() && currMonth === date1.getMonth()
+                && currYear === date1.getFullYear() && date1.getDate() < new Date().getDate()){
+                    isToday = "completed";
+                    props = `data-trigger="hover" data-toggle="popover" title="Bill Name: ${bill[0]}\n\nAmount: ₹${bill[1]}" data-content="${bill[1]}"`
+            }
             });
             if(i === new Date().getDate() && currMonth === new Date().getMonth() 
                 && currYear === new Date().getFullYear()){
                     isToday = "present"
+                    // props = "";
                 }
             
             
-            liTag += `<li class="${isToday}">${i}</li>`;
+            console.log(props);
+            liTag += `<li class="${isToday}" ${props}>${i}</li>`;
         }
         for (let i = lastDayofMonth; i < 6; i++) { // creating li of next month first days
             liTag += `<li class="inactive">${i - lastDayofMonth + 1}</li>`
@@ -406,7 +436,10 @@ function reminderPopup(){
         });
     });
 // }
-
+// $(document).ready(function(){
+//     $('[data-toggle="popover"]').popover();   
+// });
+//   $("#popover").popover({ trigger: "hover focus click" });
 // showReminders();
 displayReminder();
 addBillReminder();

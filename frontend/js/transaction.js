@@ -15,6 +15,22 @@ const year=date.getFullYear()
 rDate.value = `${year}-${month}`;
 monthControl.value = `${year}-${month}`;
 
+var loader = document.getElementById('loader');
+// var body = document.getElementById('container');
+
+function loading(){
+    loader.style.display = "block";
+    // body.style.display = "none";
+    document.getElementsByTagName('body')[0].style.overflowY="hidden";
+    // body.style.overflowY = "hidden";
+}
+
+function loaded(){
+    loader.style.display = "none";
+    // body.style.display = "block";
+    document.getElementsByTagName('body')[0].style.overflowY="scroll";
+    // body.style.overflowY = "scroll";
+}
 
 function openTranForm() {
   document.getElementById("transaction-income-page").style.display = "flex";
@@ -41,20 +57,32 @@ function closeTranExpenseForm() {
 }
 
 function openDetailsForm() {
-  document.getElementById("detailForm").style.display = "flex";
+  document.getElementById("expenseDetailForm").style.display = "flex";
   document.getElementsByClassName('layer')[0].style.display="block";
   document.getElementsByTagName('body')[0].style.overflowY="hidden";
 }
   
 function closeDetailsForm() {
-  document.getElementById("detailForm").style.display = "none";
+  document.getElementById("expenseDetailForm").style.display = "none";
   document.getElementsByClassName('layer')[0].style.display="none";
   document.getElementsByTagName('body')[0].style.overflowY="scroll";
 }
-
+function openDetails1Form() {
+  document.getElementById("incomeDetailForm").style.display = "flex";
+  document.getElementsByClassName('layer')[0].style.display="block";
+  document.getElementsByTagName('body')[0].style.overflowY="hidden";
+}
+  
+function closeDetails1Form() {
+  document.getElementById("incomeDetailForm").style.display = "none";
+  document.getElementsByClassName('layer')[0].style.display="none";
+  document.getElementsByTagName('body')[0].style.overflowY="scroll";
+}
 function getTransactions(){
   const form1 = document.getElementById('periodForm');
     form1.addEventListener('submit', (e)=>{
+      loading();
+        setTimeout(loaded,1000);
         e.preventDefault();
         
         // budgetList.removeChild();
@@ -81,37 +109,66 @@ function getTransactions(){
       body: formDataJsonString
       }).then((response) => response.json())
       .then((data) => {
-          var count = 0;
-          var temp="";
-          if(data.length != 0 ){
-            data.forEach((itemData) => {
-                // var category = getCategory(itemData.categoryId);
+        var count = 0;
+        var count1 = 0;
+        var temp="";
+        var temp1="";
+        if(data.length != 0 ){
+          data.forEach((itemData) => {
+              // var category = getCategory(itemData.categoryId);
+              var tranType = itemData.transactionType.transactionTypeName;
+              if(tranType === "expense"){
                 count=count+1;
                 // console.log(itemData.category);
                 temp += "<tr>";
                 temp += "<td>" + count + "</td>";
                 temp += "<td>" + itemData.transactionId + "</td>";
-                temp += "<td>" + itemData.transactionType.transactionTypeName + "</td>";
+                // temp += "<td>" + itemData.transactionType.transactionTypeName + "</td>";
                 // var category = itemData.category;
-                if(!("category" in itemData)){
-                    console.log(itemData);
-                    temp += "<td>" + "-" + "</td>";
-                }else{
+                // if(!("category" in itemData)){
+                //     console.log(itemData);
+                //     temp += "<td>" + "-" + "</td>";
+                // }else{
                     temp += "<td>" + itemData.category.categoryName + "</td>";
-                }
-                temp += "<td>" + itemData.debitAmount + "</td>";
-                temp += "<td>" + itemData.creditAmount + "</td>";
+                // }
+                temp += "<td>₹ " + itemData.debitAmount + "</td>";
+                // temp += "<td>" + itemData.creditAmount + "</td>";
                 temp += "<td>" + itemData.transactionMonth +"/"+itemData.transactionYear + "</td>";
                 // temp+= "<td><button>Edit</button></td>";
                 // temp+= "<td><button>Delete</button></td>";
                 temp += "</tr>";
-                
-            });
-        }else{
-          temp = `<tr>No data</tr>`;
-        }
-          document.getElementById('data').innerHTML = temp;
-      })
+              }else{
+                count1=count1+1;
+                // console.log(itemData.category);
+                temp1 += "<tr>";
+                temp1 += "<td>" + count1 + "</td>";
+                temp1 += "<td>" + itemData.transactionId + "</td>";
+                // temp1 += "<td>" + itemData.transactionType.transactionTypeName + "</td>";
+                // var category = itemData.category;
+                // if(!("category" in itemData)){
+                //     console.log(itemData);
+                //     temp1 += "<td>" + "-" + "</td>";
+                // }else{
+                //     temp1 += "<td>" + itemData.category.categoryName + "</td>";
+                // }
+                // temp1 += "<td>" + itemData.debitAmount + "</td>";
+                temp1 += "<td>₹ " + itemData.creditAmount + "</td>";
+                temp1 += "<td>" + itemData.transactionMonth +"/"+itemData.transactionYear + "</td>";
+                // temp1+= "<td><button>Edit</button></td>";
+                // temp1+= "<td><button>Delete</button></td>";
+                temp1 += "</tr>";
+              }
+
+
+              
+              
+          });
+      }else{
+        temp = `<tr>No data</tr>`;
+      }
+        document.getElementById('data').innerHTML = temp;
+        document.getElementById('data1').innerHTML = temp1;
+    })
     });
 }
 
@@ -131,35 +188,64 @@ document.addEventListener('DOMContentLoaded', function() {
       }).then((response) => response.json())
       .then((data) => {
           var count = 0;
+          var count1 = 0;
           var temp="";
+          var temp1="";
           if(data.length != 0 ){
             data.forEach((itemData) => {
                 // var category = getCategory(itemData.categoryId);
-                count=count+1;
-                // console.log(itemData.category);
-                temp += "<tr>";
-                temp += "<td>" + count + "</td>";
-                temp += "<td>" + itemData.transactionId + "</td>";
-                temp += "<td>" + itemData.transactionType.transactionTypeName + "</td>";
-                // var category = itemData.category;
-                if(!("category" in itemData)){
-                    console.log(itemData);
-                    temp += "<td>" + "-" + "</td>";
+                var tranType = itemData.transactionType.transactionTypeName;
+                if(tranType === "expense"){
+                  count=count+1;
+                  // console.log(itemData.category);
+                  temp += "<tr>";
+                  temp += "<td>" + count + "</td>";
+                  temp += "<td>" + itemData.transactionId + "</td>";
+                  // temp += "<td>" + itemData.transactionType.transactionTypeName + "</td>";
+                  // var category = itemData.category;
+                  // if(!("category" in itemData)){
+                  //     console.log(itemData);
+                  //     temp += "<td>" + "-" + "</td>";
+                  // }else{
+                      temp += "<td>" + itemData.category.categoryName + "</td>";
+                  // }
+                  temp += "<td>₹ " + itemData.debitAmount + "</td>";
+                  // temp += "<td>" + itemData.creditAmount + "</td>";
+                  temp += "<td>" + itemData.transactionMonth +"/"+itemData.transactionYear + "</td>";
+                  // temp+= "<td><button>Edit</button></td>";
+                  // temp+= "<td><button>Delete</button></td>";
+                  temp += "</tr>";
                 }else{
-                    temp += "<td>" + itemData.category.categoryName + "</td>";
+                  count1=count1+1;
+                  // console.log(itemData.category);
+                  temp1 += "<tr>";
+                  temp1 += "<td>" + count1 + "</td>";
+                  temp1 += "<td>" + itemData.transactionId + "</td>";
+                  // temp1 += "<td>" + itemData.transactionType.transactionTypeName + "</td>";
+                  // var category = itemData.category;
+                  // if(!("category" in itemData)){
+                  //     console.log(itemData);
+                  //     temp1 += "<td>" + "-" + "</td>";
+                  // }else{
+                  //     temp1 += "<td>" + itemData.category.categoryName + "</td>";
+                  // }
+                  // temp1 += "<td>" + itemData.debitAmount + "</td>";
+                  temp1 += "<td>₹ " + itemData.creditAmount + "</td>";
+                  temp1 += "<td>" + itemData.transactionMonth +"/"+itemData.transactionYear + "</td>";
+                  // temp1+= "<td><button>Edit</button></td>";
+                  // temp1+= "<td><button>Delete</button></td>";
+                  temp1 += "</tr>";
                 }
-                temp += "<td>" + itemData.debitAmount + "</td>";
-                temp += "<td>" + itemData.creditAmount + "</td>";
-                temp += "<td>" + itemData.transactionMonth +"/"+itemData.transactionYear + "</td>";
-                // temp+= "<td><button>Edit</button></td>";
-                // temp+= "<td><button>Delete</button></td>";
-                temp += "</tr>";
+
+
+                
                 
             });
         }else{
           temp = `<tr>No data</tr>`;
         }
           document.getElementById('data').innerHTML = temp;
+          document.getElementById('data1').innerHTML = temp1;
       })
 },false);
 
@@ -295,12 +381,12 @@ async function displayTransaction(){
   console.log(transactionId);
   openDetailsForm();
   var dtId = document.getElementById('dtid');
-  var dtType = document.getElementById('dttype');
+  // var dtType = document.getElementById('dttype');
   var dtCategory = document.getElementById('dtcategory');
   var dtCategory1 = document.getElementById('dtcategory1');
   var dtdate = document.getElementById('dtdate');
   var dtDebit = document.getElementById('dtdebit');
-  var dtCredit = document.getElementById('dtcredit');
+  // var dtCredit = document.getElementById('dtcredit');
   var dtDescription = document.getElementById('dtdescription');
   // var dbillName = document.getElementById('dbillName');
   fetch(`http://localhost:8080/finwise/${userId}/transactions/${transactionId}`).then((response)=> response.json())
@@ -314,7 +400,7 @@ async function displayTransaction(){
   //   }
       console.log(data);
       dtId.value = data.transactionId;
-      dtType.value = data.transactionType.transactionTypeName;
+      // dtType.value = data.transactionType.transactionTypeName;
       if(("category" in data )){
         dtCategory1.style.display ="block";
         dtCategory.style.display ="block";
@@ -326,7 +412,7 @@ async function displayTransaction(){
       dtdate.value = data.transactionYear+"-"+month;
       console.log(dtdate.value);
       dtDebit.value = data.debitAmount;
-      dtCredit.value = data.creditAmount;
+      // dtCredit.value = data.creditAmount;
       dtDescription.value = data.description;
   });
   // console.log(response);
@@ -336,6 +422,58 @@ async function displayTransaction(){
 
   
   }
+  document.querySelector('#data1').onclick = function(ev) {
+    // ev.target <== td element
+    // ev.target.parentElement <== tr
+    var index = ev.target.parentElement.rowIndex;
+    console.log(index);
+    var row = document.getElementById('data1').children[index-1];
+    console.log(document.getElementById('data1').children[index-1]);
+    var transactionId = row.children[1].innerHTML;
+    console.log(transactionId);
+    openDetails1Form();
+    var dtId = document.getElementById('dtid1');
+    // var dtType = document.getElementById('dttype');
+    // var dtCategory = document.getElementById('dtcategory');
+    // var dtCategory1 = document.getElementById('dtcategory1');
+    var dtdate = document.getElementById('dtdate1');
+    // var dtDebit = document.getElementById('dtdebit');
+    var dtCredit = document.getElementById('dtcredit1');
+    var dtDescription = document.getElementById('dtdescription1');
+    // var dbillName = document.getElementById('dbillName');
+    fetch(`http://localhost:8080/finwise/${userId}/transactions/${transactionId}`).then((response)=> response.json())
+    .then((data)=>{
+    //   if(data != null){
+    //     console.log(data);
+    //     // alert("transaction added")
+    //     getTransactions();
+    //   }else{
+    //     // alert("Not added ")
+    //   }
+        console.log(data);
+        dtId.value = data.transactionId;
+        // dtType.value = data.transactionType.transactionTypeName;
+        // if(("category" in data )){
+        //   dtCategory1.style.display ="block";
+        //   dtCategory.style.display ="block";
+        //   dtCategory.value = data.category.categoryName;
+        // }else{
+        //   dtCategory1.style.display ="none";
+        // }
+        var month = ("0" + (data.transactionMonth)).slice(-2);
+        dtdate.value = data.transactionYear+"-"+month;
+        console.log(dtdate.value);
+        // dtDebit.value = data.debitAmount;
+        dtCredit.value = data.creditAmount;
+        dtDescription.value = data.description;
+    });
+    // console.log(response);
+    // const data = response.json();
+    // return data;
+    
+  
+    
+    }
 }
 
 function deleteTransaction(){
@@ -354,6 +492,27 @@ function deleteTransaction(){
             console.log(data);
             // alert("Transaction deleted");
             closeDetailsForm();
+            // getTransactions();
+            window.location.reload();
+          }
+    })
+}
+function deleteTransaction1(){
+  var id = document.getElementById('dtid1').value;
+    console.log(id);
+    fetch(`http://localhost:8080/finwise/${userId}/transactions/${id}`, {
+            method:'DELETE', 
+            //Set the headers that specify you're sending a JSON body request and accepting JSON response
+        headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+        }
+        }).then((response)=> response.json())
+        .then((data)=>{
+          if(data != null){
+            console.log(data);
+            // alert("Transaction deleted");
+            closeDetails1Form();
             // getTransactions();
             window.location.reload();
           }

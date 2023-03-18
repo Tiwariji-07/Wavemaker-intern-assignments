@@ -8,9 +8,13 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
     <link rel="stylesheet" href="bootstrap-3.3.7/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/loader.css">
     <link rel="stylesheet" href="css/reminder.css">
 </head>
 <body>
+    <div class="loader" id="loader">
+        <div class="justify-content-center jimu-primary-loading"></div>
+    </div>
     <div class="layer"></div>
     <header>
         <nav class="navbar heading">
@@ -56,10 +60,12 @@
                 <div>
                     <h1 class="reminder-heading">Transactions</h1>
                     <form method="post" id="periodForm">
-                        <div class="form-froup">
+                        <div class="form-froup grp">
                             <label for="budgetMonth">Budget Month</label>
-                            <input type="month" name="budgetDate" id="budgetMonth">
+                            <div>
+                                <input type="month" name="budgetDate" id="budgetMonth">
                             <button type="submit" class="btn">Get</button>
+                            </div>
                         </div>
                     </form>
                 </div>
@@ -72,21 +78,39 @@
         </section>
         <section class="container">
             <div class="row">
-                <div class="col-sm-10">
+                <div class="col-sm-6">
+                    <h3>Expenses</h3>
                     <div class="jumbotron">
                         <table class="table table-hover table-condensed">
                             <thead>
                               <tr>
                                 <th>S No</th>
                                 <th>Tid</th>
-                                <th>Type</th>
+                                <!-- <th>Type</th> -->
                                 <th>Category</th>
-                                <th>Debit</th>
-                                <th>Credit</th>
+                                <th>Amount</th>
+                                <!-- <th>Credit</th> -->
                                 <th>Month</th>
                               </tr>
                             </thead>
                             <tbody id="data">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <h3>Income</h3>
+                    <div class="jumbotron">
+                        <table class="table table-hover table-condensed">
+                            <thead>
+                              <tr>
+                                <th>S No</th>
+                                <th>Tid</th>
+                                <th>Amount</th>
+                                <th>Month</th>
+                              </tr>
+                            </thead>
+                            <tbody id="data1">
                             </tbody>
                         </table>
                     </div>
@@ -100,16 +124,16 @@
                 <div class="ac-form">
                     <h1>Add Income</h1>
                     <div class="form-group grp">
-                        <label for="creditAmount"><b>Amount</b></label>
+                        <label for="creditAmount"><b>Amount *</b></label>
                         <input type="number" placeholder="Enter Amount" name="creditAmount" id="creditAmount" required>
                     </div>
                     <div class="form-group grp">
-                        <label for="date"><b>Transaction Date</b></label>
+                        <label for="date"><b>Transaction Date *</b></label>
                         <input type="month" name="transactionDate" id="date" required>
                     </div>
                     <div class="form-group grp">
                         <label for="desc"><b>Description</b></label>
-                        <input type="text" name="description" id="description" required>
+                        <input type="text" name="description" id="description">
                     </div>
 
 
@@ -125,22 +149,22 @@
                 <div class="ac-form">
                     <h1>Add Expense</h1>
                     <div class="form-group grp">
-                        <label for="debitAmount"><b>Amount</b></label>
+                        <label for="debitAmount"><b>Amount *</b></label>
                         <input type="number" placeholder="Enter Amount" name="debitAmount" id="creditAmount" required>
                     </div>
                     <div class="form-group grp">
-                        <label for="date"><b>Transaction Date</b></label>
+                        <label for="date"><b>Transaction Date *</b></label>
                         <input type="month" name="transactionDate" id="date" required>
                     </div>
                     <div class="form-group grp">
-                        <label for="Category"><b>Category</b></label>
+                        <label for="Category"><b>Category *</b></label>
                         <select name="category" id="category" required>
                             
                         </select>
                     </div>
                     <div class="form-group grp">
                         <label for="desc"><b>Description</b></label>
-                        <input type="text" name="description" id="description" required>
+                        <input type="text" name="description" id="description">
                     </div>
 
 
@@ -150,19 +174,19 @@
               </form>
         </div>
     </section>
-    <section class="form-popup details" id="detailForm">
+    <section class="form-popup details" id="expenseDetailForm">
         <div class="add-reminder-form">
             <form method="post" class="form-container" id="reminder-detail-form">
                 <div class="ac-form">
-                    <h1>Transaction Details</h1>
+                    <h1>Expense Details</h1>
                     <div class="form-group grp">
                         <label for="dtid"><b>Transaction Id</b></label>
                         <input type="num" placeholder="Enter Bill Id" name="billId" id="dtid" required readonly>
                     </div>
-                    <div class="form-group grp">
+                    <!-- <div class="form-group grp">
                         <label for="dttype"><b>Type</b></label>
                         <input type="text" placeholder="Enter Type Name" name="billName" id="dttype" required readonly>
-                    </div>
+                    </div> -->
                     <div class="form-group grp" id="dtcategory1">
                         <label for="dtcategory"><b>Category</b></label>
                         <input type="text" placeholder="Enter category" name="billAmount" id="dtcategory" required readonly>
@@ -175,17 +199,57 @@
                         <label for="dtdebit"><b>Debit</b></label>
                         <input type="number" name="reminderDate" id="dtdebit" required readonly>
                     </div>
-                    <div class="form-group grp">
+                    <!-- <div class="form-group grp">
                         <label for="dtcredit"><b>Credit</b></label>
                         <input type="number" name="reminderDate" id="dtcredit" required readonly>
-                    </div>
+                    </div> -->
                     <div class="form-group grp">
                         <label for="dtdescription"><b>Description</b></label>
                         <input type="text" name="reminderDate" id="dtdescription" required readonly>
                     </div>
                     <!-- <button type="submit" class="btn btn-success">Save</button> -->
-                    <button type="button" class="btn btn-danger" onclick="deleteTransaction()">Delete</button>
+                    <button type="button" class="btn" onclick="deleteTransaction()">Delete</button>
                     <button type="button" class="btn cancel" onclick="closeDetailsForm()">Close</button>
+                </div>
+              </form>
+        </div>
+    </section>
+    <section class="form-popup details" id="incomeDetailForm">
+        <div class="add-reminder-form">
+            <form method="post" class="form-container" id="reminder-detail-form">
+                <div class="ac-form">
+                    <h1>Income Details</h1>
+                    <div class="form-group grp">
+                        <label for="dtid1"><b>Transaction Id</b></label>
+                        <input type="num" placeholder="Enter Bill Id" name="billId" id="dtid1" required readonly>
+                    </div>
+                    <!-- <div class="form-group grp">
+                        <label for="dttype"><b>Type</b></label>
+                        <input type="text" placeholder="Enter Type Name" name="billName" id="dttype" required readonly>
+                    </div> -->
+                    <!-- <div class="form-group grp" id="dtcategory1">
+                        <label for="dtcategory"><b>Category</b></label>
+                        <input type="text" placeholder="Enter category" name="billAmount" id="dtcategory" required readonly>
+                    </div> -->
+                    <div class="form-group grp">
+                        <label for="dtdate1"><b>Transaction Date</b></label>
+                        <input type="month" name="reminderDate" id="dtdate1" required readonly>
+                    </div>
+                    <!-- <div class="form-group grp">
+                        <label for="dtdebit"><b>Debit</b></label>
+                        <input type="number" name="reminderDate" id="dtdebit" required readonly>
+                    </div> -->
+                    <div class="form-group grp">
+                        <label for="dtcredit1"><b>Credit</b></label>
+                        <input type="number" name="reminderDate" id="dtcredit1" required readonly>
+                    </div>
+                    <div class="form-group grp">
+                        <label for="dtdescription1"><b>Description</b></label>
+                        <input type="text" name="reminderDate" id="dtdescription1" required readonly>
+                    </div>
+                    <!-- <button type="submit" class="btn btn-success">Save</button> -->
+                    <button type="button" class="btn" onclick="deleteTransaction1()">Delete</button>
+                    <button type="button" class="btn cancel" onclick="closeDetails1Form()">Close</button>
                 </div>
               </form>
         </div>

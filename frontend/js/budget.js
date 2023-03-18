@@ -19,6 +19,22 @@ var total = document.getElementsByClassName('total-amount')[0];
 var spendingBar = document.getElementById('spending-bar');
 var budgetList = document.getElementById('budget-list');
 
+var loader = document.getElementById('loader');
+var body = document.getElementById('container');
+
+function loading(){
+    loader.style.display = "block";
+    // body.style.display = "none";
+    document.getElementsByTagName('body')[0].style.overflowY="hidden";
+    body.style.overflowY = "hidden";
+}
+
+function loaded(){
+    loader.style.display = "none";
+    // body.style.display = "block";
+    document.getElementsByTagName('body')[0].style.overflowY="scroll";
+    body.style.overflowY = "scroll";
+}
 
 function openBudgetForm(){
     document.getElementById('add-budget-page').style.display='flex';
@@ -48,6 +64,8 @@ function closeCategoryForm(){
 function getAllbudget(){
     const form1 = document.getElementById('periodForm');
     form1.addEventListener('submit', (e)=>{
+        loading();
+        setTimeout(loaded,1000);
         e.preventDefault();
         
         // budgetList.removeChild();
@@ -92,6 +110,7 @@ function getAllbudget(){
             if(percentage >= 100){
                 percentage = 100;
                 spendingBar.style.borderRadius= "1em";
+                spendingBar.style.backgroundColor = "orange"
             }
             amountLeft.innerHTML = remainingAmount;
             spending.innerHTML = spentAmount;
@@ -136,6 +155,7 @@ document.addEventListener('DOMContentLoaded', function() {
             if(percentage >=100){
                 percentage = 100;
                 spendingBar.style.borderRadius= "1em";
+                spendingBar.style.backgroundColor = "orange"
             }
             amountLeft.innerHTML = `₹${remainingAmount}`;
             spending.innerHTML = spentAmount;
@@ -175,6 +195,7 @@ function setEachCard(budget){
     if(percentage >=100){
         percentage = 100;
         spendingBar.style.borderRadius= "1em";
+        spendingBar.style.backgroundColor = "orange"
     }
     spendingBar.style.width = percentage+"%";
     spending.appendChild(spendingBar);
@@ -250,6 +271,7 @@ async function addBudget(){
         formDataObject.budgetMonth = month;
         formDataObject.budgetYear = year;
         console.log(formDataObject);
+        formDataObject.isRecurring = "false";
         var categoryValue = formDataObject.category.split(" ");
         formDataObject.category = {categoryId:categoryValue[0],
             categoryName:categoryValue[1],userId:`${userId}`};
