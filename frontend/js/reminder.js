@@ -353,7 +353,7 @@ function reminderPopup(){
             if(newDate === reminderDate){
                 // alert(`Pay your ${itemData.billName} bill.`)
                 Email.send({
-                    SecureToken : "5dd38047-7974-41e9-b4b0-854a017a0969",
+                    SecureToken : "5718f57b-0f4b-4675-b765-e65c1cc86def",
                     To : email,
                     From : "deathracer384@gmail.com",
                     Subject : "Reminder from finwise",

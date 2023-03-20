@@ -230,3 +230,44 @@ body{
     align-items: center;
     gap: .3em;
 }
+
+.bottom-nav{
+    position: fixed;
+    z-index: 3;
+    bottom: 0;
+    background-color: var(--primary-color);
+    width: 100%;
+    height: 4em;
+    color: var(--secondary-color);
+    border-radius: 1em 1em 0 0;
+  }
+
+  .b-nav{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: .5em;
+  }
+.b-item{
+    display: flex;
+    flex-direction: column;
+    gap: .2em;
+    justify-content: center;
+    align-items: center;
+}
+.b-item img{
+    height: 1.2em;
+}
+
+.mobile-nav{
+    display: none;
+}
+
+@media only screen and (max-width: 767px) {
+    .mobile-nav{
+        display: block;
+    }
+    footer{
+        display: none;
+    }
+}
