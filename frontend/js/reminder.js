@@ -32,7 +32,7 @@ var activeDates = [];
 
 async function showReminders(currMonth,currYear){
     var formDataObject = {};
-    
+    var flag = true;
     formDataObject.month = currMonth;
     formDataObject.year = currYear;
     console.log(formDataObject);
@@ -47,32 +47,34 @@ async function showReminders(currMonth,currYear){
     }).then((response) => response.json())
     .then((data) => {
         var count = 0;
-        var temp="";
+        
         console.log(data.length);
         // clg
         if(data.length !=0){
+            var temp="";
             data.forEach((itemData) => {
                 console.log(itemData);
                 count=count+1;
                 var recurringDate;
                 var rd;
-                if(itemData.isRecurring){
-                    var d = new Date(formatDate(itemData.reminderDate)).getDate();
-                    console.log(d);
-                    var r = new Date(formatDate(itemData.reminderDate)).setMonth(currMonth-1);
-                    var d1 = new Date(r).getDate();
-                    console.log(d1);
-                    if(d <= d1 ){
-                     recurringDate = new Date(formatDate(itemData.reminderDate)).setMonth(currMonth-1);
-                     rd = new Date(recurringDate).toDateString();
-                    //  recurringDate.toLocaleString();
-                    // console.log(rd);
-                    }else{
-                        return;
-                    }
-                }else{
+                
+                // if(itemData.isRecurring){
+                //     var d = new Date(formatDate(itemData.reminderDate)).getDate();
+                //     console.log(d);
+                //     var r = new Date(formatDate(itemData.reminderDate)).setMonth(currMonth-1);
+                //     var d1 = new Date(r).getDate();
+                //     console.log(d1);
+                //     if(d <= d1 ){
+                //      recurringDate = new Date(formatDate(itemData.reminderDate)).setMonth(currMonth-1);
+                //      rd = new Date(recurringDate).toDateString();
+                //     //  recurringDate.toLocaleString();
+                //     // console.log(rd);
+                //     }else{
+                //         return;
+                //     }
+                // }else{
                     rd = itemData.reminderDate;
-                }
+                // }
                 temp += "<tr>";
                 temp += "<td>" + count + "</td>";
                 temp += "<td>" + itemData.billId + "</td>";
@@ -84,12 +86,23 @@ async function showReminders(currMonth,currYear){
                 temp += "</tr>";
                 activeDates.push([itemData.billName,itemData.billAmount,formatDate(rd)]);
             });
+            // document.getElementById('data').innerHTML = temp;
         }else{
-            temp = `<tr>No data</tr>`
+            flag=false;
+            var temp="";
+            // temp = `<img src="assets/no-result-found.svg" class="img img-responsive result-img"/>`
+            temp += `No Reminders`;
+            // document.getElementsByClassName('r-jumbotron')[0].innerHTML = temp;
         }
-        document.getElementById('data').innerHTML = temp;
+        
         // calender();
+        // if(flag){
+            document.getElementById('data').innerHTML = temp;
+        // }else{
+        //     document.getElementsByClassName('r-jumbotron')[0].innerHTML = temp;
+        // }
     })
+    
     
 }
 
@@ -162,7 +175,7 @@ function addBillReminder(){
             renderCalendar();
           }else{
             showAlert("Reminder with same name and date exists !");
-            setTimeout(hideAlert,2000)
+            setTimeout(window.location.reload(),2000)
             // showReminders();
             closeForm();
             // window.location.reload();
@@ -210,13 +223,13 @@ async function displayReminder(){
         dbillName.value = data.billName;
         damount.value = data.billAmount;
         ddate.value = formatDate(data.reminderDate);
-        if(data.isRecurring){
-            console.log(data.isRecurring);
-            document.getElementById('true').click();
-        }else{
-            console.log(data.isRecurring);
-            document.getElementById('false').click();
-        }
+        // if(data.isRecurring){
+        //     console.log(data.isRecurring);
+        //     document.getElementById('true').click();
+        // }else{
+        //     console.log(data.isRecurring);
+        //     document.getElementById('false').click();
+        // }
     });
     // console.log(response);
     // const data = response.json();
@@ -370,7 +383,7 @@ function reminderPopup(){
     const months = ["January", "February", "March", "April", "May", "June", "July",
                 "August", "September", "October", "November", "December"];
     const renderCalendar =async () => {
-        await showReminders(currMonth+1,currYear)
+        await showReminders(currMonth+1,currYear);
         let firstDayofMonth = new Date(currYear, currMonth, 1).getDay(), // getting first day of month
         lastDateofMonth = new Date(currYear, currMonth + 1, 0).getDate(), // getting last date of month
         lastDayofMonth = new Date(currYear, currMonth, lastDateofMonth).getDay(), // getting last day of month
@@ -383,11 +396,11 @@ function reminderPopup(){
             // adding active class to li if the current day, month, and year matched
             let isToday ="";
             var props = "";
-            if(i === new Date().getDate() && currMonth === new Date().getMonth() 
-                && currYear === new Date().getFullYear()){
-                    isToday = "present"
-                    props = "";
-                }
+            // if(i === new Date().getDate() && currMonth === new Date().getMonth() 
+            //     && currYear === new Date().getFullYear()){
+            //         isToday = "present"
+            //         props = "";
+            //     }
             activeDates.forEach((bill)=>{
                 var date1 = new Date(bill[2]);
                 // console.log(date1);
@@ -395,11 +408,7 @@ function reminderPopup(){
                         && currYear === date1.getFullYear()){
                             isToday = "active";
                             props = `data-trigger="hover" data-toggle="popover" title="Bill Name: ${bill[0]}\n\nAmount: ₹${bill[1]}" data-content="${bill[1]}"`
-                }else if(i === date1.getDate() && currMonth === date1.getMonth()
-                && currYear === date1.getFullYear() && date1.getDate() < new Date().getDate()){
-                    isToday = "completed";
-                    props = `data-trigger="hover" data-toggle="popover" title="Bill Name: ${bill[0]}\n\nAmount: ₹${bill[1]}" data-content="${bill[1]}"`
-            }
+                }
             });
             if(i === new Date().getDate() && currMonth === new Date().getMonth() 
                 && currYear === new Date().getFullYear()){

@@ -4,7 +4,7 @@ body{
     --third-color : #ddebf8;
     background-image: linear-gradient(to bottom, #ddebf8, #bbdbf4, #95cbf0, #67bceb, #00ade5);
     overflow-x:hidden;
-
+    font-family: 'Lato', sans-serif;
 }
 
 .budget-header{

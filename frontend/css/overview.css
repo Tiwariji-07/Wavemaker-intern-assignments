@@ -2,8 +2,12 @@ body{
     --primary-color :#2f486a;
     --secondary-color : #00ade5;
     --third-color : #ddebf8;
+    font-family: 'Lato', sans-serif;
     background-image: linear-gradient(to bottom, #ddebf8, #bbdbf4, #95cbf0, #67bceb, #00ade5);
 
+}
+.jumbotron{
+    padding: 1em;
 }
 
 .profile-icon{
@@ -255,8 +259,15 @@ body{
     padding-left: 0;
 }
 
+.rupee-icon{
+    width: 40px;
+    /* margin: auto; */
+    padding-top: 1em;
+    /* padding-right: 1em; */
+}
+
 .info span{
-    color: green;
+    color: var(--primary-color);
     font-size: 2em;
     line-height: .7em;
 
@@ -277,4 +288,9 @@ body{
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.rupee{
+    color:green;
+    background-color: green;
 }

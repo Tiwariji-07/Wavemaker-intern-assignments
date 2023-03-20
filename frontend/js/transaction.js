@@ -135,6 +135,7 @@ function getTransactions(){
                 // temp += "<td>" + itemData.creditAmount + "</td>";
                 temp += "<td>" + itemData.transactionMonth +"/"+itemData.transactionYear + "</td>";
                 // temp+= "<td><button>Edit</button></td>";
+                temp+= `<td><img src="assets/edit-icon.png" alt="" class="img img-responsive edit-img"></td>`;
                 // temp+= "<td><button>Delete</button></td>";
                 temp += "</tr>";
               }else{
@@ -154,7 +155,7 @@ function getTransactions(){
                 // temp1 += "<td>" + itemData.debitAmount + "</td>";
                 temp1 += "<td>₹ " + itemData.creditAmount + "</td>";
                 temp1 += "<td>" + itemData.transactionMonth +"/"+itemData.transactionYear + "</td>";
-                // temp1+= "<td><button>Edit</button></td>";
+                temp1+= `<td><img src="assets/edit-icon.png" alt="edit" class="img img-responsive edit-img"></td>`;
                 // temp1+= "<td><button>Delete</button></td>";
                 temp1 += "</tr>";
               }
@@ -165,6 +166,7 @@ function getTransactions(){
           });
       }else{
         temp = `<tr>No data</tr>`;
+        temp1 = `<tr>No data</tr>`;
       }
         document.getElementById('data').innerHTML = temp;
         document.getElementById('data1').innerHTML = temp1;
@@ -213,6 +215,7 @@ document.addEventListener('DOMContentLoaded', function() {
                   // temp += "<td>" + itemData.creditAmount + "</td>";
                   temp += "<td>" + itemData.transactionMonth +"/"+itemData.transactionYear + "</td>";
                   // temp+= "<td><button>Edit</button></td>";
+                  temp+= `<td><img src="assets/edit-icon.png" alt="edit" class="img img-responsive edit-img"></td>`;
                   // temp+= "<td><button>Delete</button></td>";
                   temp += "</tr>";
                 }else{
@@ -233,6 +236,7 @@ document.addEventListener('DOMContentLoaded', function() {
                   temp1 += "<td>₹ " + itemData.creditAmount + "</td>";
                   temp1 += "<td>" + itemData.transactionMonth +"/"+itemData.transactionYear + "</td>";
                   // temp1+= "<td><button>Edit</button></td>";
+                  temp1+= `<td><img src="assets/edit-icon.png" alt="edit" class="img img-responsive edit-img"></td>`;
                   // temp1+= "<td><button>Delete</button></td>";
                   temp1 += "</tr>";
                 }
@@ -243,6 +247,7 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         }else{
           temp = `<tr>No data</tr>`;
+          temp1 = `<tr>No data</tr>`;
         }
           document.getElementById('data').innerHTML = temp;
           document.getElementById('data1').innerHTML = temp1;

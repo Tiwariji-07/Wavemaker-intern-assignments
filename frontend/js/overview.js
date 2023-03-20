@@ -72,7 +72,7 @@ var savings = 0;
 var accountIncome = document.getElementById('acc-income');
 var accountExpense = document.getElementById('acc-expense');
 var accountBalance = document.getElementById('balance');
-
+var expenseChartData = {};
 async function getTransactions(){
     var formDataObject = {};
 
@@ -96,8 +96,21 @@ async function getTransactions(){
                     income += itemData.creditAmount;
                     expense += itemData.debitAmount;
                     count=count+1;
-                    console.log(itemData.category);
-                    if(count <= 4){
+                    if("category" in itemData){
+                        // var catName = itemData.category.categoryName;
+                        if(itemData.category.categoryName in expenseChartData){
+                            var amount = expenseChartData[itemData.category.categoryName];
+                            expenseChartData[itemData.category.categoryName] = amount + itemData.debitAmount;
+                        }else{
+                            expenseChartData[itemData.category.categoryName] = 0;
+                            var amount = expenseChartData[itemData.category.categoryName];
+                            expenseChartData[itemData.category.categoryName] = amount + itemData.debitAmount;
+                        }
+                        // expenseChartData[itemData.category.categoryName]+=itemData.debitAmount;
+                    }
+                    console.log(expenseChartData);
+                    // console.log(itemData.category);
+                    if(count <= 8){
                         temp += "<tr>";
                         temp += "<td>" + count + "</td>";
                         temp += "<td>" + itemData.transactionType.transactionTypeName + "</td>";
@@ -121,12 +134,12 @@ async function getTransactions(){
                 temp = `<tr>No data</tr>`;
             }
         savings = income - expense;
-        var incomeData= `<h6>Income</h6>
-        <span>₹ ${income}</span>`;
-        var expenseData =`<h6>Expense</h6>
-        <span>₹ ${expense}</span>`;
-        var balanceData =`<h6>Saving</h6>
-        <span>₹ ${savings}</span>`;
+        var incomeData= `<h6>Total Income</h6>
+        <span>${income}</span>`;
+        var expenseData =`<h6>Total Expense</h6>
+        <span>${expense}</span>`;
+        var balanceData =`<h6>Savings</h6>
+        <span>${savings}</span>`;
         accountExpense.innerHTML = expenseData;
         accountIncome.innerHTML = incomeData;
         accountBalance.innerHTML = balanceData;
@@ -304,6 +317,57 @@ document.addEventListener('DOMContentLoaded', function() {
     console.log(budgetCard);
 }
 
+
+async function displayTranByCategoryChart(){
+    await getTransactions();
+    const ctx = document.getElementById('chartContainer');
+    var categories = Object.keys(expenseChartData);
+    console.log(categories);
+    var dataSet = [];
+    var dataSet1 = [];
+    categories.forEach((category)=>{
+        dataSet.push({data:expenseChartData[category],label:category,borderWidth: 1});
+        dataSet1.push(expenseChartData[category]);
+    });
+    console.log(dataSet);
+    // var chart = new CanvasJS.Chart("chartContainer", {
+    //     animationEnabled: true,
+    //     title:{
+    //         text: "Expense By Category",
+    //         horizontalAlign: "left"
+    //     },
+    //     data: [{
+    //         type: "doughnut",
+    //         startAngle: 60,
+    //         //innerRadius: 60,
+    //         indexLabelFontSize: 17,
+    //         indexLabel: "{label} - #percent%",
+    //         toolTipContent: "<b>{label}:</b> {y} (#percent%)",
+    //         dataPoints: dataSet
+    //     }]
+    // });
+    // chart.render();
+    new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+          labels: categories,
+          datasets: [{
+            label: 'Expense',
+            data: dataSet1,
+            borderWidth: 1
+          }]
+        },
+        options: {
+          scales: {
+            y: {
+              beginAtZero: true
+            }
+          }
+        }
+      });
+}
+
 // updateUser();
 
-getTransactions();
+
+displayTranByCategoryChart();

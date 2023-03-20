@@ -45,6 +45,7 @@ public class BillReminderServiceImpl implements BillReminderService {
         Session session = sessionFactory.openSession();
         Transaction transaction= session.beginTransaction();
         bill.setUserId(userId);
+        bill.setActive(true);
         List<Bill> bills = getAllReminders(userId);
         boolean exists=false;
         for(Bill bill1: bills){

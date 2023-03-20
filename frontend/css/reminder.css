@@ -5,6 +5,7 @@ body{
     background-image: linear-gradient(to bottom, #ddebf8, #bbdbf4, #95cbf0, #67bceb, #00ade5);
     overflow-x: hidden;
     /* min-height: 100vh; */
+    font-family: 'Lato', sans-serif;
     color: var(--primary-color);
 }
 
@@ -147,6 +148,21 @@ input{
 
 .transaction-page{
     min-height: 84vh;
+}
+
+.r-jumbotron{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 2em;
+}
+.result-img{
+  width: 52.5%;
+}
+
+.edit-img{
+  width: 1.5em;
 }
 
 footer{

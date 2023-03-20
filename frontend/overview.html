@@ -4,7 +4,10 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Overview</title>
+    <title>Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;0,900;1,300&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
     <link rel="stylesheet" href="bootstrap-3.3.7/dist/css/bootstrap.min.css">
     <!-- <link rel="stylesheet" href="css/budget.css"> -->
@@ -25,7 +28,7 @@
                 <div class="collapse navbar-collapse nav-tabs">
                     <ul class="nav navbar-nav navbar-right">
                         <li>
-                            <a href="overview.html">Overview</a>
+                            <a href="overview.html">Dashboard</a>
                         </li>
                         <li>
                             <a href="reminder.html">Reminders</a>
@@ -106,8 +109,51 @@
         
     </section> -->
     <section >
-        <h1 class="container overview-heading">Overview</h1>
+        <h1 class="container overview-heading">Dashboard</h1>
         <section class="container">
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="jumbotron">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <img src="assets/green-rupee.png" alt="gr" class="img img-responsive rupee-icon">
+                            </div>
+                            <div class="col-sm-8 info" id="acc-income">
+                                <h6>Total Income</h6>
+                                <span>₹ 1000</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="jumbotron">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <img src="assets/red-rupee.png" alt="gr" class="img img-responsive rupee-icon">
+                            </div>
+                            <div class="col-sm-8 info" id="acc-expense">
+                                <h6>Total Expense</h6>
+                                <span>₹ 1000</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="jumbotron">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <img src="assets/blue-rupee.png" alt="gr" class="img img-responsive rupee-icon">
+                            </div>
+                            <div class="col-sm-8 info" id="balance">
+                                <h6>Savings</h6>
+                                <span>₹ 1000</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- <section class="container">
             <div class="jumbotron">
                 <div class="row">
                     <div class="col-md-7 col-xs-11 accounts">
@@ -139,11 +185,11 @@
                             </div>
                         </div>
                     </div>
-                    <!-- <div class="col-xs-12 visible-xs-* line"></div> -->
+                    
                     <div class="col-md-5 col-xs-11 overview-right">
                         <h2>Budget Data</h2>
                         <h3 class="amount-left">1800</h3>
-                        <!-- <h4>left</h4> -->
+                    
                         <div class="spending">
                             <div class="spending-bar" id="spending-bar"></div>
                         </div>
@@ -157,6 +203,36 @@
                 </div>
             </div>
 
+        </section> -->
+        <section class="container">
+            <div class="row">
+                <div class="col-md-5 col-xs-12">
+                    <div class="jumbotron">
+                        <h3 style="padding-bottom: .6em;">Expense By Category</h3>
+                        <canvas id="chartContainer" ></canvas>
+                    </div>
+                </div>
+                <div class="col-md-7 col-xs-12">
+                    <div class="jumbotron transactions">
+                        <h3>Transactions</h3>
+                        <table class="table">
+                            <thead>
+                              <tr>
+                                <th>S No</th>
+                                <th>Type</th>
+                                <th>Category</th>
+                                <th>Debit</th>
+                                <th>Credit</th>
+                                <th>Date</th>
+                              </tr>
+                            </thead>
+                            <tbody id="transaction-data">
+                        
+                            </tbody>
+                          </table>
+                    </div>
+                </div>
+            </div>
         </section>
         <section class="container">
             <div class="row">
@@ -236,7 +312,9 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.3/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="bootstrap-3.3.7/dist/js/bootstrap.min.js"></script>
-    <script src="js/overview.js"></script>
+    <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <!-- <script src="js/budget.js"></script> -->
+    <script src="js/overview.js"></script>
 </body>
 </html>
