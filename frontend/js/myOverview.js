@@ -1,10 +1,29 @@
+//const url = 'http://18.191.127.230:8080/finwise/services/'
+const url = 'http://localhost:8080/finwise/services/'
+
+//to change the theme
+const savedTheme = localStorage.getItem('selected-theme');
+document.documentElement.setAttribute("data-selected-theme", savedTheme);
+console.log(savedTheme);
+console.log(document.documentElement.getAttribute("data-selected-theme"));
+
 if(sessionStorage.getItem("loggedIn") != "true"){
     window.location.href = "index.html";
 }
-
+function logout(){
+    sessionStorage.setItem('userId',0);
+    sessionStorage.setItem('loggedIn','false')
+    window.location.href = "index.html";
+}
 const userId = sessionStorage.getItem('userId');
 
-console.log(sessionStorage.getItem("userId"));
+const monthControl = document.querySelector('#budgetMonth');
+const dateX= new Date()
+const monthX=("0" + (dateX.getMonth() + 1)).slice(-2)
+const yearX=dateX.getFullYear()
+monthControl.value = `${yearX}-${monthX}`;
+
+// console.log(sessionStorage.getItem("userId"));
 
 function openUserDetailsForm() {
     document.getElementById("user-detail-page").style.display = "flex";
@@ -50,14 +69,17 @@ function formatDate(date) {
     return [year, month, day].join('-');
 }
 var activeDates = [];
+
+var pendingAmt = document.getElementById('pending-amount');
 async function showReminders(currMonth,currYear){
     var formDataObject = {};
     var flag = true;
+    var pendingAmount=0;
     formDataObject.month = currMonth;
     formDataObject.year = currYear;
-    console.log(formDataObject);
+    // console.log(formDataObject);
     let formDataJsonString = JSON.stringify(formDataObject);
-    await fetch(`http://localhost:8080/finwise/${userId}/reminder/period`, {
+    await fetch(url+`${userId}/reminder/period`, {
     method:'POST', 
     headers: {
         "Content-Type": "application/json",
@@ -68,16 +90,16 @@ async function showReminders(currMonth,currYear){
     .then((data) => {
         var count = 0;
         
-        console.log(data.length);
+        // console.log(data.length);
         // clg
         if(data.length !=0){
             var temp="";
             data.forEach((itemData) => {
-                console.log(itemData);
+                // console.log(itemData);
                 count=count+1;
                 var recurringDate;
                 var rd;
-                
+                pendingAmount+=itemData.billAmount;
                 // if(itemData.isRecurring){
                 //     var d = new Date(formatDate(itemData.reminderDate)).getDate();
                 //     console.log(d);
@@ -94,6 +116,7 @@ async function showReminders(currMonth,currYear){
                 //     }
                 // }else{
                     rd = itemData.reminderDate;
+
                 // // }
                 // temp += "<tr>";
                 // temp += "<td>" + count + "</td>";
@@ -122,25 +145,30 @@ async function showReminders(currMonth,currYear){
         //     document.getElementsByClassName('r-jumbotron')[0].innerHTML = temp;
         // }
     })
+    var pendingData =`<h6>Pending</h6>
+        <span>${pendingAmount}</span>`;
+        pendingAmt.innerHTML = pendingData;
     
     
 }
 
 
-var income = 0;
-var expense = 0;
-var savings = 0;
+
 var accountIncome = document.getElementById('acc-income');
 var accountExpense = document.getElementById('acc-expense');
 var accountBalance = document.getElementById('balance');
 var expenseChartData = {};
-async function getTransactions(){
+async function getTransactions(currMonth,currYear){
+    var income = 0;
+var expense = 0;
+var savings = 0;
+expenseChartData = {};
     var formDataObject = {};
 
-    formDataObject.month = month;
-        formDataObject.year = year;
+    formDataObject.month = currMonth;
+        formDataObject.year = currYear;
     let formDataJsonString = JSON.stringify(formDataObject);
-    await fetch(`http://localhost:8080/finwise/${userId}/transactions/period`, {
+    await fetch(url+`${userId}/transactions/period`, {
         method:'POST', 
         headers: {
             "Content-Type": "application/json",
@@ -154,10 +182,11 @@ async function getTransactions(){
             if(data.length != 0){
                 data.forEach((itemData) => {
                     // var category = getCategory(itemData.categoryId);
+                    // console.log(itemData);
                     income += itemData.creditAmount;
                     expense += itemData.debitAmount;
                     count=count+1;
-                    if("category" in itemData){
+                    if("transactionType" in itemData && itemData.transactionType.transactionTypeId==2){
                         // var catName = itemData.category.categoryName;
                         if(itemData.category.categoryName in expenseChartData){
                             var amount = expenseChartData[itemData.category.categoryName];
@@ -177,7 +206,7 @@ async function getTransactions(){
                         temp += "<td>" + itemData.transactionType.transactionTypeName + "</td>";
                         // var category = itemData.category;
                         if(!("category" in itemData)){
-                            console.log(itemData);
+                            // console.log(itemData);
                             temp += "<td>" + "-" + "</td>";
                         }else{
                             temp += "<td>" + itemData.category.categoryName + "</td>";
@@ -195,17 +224,18 @@ async function getTransactions(){
                 temp = `<tr>No data</tr>`;
             }
         savings = income - expense;
-        var incomeData= `<h6>Total Income</h6>
+        var incomeData= `<h6>Income</h6>
         <span>${obj1.format(income)}</span>`;
-        var expenseData =`<h6>Total Expense</h6>
+        var expenseData =`<h6>Expense</h6>
         <span>${obj1.format(expense)}</span>`;
-        var balanceData =`<h6>Savings</h6>
+        var balanceData =`<h6>Balance</h6>
         <span>${obj1.format(savings)}</span>`;
         accountExpense.innerHTML = expenseData;
         accountIncome.innerHTML = incomeData;
         accountBalance.innerHTML = balanceData;
         document.getElementById('transaction-data').innerHTML = temp;
     })
+    return expenseChartData;
 }
 
 // function displayUser(){
@@ -287,14 +317,19 @@ async function getTransactions(){
 //     });
 // }
 
-document.addEventListener('DOMContentLoaded', function() {
+function showBudget(currMonth,currYear) {
+    budgetList.innerHTML = "";
+    var totalAmount=0;
+            var spentAmount=0;
+            var remainingAmount=0;
+            var count=0;
     var formDataObject = {};
-    formDataObject.month = month;
-        formDataObject.year = year;
+    formDataObject.month = currMonth;
+        formDataObject.year = currYear;
     let formDataJsonString = JSON.stringify(formDataObject);
 
-        console.log(formDataJsonString);
-        fetch(`http://localhost:8080/finwise/${userId}/budget/period`, {
+        // console.log(formDataJsonString);
+        fetch(url+`${userId}/budget/period`, {
             method:'POST', 
             //Set the headers that specify you're sending a JSON body request and accepting JSON response
         headers: {
@@ -304,15 +339,17 @@ document.addEventListener('DOMContentLoaded', function() {
             body: formDataJsonString
         }).then((response)=> response.json())
         .then((data)=>{
-            var totalAmount=0;
-            var spentAmount=0;
-            var remainingAmount=0;
+            
             data.forEach((itemData) => {
+                count+=1;
                 totalAmount += itemData.budgetAmount;
                 spentAmount += itemData.spentAmount;
-                console.log(itemData);
-                console.log(totalAmount+" "+spentAmount);
-                setEachCard(itemData);
+                // console.log(itemData);
+                // console.log(totalAmount+" "+spentAmount);
+                if(count<=4){
+                    setEachCard(itemData);
+                }
+                
             })
             remainingAmount = totalAmount - spentAmount;
             var percentage = (spentAmount / totalAmount) * 100;
@@ -320,18 +357,18 @@ document.addEventListener('DOMContentLoaded', function() {
                 percentage = 100;
                 spendingBar.style.borderRadius= "1em";
             }
-            amountLeft.innerHTML = `₹ ${remainingAmount} left`;
-            spending.innerHTML = obj1.format(spentAmount);
-            total.innerHTML = obj1.format(totalAmount);
-            spendingBar.style.width = percentage+"%";
-        console.log(totalAmount+" "+spentAmount+" "+remainingAmount);
+        //     amountLeft.innerHTML = `₹ ${remainingAmount} left`;
+        //     spending.innerHTML = obj1.format(spentAmount);
+        //     total.innerHTML = obj1.format(totalAmount);
+        //     spendingBar.style.width = percentage+"%";
+        // console.log(totalAmount+" "+spentAmount+" "+remainingAmount);
         })
- }, false);
+ };
 
  function setEachCard(budget){
     
     var budgetCard = document.createElement('div');
-    budgetCard.classList.add('col-sm-5','col-xs-12','budget-card');
+    budgetCard.classList.add('col-sm-12','col-xs-12','budget-card');
     var categoryName = document.createElement('h4');
     var spending = document.createElement('div');
     spending.classList.add('spending-c');
@@ -375,68 +412,59 @@ document.addEventListener('DOMContentLoaded', function() {
                     </div>`
     budgetCard.insertAdjacentHTML('beforeend',barFooter);
     budgetList.appendChild(budgetCard);
-    console.log(budgetCard);
+    // console.log(budgetCard);
 }
 
 
-async function displayTranByCategoryChart(){
-    await getTransactions();
+async function displayTranByCategoryChart(currMonth,currYear){
+    await getTransactions(currMonth,currYear);
     const ctx = document.getElementById('chartContainer');
     var categories = Object.keys(expenseChartData);
-    console.log(categories);
+    // console.log(categories);
     var dataSet = [];
     var dataSet1 = [];
     categories.forEach((category)=>{
         dataSet.push({data:expenseChartData[category],label:category,borderWidth: 1});
         dataSet1.push(expenseChartData[category]);
     });
-    console.log(dataSet);
-    // var chart = new CanvasJS.Chart("chartContainer", {
-    //     animationEnabled: true,
-    //     title:{
-    //         text: "Expense By Category",
-    //         horizontalAlign: "left"
-    //     },
-    //     data: [{
-    //         type: "doughnut",
-    //         startAngle: 60,
-    //         //innerRadius: 60,
-    //         indexLabelFontSize: 17,
-    //         indexLabel: "{label} - #percent%",
-    //         toolTipContent: "<b>{label}:</b> {y} (#percent%)",
-    //         dataPoints: dataSet
-    //     }]
-    // });
-    // chart.render();
+    // console.log(dataSet);
+    let chartStatus = Chart.getChart("chartContainer"); // <canvas> id
+    if (chartStatus != undefined) {
+    chartStatus.destroy();
+    }
     new Chart(ctx, {
         type: 'doughnut',
         data: {
           labels: categories,
           datasets: [{
-            label: 'Expense',
+            label: 'Expense ₹',
             data: dataSet1,
             borderWidth: 1
           }]
         },
-        options: {
-          scales: {
-            y: {
-              beginAtZero: true
-            }
-          }
-        }
+        // options: {
+        //   scales: {
+        //     y: {
+        //       beginAtZero: true
+        //     }
+        //   }
+        // }
       });
 }
 
 // updateUser();
-// function calender(){
+function calender(currMonth,currYear){
     const daysTag = document.querySelector(".days"),
     currentDate = document.querySelector(".current-date"),
     prevNextIcon = document.querySelectorAll(".icons span");
     // getting new date, current year and month
-    let dateNew = new Date(),
-    currYear = dateNew.getFullYear(),
-    currMonth = dateNew.getMonth();
+    // let dateNew = new Date(),
+    // currYear = dateNew.getFullYear(),
+    // currMonth = dateNew.getMonth();
+    // var dateNew = monthControl.value;
+    // var currYear = dateNew.split("-")[0];
+    // var currMonth = dateNew.split("-")[1]-1;
+    // console.log(currYear+currMonth);
     // storing full name of all months in array
     const months = ["January", "February", "March", "April", "May", "June", "July",
                 "August", "September", "October", "November", "December"];
@@ -461,21 +489,21 @@ async function displayTranByCategoryChart(){
             //     }
             activeDates.forEach((bill)=>{
                 var date1 = new Date(bill[2]);
-                // console.log(date1);
-                if(i === date1.getDate() && currMonth === date1.getMonth()
-                        && currYear === date1.getFullYear()){
+                console.log(date1.getMonth());
+                if(i == date1.getDate() && currMonth == date1.getMonth()
+                        && currYear == date1.getFullYear()){
                             isToday = "active";
                             props = `data-trigger="hover" data-toggle="popover" title="Bill Name: ${bill[0]}\n\nAmount: ₹${bill[1]}" data-content="${bill[1]}"`
                 }
             });
-            if(i === new Date().getDate() && currMonth === new Date().getMonth() 
-                && currYear === new Date().getFullYear()){
+            if(i == new Date().getDate() && currMonth == new Date().getMonth() 
+                && currYear == new Date().getFullYear()){
                     isToday = "present"
                     // props = "";
                 }
             
             
-            console.log(props);
+            // console.log(props);
             liTag += `<li class="${isToday}" ${props}>${i}</li>`;
         }
         for (let i = lastDayofMonth; i < 6; i++) { // creating li of next month first days
@@ -486,22 +514,41 @@ async function displayTranByCategoryChart(){
         daysTag.innerHTML = liTag;
     }
     renderCalendar();
-    prevNextIcon.forEach(icon => { // getting prev and next icons
-        icon.addEventListener("click", () => { // adding click event on both icons
-            // if clicked icon is previous icon then decrement current month by 1 else increment it by 1
-            currMonth = icon.id === "prev" ? currMonth - 1 : currMonth + 1;
-            if(currMonth < 0 || currMonth > 11) { // if current month is less than 0 or greater than 11
-                // creating a new date of current year & month and pass it as date value
-                dateNew = new Date(currYear, currMonth, new Date().getDate());
-                currYear = dateNew.getFullYear(); // updating current year with new date year
-                currMonth = dateNew.getMonth(); // updating current month with new date month
-            } else {
-                dateNew = new Date(); // pass the current date as date value
-            }
-            renderCalendar(); // calling renderCalendar function
+    // prevNextIcon.forEach(icon => { // getting prev and next icons
+    //     icon.addEventListener("click", () => { // adding click event on both icons
+    //         // if clicked icon is previous icon then decrement current month by 1 else increment it by 1
+    //         currMonth = icon.id === "prev" ? currMonth - 1 : currMonth + 1;
+    //         if(currMonth < 0 || currMonth > 11) { // if current month is less than 0 or greater than 11
+    //             // creating a new date of current year & month and pass it as date value
+    //             dateNew = new Date(currYear, currMonth, new Date().getDate());
+    //             currYear = dateNew.getFullYear(); // updating current year with new date year
+    //             currMonth = dateNew.getMonth(); // updating current month with new date month
+    //         } else {
+    //             dateNew = new Date(); // pass the current date as date value
+    //         }
+    //         renderCalendar(); // calling renderCalendar function
             
-        });
-    });
-// }
+    //     });
+    // });
+}
 
-displayTranByCategoryChart();
+monthControl.addEventListener('change', (e)=>{
+    var dateNew = monthControl.value;
+    var currYear = dateNew.split("-")[0];
+    var currMonth = dateNew.split("-")[1]-1;
+    calender(currMonth,currYear);
+    // getTransactions(currMonth+1,currYear);
+    showBudget(currMonth+1,currYear);
+    displayTranByCategoryChart(currMonth+1,currYear);
+})
+
+document.addEventListener('DOMContentLoaded', function() {
+    var dateNew = monthControl.value;
+    var currYear = dateNew.split("-")[0];
+    var currMonth = dateNew.split("-")[1]-1;
+    calender(currMonth,currYear);
+    // var expenseChartData =  getTransactions(currMonth+1,currYear);
+    // console.log(expenseChartData);
+    showBudget(currMonth+1,currYear);
+    displayTranByCategoryChart(currMonth+1,currYear);
+})

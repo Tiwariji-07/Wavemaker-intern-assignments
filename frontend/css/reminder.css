@@ -1,19 +1,150 @@
+
+:root {
+  --border-radius: 3px;
+}
+
+:root,
+[data-selected-theme="green"] {
+  --primary-color: #002B5B;
+  --secondary-color: #159895;
+  --third-color: #b3ebe3;
+  --bg-c:linear-gradient(to top, #159895, #4caca7, #71c1ba, #93d6ce, #b3ebe3);
+  --jumbotron-color:white;
+}
+
+[data-selected-theme="blue"] {
+  --primary-color: #2f486a;
+  --secondary-color: #00ade5;
+  --third-color: #ddebf8;
+  --bg-c: linear-gradient(to bottom, #ddebf8, #bbdbf4, #95cbf0, #67bceb, #00ade5);
+  --jumbotron-color:white;
+}
+
+[data-selected-theme="pink"] {
+  --primary-color: #DFB2F4;
+  --secondary-color: #463546;
+  --third-color: #F06EFC;
+  --jumbotron-color:white;
+}
+
+[data-selected-theme="orange"] {
+  --primary-color: #FA7D61;
+  --secondary-color: #1E1E24;
+  --third-color: #F3601C;
+  --jumbotron-color:white;
+}
+[data-selected-theme="violet"] {
+  --primary-color: #393053;
+  --secondary-color: #443C68;
+  --third-color: #a7a3b7;
+  --bg-c: linear-gradient(to top, #443c68, #5c547b, #746e8f, #8d88a3, #a7a3b7);
+  --jumbotron-color:white;
+}
+[data-selected-theme="dark"] {
+  --primary-color: white;
+  --secondary-color: #929292;
+  --third-color: #1F1F1F;
+  --bg-c: #000101;
+  --jumbotron-color:#1F1F1F;
+}
+
+
 body{
-    --primary-color :#2f486a;
+    /* --primary-color :#2f486a;
     --secondary-color : #00ade5;
-    --third-color : #ddebf8;
-    background-image: linear-gradient(to bottom, #ddebf8, #bbdbf4, #95cbf0, #67bceb, #00ade5);
+    /* --third-color : #ddebf8; */
+    background-image: var(--bg-c);
+    background-color: var(--bg-c);
     overflow-x: hidden;
     /* min-height: 100vh; */
     font-family: 'Lato', sans-serif;
     color: var(--primary-color);
-    /* min-height: 140vh; */
+    min-height: 100vh;
+}
+
+
+
+
+.side-navbar{
+  padding-top: 2em;
+  /* border: 1px solid red; */
+  position: fixed;
+  z-index: 2;
+  /* right: 0;
+  left: 0; */
+  width: 20%;
+}
+@media only screen and (max-width: 767px) {
+  .side-navbar{
+      display: none;
+  }
+}
+
+.s-jumbotron{
+  padding: 1em !important;
+  height: 85vh;
+  /* width: 100%; */
+  /* From https://css.glass */
+background: rgba(255, 255, 255, 0.2);
+border-radius: 16px;
+box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+backdrop-filter: blur(5px);
+-webkit-backdrop-filter: blur(5px);
+border: 1px solid rgba(255, 255, 255, 0.3);
+}
+.side-nav{
+  color: var(--primary-color);
+  /* border: 1px solid red; */
+  
+}
+
+.s-heading{
+  background-color: var(--third-color);
+  padding: 1em;
+  border-radius: 1em;
+}
+.s-row{
+  width: 100%;
+}
+
+.s-nav{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 1em;
+  /* border: 1px solid red; */
+}
+
+.s-nav a{
+  text-decoration: none;
+  font-size: 1.2em;
+  font-weight: 600;
+}
+.s-nav a span{
+  color: white;
+  background-color: var(--secondary-color);
+  border-radius: 20%;
+  padding: .2em;
+}
+.s-item{
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 1em;
+  width: 100%;
+  /* border: 1px solid red; */
+  padding-top:1em;
+  color: var(--primary-color);
 }
 
 .reminder-header{
+  /* width: 320px; */
     display: flex;
     justify-content:space-between;
     align-items: center;
+    padding-bottom: 10px;
+    /* gap: 2em; */
     /* border: 1px solid black; */
     
 }
@@ -27,17 +158,19 @@ body{
 
 .reminder-heading{
     color: var(--primary-color);
-    left: 0;
-    margin-left: 0;
+    /* left: 0;
+    margin-left: 0; */
     /* border: 1px solid black; */
 }
 
 .reminder-btn{
     /* font-size: 1.2em; */
-    height: 2.5em;
+    height: 2.4em;
     background-color: var(--secondary-color);
     color: white;
     border-radius: .5em;
+    margin-top: 1em;
+    /* padding-top: 0; */
 }
 
 .reminder-btn:hover,.reminder-btn:focus{
@@ -48,6 +181,7 @@ body{
 
 .tran-btns{
     display: flex;
+    justify-content: space-between;
     gap: 1em;
 }
 
@@ -75,15 +209,15 @@ body{
 .form-container {
     /* max-width: 320px; */
     padding: 2em;
-    background-color: white;
+    background-color: var(--jumbotron-color);
     display: flex;
     flex-direction: column;
     justify-content: center;
     border-radius: 20px;
     border: 1px solid var(--primary-color);
-    -webkit-box-shadow: 10px 18px 80px -2px rgba(47,72,106,1);
--moz-box-shadow: 10px 18px 80px -2px rgba(47,72,106,1);
-box-shadow: 10px 18px 80px -2px rgba(47,72,106,1);
+    -webkit-box-shadow: 10px 18px 80px -2px var(--secondary-color);
+-moz-box-shadow: 10px 18px 80px -2px var(--secondary-color);
+box-shadow: 10px 18px 80px -2px var(--secondary-color);
     /* gap: 1em; */
 }
 
@@ -101,6 +235,7 @@ box-shadow: 10px 18px 80px -2px rgba(47,72,106,1);
     align-items: flex-start;
     gap: .1em;
     flex-wrap: wrap;
+    background-color: var(--jumbotron-color);
 }
 
 input{
@@ -108,6 +243,8 @@ input{
     border-color: var(--secondary-color);
     outline: none;
     border-radius: .4em;
+    background-color: var(--jumbotron-color);
+    color: var(--primary-color);
 }
 
 .btn{
@@ -148,7 +285,7 @@ input{
 }
 
 .transaction-page{
-    min-height: 84vh;
+    min-height: 93.5vh;
 }
 
 .r-jumbotron{
@@ -166,10 +303,7 @@ input{
   width: 1.5em;
 }
 
-footer{
-    /* position: absolute;
-    bottom: 0; */
-}
+
 
 .my-alerts{
     display: none;
@@ -218,7 +352,7 @@ footer{
 }
 .wrapper{
   /* width: 450px; */
-  background: #fff;
+  background-color: #f4f4f494;
   border-radius: 10px;
   box-shadow: 0 15px 40px rgba(0,0,0,0.12);
   /* padding-bottom: 1em; */
@@ -315,7 +449,7 @@ footer{
 }
 .representation{
   display: flex;
-  flex-direction: column;
+  /* flex-direction: column; */
   gap: 1em;
 }
 .reps{
@@ -412,4 +546,119 @@ footer{
 
 .rem-img{
   height: 1em;
+}
+
+.rem-jumbotron{
+  min-height: 440px;
+  /* background-color: #f4f4f494 !important; */
+  /* overflow: auto; */
+  /* padding-top: 0;
+  padding: 1em !important;
+  margin: 0; */
+}
+
+.s-jumbotron{
+  padding: 1em !important;
+  height: 85vh;
+  /* width: 100%; */
+  /* From https://css.glass */
+background: rgba(255, 255, 255, 0.2);
+border-radius: 16px;
+box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+backdrop-filter: blur(5px);
+-webkit-backdrop-filter: blur(5px);
+border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.t-jumbotron{
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+backdrop-filter: blur(5px);
+min-height: 397px;
+}
+
+.jumbotron{
+  background-color: var(--jumbotron-color);
+}
+
+.side-navbar{
+  padding-top: 2em;
+  /* border: 1px solid red; */
+  position: fixed;
+  z-index: 2;
+  /* right: 0;
+  left: 0; */
+  width: 20%;
+}
+@media only screen and (max-width: 767px) {
+  .side-navbar{
+      display: none;
+  }
+}
+
+.s-jumbotron{
+  padding: 1em !important;
+  height: 85vh;
+  /* width: 100%; */
+  /* From https://css.glass */
+background: rgba(255, 255, 255, 0.2);
+border-radius: 16px;
+box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+backdrop-filter: blur(5px);
+-webkit-backdrop-filter: blur(5px);
+border: 1px solid rgba(255, 255, 255, 0.3);
+}
+.side-nav{
+  color: var(--primary-color);
+  /* border: 1px solid red; */
+  
+}
+
+.s-heading{
+  background-color: var(--third-color);
+  padding: 1em;
+  border-radius: 1em;
+}
+.s-row{
+  width: 100%;
+}
+
+.s-nav{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 1em;
+  /* border: 1px solid red; */
+}
+
+.s-nav a{
+  text-decoration: none;
+  font-size: 1.2em;
+  font-weight: 600;
+}
+.s-nav a span{
+  color: white;
+  background-color: var(--secondary-color);
+  border-radius: 20%;
+  padding: .2em;
+}
+.s-item{
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 1em;
+  width: 100%;
+  /* border: 1px solid red; */
+  padding-top:1em;
+  color: var(--primary-color);
+}
+
+.layer{
+  display: none;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  z-index: 3;
+  background-color: var(--primary-color);
+  opacity: .4;
 }

@@ -1,3 +1,10 @@
+//const url = 'http://18.191.127.230:8080/finwise/services/'
+const url = 'http://localhost:8080/finwise/services/'
+
+//to change the theme
+const savedTheme = localStorage.getItem('selected-theme');
+document.documentElement.setAttribute("data-selected-theme", savedTheme);
+
 if(sessionStorage.getItem("loggedIn") != "true"){
     window.location.href = "index.html";
 }
@@ -63,7 +70,8 @@ function closeCategoryForm(){
 
 function getAllbudget(){
     const form1 = document.getElementById('periodForm');
-    form1.addEventListener('submit', (e)=>{
+    const budgetInput = document.getElementById('budgetMonth');
+    budgetInput.addEventListener('change', (e)=>{
         loading();
         setTimeout(loaded,1000);
         e.preventDefault();
@@ -84,7 +92,7 @@ function getAllbudget(){
         let formDataJsonString = JSON.stringify(formDataObject);
 
         console.log(formDataJsonString);
-        fetch(`http://localhost:8080/finwise/${userId}/budget/period`, {
+        fetch(url+`${userId}/budget/period`, {
             method:'POST', 
             //Set the headers that specify you're sending a JSON body request and accepting JSON response
         headers: {
@@ -130,7 +138,7 @@ document.addEventListener('DOMContentLoaded', function() {
     let formDataJsonString = JSON.stringify(formDataObject);
 
         console.log(formDataJsonString);
-        fetch(`http://localhost:8080/finwise/${userId}/budget/period`, {
+        fetch(url+`${userId}/budget/period`, {
             method:'POST', 
             //Set the headers that specify you're sending a JSON body request and accepting JSON response
         headers: {
@@ -226,7 +234,7 @@ const getCategories = async () => {
     let formDataJsonString = JSON.stringify(formDataObject);
 
     console.log(formDataJsonString);
-    const response =await fetch(`http://localhost:8080/finwise/${userId}/category`, {
+    const response =await fetch(url+`${userId}/category`, {
         method:'GET', 
           //Set the headers that specify you're sending a JSON body request and accepting JSON response
         headers: {
@@ -279,7 +287,7 @@ async function addBudget(){
         // Format the plain form data as JSON
         let formDataJsonString = JSON.stringify(formDataObject);
         console.log(formDataJsonString);
-        fetch(`http://localhost:8080/finwise/${userId}/budget/create`, {
+        fetch(url+`${userId}/budget/create`, {
             method:'POST', 
             //Set the headers that specify you're sending a JSON body request and accepting JSON response
         headers: {
@@ -314,7 +322,7 @@ function addCategory(){
         // Format the plain form data as JSON
         let formDataJsonString = JSON.stringify(formDataObject);
         console.log(formDataJsonString);
-        fetch(`http://localhost:8080/finwise/${userId}/category/create`, {
+        fetch(url+`${userId}/category/create`, {
             method:'POST', 
             //Set the headers that specify you're sending a JSON body request and accepting JSON response
         headers: {

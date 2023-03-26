@@ -1,4 +1,5 @@
-
+//const url = 'http://18.191.127.230:8080/finwise/services/'
+const url = 'http://localhost:8080/finwise/services/'
 function showRegister(){
   document.getElementById('register-page').style.display="flex";
   document.getElementsByClassName('layer')[0].style.display="block";
@@ -23,7 +24,7 @@ form1.addEventListener('submit', (e)=>{
     let formDataJsonString = JSON.stringify(formDataObject);
 
     // console.log(formDataJsonString);
-    fetch('http://localhost:8080/finwise/user/create', {
+    fetch(url+'user/create', {
         method:'POST', 
          //Set the headers that specify you're sending a JSON body request and accepting JSON response
     headers: {

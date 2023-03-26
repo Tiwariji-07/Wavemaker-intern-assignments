@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,400,0,0" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,400,0,0" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,400,0,0" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,400,0,0" />
     <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;0,900;1,300&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
@@ -19,9 +20,10 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
     <!-- <link rel="stylesheet" href="bootstrap-3.3.7/dist/css/bootstrap.min.css"> -->
-    <link rel="stylesheet" href="css/reminder.css">
+    
     <link rel="stylesheet" href="css/overview.css">
-    <link rel="stylesheet" href="css/index.css">
+    <!-- <link rel="stylesheet" href="css/index.css"> -->
+    <link rel="stylesheet" href="css/reminder.css">
     
 </head>
 <body>
@@ -30,12 +32,12 @@
     <div class="my-alerts">
         <div class="alert alert-success message" role="alert">Successfully done !!</div>
     </div>
-    <header>
+    <!-- <header>
         <nav class="navbar heading">
             <div class="container">
                 <div class="navbar-header">
                     <a class="navbar-brand" href="index.html">
-                        <!-- <img src="assets/finwise-logo.png" alt="FinWise" class="finwise-logo"> -->
+                        
                         <b>Finwise.</b>
                     </a>
                 </div>
@@ -66,84 +68,192 @@
                 </div>  
             </div>
         </nav>
-    </header>
-    <section class="transaction-page">
-        <section class="container">
-            <div class="reminder-header">
-                <h1 class="reminder-heading">Reminders</h1>
-                <button class="btn reminder-btn" onclick="openForm()">Add reminder</button>
-            </div>
-        </section>
-        <section class="container" style="padding-bottom: 3em;">
-            <!-- <a href="#" data-toggle="popover" title="Popover Header" data-content="Some content inside the popover">Toggle popover</a> -->
-            <!-- <a data-toggle="popover" data-trigger="hover" data-placement="right" data-content="Now hover out.">
-                jj
-              </a> -->
-            <div class="row">
-                <div class="col-md-6 col-xs-12 calculator">
-                    <!-- calender -->
-                    <div class="wrapper">
-                        <div class="cal-head">
-                            <p class="current-date"></p>
-                            <div class="icons">
-                            <span id="prev" class="material-symbols-rounded">chevron_left</span>
-                            <span id="next" class="material-symbols-rounded">chevron_right</span>
+    </header> -->
+    <section class="transaction-page container-fluid">
+        <div class="row">
+            <div class="col-sm-3 hidden-xs">
+                <section class="side-navbar">
+                    <div class="jumbotron s-jumbotron">
+                        <div class="side-nav">
+                            <div class="s-heading">
+                                <h3><b><a href="index.html">Finwise</a></b></h3>
+                            </div>
+                            <div class="s-nav">
+                                <!-- <div class="col-xs-2"> -->
+                                    <a class="s-row" href="overview.html">
+                                    <div class="s-item">
+                                            <!-- <img src="assets/dashboard.png" alt="dashboard" class="nav-img"> -->
+                                            <span class="material-symbols-rounded">
+                                                dashboard
+                                            </span>
+                                        
+                                        Dashboard
+                                    </div>
+                                </a>
+                                <!-- </div>
+                                <div class="col-xs-2"> -->
+                                    <a class="s-row" href="reminder.html">
+                                    <div class="s-item">
+                                        
+                                            <!-- <img src="assets/reminder.png" alt="dashboard" class="nav-img rem-img"> -->
+                                            <span class="material-symbols-rounded">
+                                                event
+                                                </span>
+                                        
+                                        Reminders
+                                    </div>
+                                </a>
+                                <!-- </div>
+                                <div class="col-xs-2"> -->
+                                    <a class="s-row" href="budget.html">
+                                    <div class="s-item">
+                                        
+                                            <!-- <img src="assets/budget.png" alt="dashboard" class="nav-img"> -->
+                                            <span class="material-symbols-rounded">
+                                                savings
+                                                </span>
+                                        
+                                        Budget
+                                    </div>
+                                </a>
+                                <!-- </div> -->
+                                <!-- <div class="col-xs-2"> -->
+                                    <a class="s-row" href="transactions.html">
+                                    <div class="s-item">
+                                        
+                                            <!-- <img src="assets/transaction.png" alt="dashboard" class="nav-img"> -->
+                                            <span class="material-symbols-rounded">
+                                                sync_alt
+                                                </span>
+                                        
+                                        Transaction
+                                    </div>
+                                </a>
+                                <!-- </div> -->
+                                <!-- <div class="col-xs-2"> -->
+                                    <a class="s-row" href="user.html">
+                                    <div class="s-item">
+                                        
+                                            <!-- <img src="assets/profile.png" alt="profile" class="nav-img"> -->
+                                            <span class="material-symbols-rounded">
+                                                person
+                                                </span>
+                                        
+                                        Profile
+                                    </div>
+                                </a>
+                                <a class="s-row" href="settings.html">
+                                    <div class="s-item">
+                                        
+                                            <!-- <img src="assets/profile.png" alt="profile" class="nav-img"> -->
+                                            <span class="material-symbols-rounded">
+                                                settings
+                                                </span>
+                                        
+                                        Settings
+                                    </div>
+                                </a>
+                                <!-- </div> -->
+                                <a class="s-row" onclick="logout()">
+                                    <!-- <button onclick="logout()"> -->
+                                    <div class="s-item">
+                                        
+                                            <!-- <img src="assets/profile.png" alt="profile" class="nav-img"> -->
+                                            <span class="material-symbols-rounded">
+                                                logout
+                                                </span>
+                                        
+                                        Logout
+                                    </div>
+                                <!-- </button> -->
+                                </a>
                             </div>
                         </div>
-                        <div class="calendar">
-                            <ul class="weeks">
-                            <li>Sun</li>
-                            <li>Mon</li>
-                            <li>Tue</li>
-                            <li>Wed</li>
-                            <li>Thu</li>
-                            <li>Fri</li>
-                            <li>Sat</li>
-                            </ul>
-                            <ul class="days"></ul>
-                        </div>
                     </div>
-                
-                </div>
-                <div class="col-md-6 col-xs-12">
-                    <div class="jumbotron r-jumbotron">
-                        <!-- <div class="table-responsive"> -->
-                            <table class="table table-hover table-condensed">
-                                <thead>
-                                  <tr>
-                                    <th>S No</th>
-                                    <th>Bill Id</th>
-                                    <th>Bill Name</th>
-                                    <th>Date</th>
-                                    <th>Amount</th>
-                                    <!-- <th>Edit</th>
-                                    <th>Delete</th> -->
-                                  </tr>
-                                </thead>
-                                <tbody id="data" class="reminder-table">
-                                </tbody>
-                            </table>
-                            <div class="representation">
-                                <!-- <div class="reps">
-                                    <div class="rep1"></div>
-                                    Completed reminders 
-                                </div> -->
-                                <div class="reps">
-                                    <div class="rep3"></div>
-                                    Current date 
+                </section>
+            </div>
+            <div class="col-sm-9">
+                <section>
+                    <!-- <div class="row"> -->
+                    <div class="reminder-header">
+                        <h1 class="reminder-heading">Reminders</h1>
+                        <button class="btn reminder-btn" onclick="openForm()">Add reminder</button>
+                    </div>
+                <!-- </div> -->
+                </section>
+                <section>
+                    <!-- <a href="#" data-toggle="popover" title="Popover Header" data-content="Some content inside the popover">Toggle popover</a> -->
+                    <!-- <a data-toggle="popover" data-trigger="hover" data-placement="right" data-content="Now hover out.">
+                        jj
+                      </a> -->
+                    <div class="row">
+                        <div class="col-md-5 col-xs-12 calculator">
+                            <!-- calender -->
+                            <div class="wrapper">
+                                <div class="cal-head">
+                                    <p class="current-date"></p>
+                                    <div class="icons">
+                                    <span id="prev" class="material-symbols-rounded">chevron_left</span>
+                                    <span id="next" class="material-symbols-rounded">chevron_right</span>
+                                    </div>
                                 </div>
-                                <div class="reps">
-                                    <div class="rep2"></div>
-                                    Upcoming reminders
+                                <div class="calendar">
+                                    <ul class="weeks">
+                                    <li>Sun</li>
+                                    <li>Mon</li>
+                                    <li>Tue</li>
+                                    <li>Wed</li>
+                                    <li>Thu</li>
+                                    <li>Fri</li>
+                                    <li>Sat</li>
+                                    </ul>
+                                    <ul class="days"></ul>
                                 </div>
+                                <div class="representation">
+                                    <!-- <div class="reps">
+                                        <div class="rep1"></div>
+                                        Completed reminders 
+                                    </div> -->
+                                    <div class="reps">
+                                        <div class="rep3"></div>
+                                        Current date 
+                                    </div>
+                                    <div class="reps">
+                                        <div class="rep2"></div>
+                                        Upcoming reminders
+                                    </div>
+                                </div>
+                            </div>
+                        
+                        </div>
+                        <div class="col-md-7 col-xs-12">
+                            <div class="jumbotron rem-jumbotron">
+                                <!-- <div class="table-responsive"> -->
+                                    <table class="table table-hover table-condensed">
+                                        <thead>
+                                          <tr>
+                                            <th>S No</th>
+                                            <th>Bill Id</th>
+                                            <th>Bill Name</th>
+                                            <th>Date</th>
+                                            <th>Amount</th>
+                                            <!-- <th>Edit</th>
+                                            <th>Delete</th> -->
+                                          </tr>
+                                        </thead>
+                                        <tbody id="data" class="reminder-table">
+                                        </tbody>
+                                    </table>
+                                    
+                                    
+                                <!-- </div> -->
                             </div>
                             
-                        <!-- </div> -->
+                        </div>
                     </div>
-                    
-                </div>
+                </section>
             </div>
-        </section>
+        </div>
     </section>
     <section class="form-popup adding" id="myForm">
         <div class="add-reminder-form">
@@ -279,20 +389,20 @@
             </div>
         </div>
     </section>
-    <footer>
+    <!-- <footer>
         <div class="row">
             <div class="col container">
                 <p>© Copyright 2023 Finwise - All Rights Reserved</p>
             </div>
         </div>
-    </footer>
+    </footer> -->
 
     <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.3/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <!-- <script src="bootstrap-3.3.7/js/tooltip.js"></script>
     <script src="bootstrap-3.3.7/js/popover.js"></script> -->
     <script src="bootstrap-3.3.7/dist/js/bootstrap.min.js"></script>
-    <script src="js/reminder.js"></script>
+    <script src="js/myReminder.js"></script>
     <!-- <script src="js/overview.js"></script> -->
     <!-- <script type="text/javascript"
         src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js">

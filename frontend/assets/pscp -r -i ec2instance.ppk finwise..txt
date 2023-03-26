@@ -1,0 +1,3 @@
+pscp -r -i ec2instance.ppk finwise.war ubuntu@18.191.127.230:/tmp/
+
+cp -av /tmp/finwise.war .

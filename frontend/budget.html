@@ -12,11 +12,12 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,400,0,0" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,400,0,0" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,400,0,0" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,400,0,0" />
     <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;0,900;1,300&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
     <link rel="stylesheet" href="bootstrap-3.3.7/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/index.css">
-    <link rel="stylesheet" href="css/overview.css">
+    <!-- <link rel="stylesheet" href="css/index.css"> -->
+    <!-- <link rel="stylesheet" href="css/overview.css"> -->
     <link rel="stylesheet" href="css/loader.css">
     <link rel="stylesheet" href="css/budget.css">
 </head>
@@ -25,12 +26,11 @@
         <div class="justify-content-center jimu-primary-loading"></div>
     </div>
     <div class="layer"></div>
-    <header>
+    <!-- <header>
         <nav class="navbar heading">
             <div class="container">
                 <div class="navbar-header">
                     <a class="navbar-brand" href="index.html">
-                        <!-- <img src="assets/finwise-logo.png" alt="FinWise" class="finwise-logo"> -->
                         <b>Finwise.</b>
                     </a>
                 </div>
@@ -61,8 +61,8 @@
                 </div>  
             </div>
         </nav>
-    </header>
-    <section class="form-popup" id="add-budget-page">
+    </header> -->
+    <!-- <section class="form-popup" id="add-budget-page">
         <div class="add-budget-form">
             <form method="post" class="form-container" id="add-budget-form">
                 <div class="ac-form">
@@ -81,24 +81,12 @@
                             
                         </select>
                     </div>
-                    <!-- <div class="recurring-buttons grp">
-                        <label for="inlineRadio1">Is it recurring</label>
-                        <div class="form-group" id="recurring">
-                            <label class="radio-inline">
-                                <input type="radio" name="isRecurring" id="inlineRadio1" value=true > Yes
-                            </label>
-                            <label class="radio-inline">
-                                <input type="radio" name="isRecurring" id="inlineRadio2" value=false> No
-                            </label>
-                        </div>
-                    </div> -->
-
                     <button type="submit" class="btn">Add</button>
                     <button type="button" class="btn cancel" onclick="closeBudgetForm()">Close</button>
                 </div>
               </form>
         </div>
-    </section>
+    </section> -->
     <section class="form-popup" id="add-category-page">
         <div class="add-category-form">
             <form method="post" class="form-container" id="add-category-form">
@@ -114,69 +102,215 @@
               </form>
         </div>
     </section>
-    <section class="container" id="container" style="padding-bottom: 3em;">
-        <section>
-            <div class="budget-header">
-                <div class="budget-title">
-                    <h1>Budget</h1>
-                    <form method="post" id="periodForm">
-                        <div class="form-froup">
-                            <label for="budgetMonth">Budget Month</label>
-                            <input type="month" name="budgetDate" id="budgetMonth">
-                            <button type="submit" class="btn">Get</button>
+    <section class="container-fluid" id="container" style="padding-bottom: 3em;">
+        <div class="row">
+            <div class="col-sm-3 hidden-xs">
+                <section class="side-navbar">
+                    <div class="jumbotron s-jumbotron">
+                        <div class="side-nav">
+                            <div class="s-heading">
+                                <h3><b><a href="index.html">Finwise</a></b></h3>
+                            </div>
+                            <div class="s-nav">
+                                <!-- <div class="col-xs-2"> -->
+                                    <a class="s-row" href="overview.html">
+                                    <div class="s-item">
+                                            <!-- <img src="assets/dashboard.png" alt="dashboard" class="nav-img"> -->
+                                            <span class="material-symbols-rounded">
+                                                dashboard
+                                            </span>
+                                        
+                                        Dashboard
+                                    </div>
+                                </a>
+                                <!-- </div>
+                                <div class="col-xs-2"> -->
+                                    <a class="s-row" href="reminder.html">
+                                    <div class="s-item">
+                                        
+                                            <!-- <img src="assets/reminder.png" alt="dashboard" class="nav-img rem-img"> -->
+                                            <span class="material-symbols-rounded">
+                                                event
+                                                </span>
+                                        
+                                        Reminders
+                                    </div>
+                                </a>
+                                <!-- </div>
+                                <div class="col-xs-2"> -->
+                                    <a class="s-row" href="budget.html">
+                                    <div class="s-item">
+                                        
+                                            <!-- <img src="assets/budget.png" alt="dashboard" class="nav-img"> -->
+                                            <span class="material-symbols-rounded">
+                                                savings
+                                                </span>
+                                        
+                                        Budget
+                                    </div>
+                                </a>
+                                <!-- </div> -->
+                                <!-- <div class="col-xs-2"> -->
+                                    <a class="s-row" href="transactions.html">
+                                    <div class="s-item">
+                                        
+                                            <!-- <img src="assets/transaction.png" alt="dashboard" class="nav-img"> -->
+                                            <span class="material-symbols-rounded">
+                                                sync_alt
+                                                </span>
+                                        
+                                        Transaction
+                                    </div>
+                                </a>
+                                <!-- </div> -->
+                                <!-- <div class="col-xs-2"> -->
+                                    <a class="s-row" href="user.html">
+                                    <div class="s-item">
+                                        
+                                            <!-- <img src="assets/profile.png" alt="profile" class="nav-img"> -->
+                                            <span class="material-symbols-rounded">
+                                                person
+                                                </span>
+                                        
+                                        Profile
+                                    </div>
+                                </a>
+                                <a class="s-row" href="settings.html">
+                                    <div class="s-item">
+                                        
+                                            <!-- <img src="assets/profile.png" alt="profile" class="nav-img"> -->
+                                            <span class="material-symbols-rounded">
+                                                settings
+                                                </span>
+                                        
+                                        Settings
+                                    </div>
+                                </a>
+                                <!-- </div> -->
+                                <a class="s-row" onclick="logout()">
+                                    <!-- <button onclick="logout()"> -->
+                                    <div class="s-item">
+                                        
+                                            <!-- <img src="assets/profile.png" alt="profile" class="nav-img"> -->
+                                            <span class="material-symbols-rounded">
+                                                logout
+                                                </span>
+                                        
+                                        Logout
+                                    </div>
+                                <!-- </button> -->
+                                </a>
+                            </div>
                         </div>
-                    </form>
-                </div>
-                <div class="budget-btns">
-                    <button class="btn add-btn" onclick="openCategoryForm()"><img src="assets/add-icon.png" alt="add"> Category</button>
-                    <button class="btn add-btn" onclick="openBudgetForm()"><img src="assets/add-icon.png" alt="add"> Budget</button>
-                </div>
+                    </div>
+                </section>
             </div>
-        </section>
-        <section class="budget-section">
-            <div class="jumbotron">
-                <div class="budget-jump1 row">
-                    <div class="budget-overview">
-                        <div class="col-md-6 col-xs-11">
-                            <h2>Amount left</h2>
-                            <h3 class="amount-left">1800</h3>
-                            <div class="spending">
-                                <div class="spending-bar" id="spending-bar"></div>
+            <div class="col-sm-9 col-xs-12">
+                <section>
+                    <div class="budget-header">
+                        <div class="budget-title">
+                            <h1>Budget</h1>
+                            <form method="post" id="periodForm">
+                                <div class="form-group">
+                                    <div class="grp">
+                                        <label for="budgetMonth">Budget Month</label>
+                                        <input type="month" name="budgetDate" id="budgetMonth">
+                                    </div>
+                                    <!-- <button type="submit" class="btn">Get</button>   -->
+                                </div>
+                            </form>
+                        </div>
+                        <!-- <div class="budget-btns">
+                            <button class="btn add-btn" onclick="openCategoryForm()"><img src="assets/add-icon.png" alt="add"> Category</button>
+                            <button class="btn add-btn" onclick="openBudgetForm()"><img src="assets/add-icon.png" alt="add"> Budget</button>
+                        </div> -->
+                    </div>
+                </section>
+                <section class="budget-section">
+                    <div class="jumbotron">
+                        <div class="budget-jump1 row">
+                            <div class="budget-overview">
+                                <div class="col-md-6 col-xs-11">
+                                    <h2>Amount left</h2>
+                                    <h3 class="amount-left">1800</h3>
+                                    <div class="spending">
+                                        <div class="spending-bar" id="spending-bar"></div>
+                                    </div>
+                                    <div class="bar-footer">
+                                        spent ₹
+                                        <span class="spent-amount">200</span>
+                                        of ₹
+                                        <span class="total-amount">2000</span>
+                                    </div>
+                                </div>
+                                <img src="assets/budget2.svg" alt="budget" class="col-md-6 hidden-xs col-sm-6 img-responsive">
+                                <!-- <img src="assets/budget1.jpg" alt="budget" class="img-responsive"> -->
                             </div>
-                            <div class="bar-footer">
-                                spent ₹
-                                <span class="spent-amount">200</span>
-                                of ₹
-                                <span class="total-amount">2000</span>
+            
+                        </div>
+                    </div>
+                </section>
+                <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                    <div class="modal-dialog" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                          <h4 class="modal-title" id="myModalLabel">Add Budget</h4>
+                        </div>
+                        <div class="modal-body">
+                            <form method="post" class="form-container" id="add-budget-form">
+                                <div class="ac-form">
+                                    <div class="form-group grp">
+                                        <label for="Category"><b>Category *</b></label>
+                                        <select name="category" id="category">
+                                            
+                                        </select>
+                                    </div>
+                                    <div class="form-group grp">
+                                        <label for="budgetAmount"><b>Budget Limit *</b></label>
+                                        <input type="number" placeholder="Enter Amount" name="budgetAmount" id="budgetAmount" required>
+                                    </div>
+                                    <div class="form-group grp">
+                                        <label for="budgetMonth2"><b>Month *</b></label>
+                                        <input type="month" name="budgetDate" id="budgetMonth2" required style="font-size: 1.2em;font-weight: 700;">
+                                    </div>
+                                    <button type="submit" class="btn">Add</button>
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                    <!-- <button type="button" class="btn cancel" onclick="closeBudgetForm()">Close</button> -->
+                                </div>
+                              </form>
+                        </div>
+                        <!-- <div class="modal-footer">
+                          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                          <button type="button" class="btn btn-primary">Save changes</button>
+                        </div> -->
+                      </div>
+                    </div>
+                  </div>
+                <section class="jumbotron j2">
+                    <div class="row">
+                        <div class="budget-info">
+                            <div class="budget-list" id="budget-list">
+                                <button class="btn add-btn"  type="button" data-toggle="modal" data-target="#myModal"><img src="assets/add-icon.png" alt="add"> Budget</button>
+                                <!-- <div class="col-sm-5 col-xs-12 budget-card">
+                                    <h4>Category Name</h4>
+                                    <div class="spending">
+                                        <div class="spending-bar"></div>
+                                    </div>
+                                </div> -->
+                                <!-- <div class="col-sm-5 col-xs-12 budget-card">
+                                    <h4>Category Name</h4>
+                                    <div class="spending">
+                                        <div class="spending-bar"></div>
+                                    </div>
+                                </div> -->
                             </div>
                         </div>
-                        <img src="assets/budget2.svg" alt="budget" class="col-md-6 hidden-xs col-sm-6 img-responsive">
-                        <!-- <img src="assets/budget1.jpg" alt="budget" class="img-responsive"> -->
                     </div>
-    
-                </div>
+                </section>
             </div>
-        </section>
-        <section class="jumbotron j2">
-            <div class="row">
-                <div class="budget-info">
-                    <div class="budget-list" id="budget-list">
-                        <!-- <div class="col-sm-5 col-xs-12 budget-card">
-                            <h4>Category Name</h4>
-                            <div class="spending">
-                                <div class="spending-bar"></div>
-                            </div>
-                        </div> -->
-                        <!-- <div class="col-sm-5 col-xs-12 budget-card">
-                            <h4>Category Name</h4>
-                            <div class="spending">
-                                <div class="spending-bar"></div>
-                            </div>
-                        </div> -->
-                    </div>
-                </div>
-            </div>
-        </section>
+        </div>
+        
     </section>
     <section class="mobile-nav">
         <div class="container-fluid bottom-nav">
@@ -239,17 +373,17 @@
             </div>
         </div>
     </section>
-    <footer>
+    <!-- <footer>
         <div class="row">
             <div class="col container">
                 <p>© Copyright 2023 Finwise - All Rights Reserved</p>
             </div>
         </div>
-    </footer>
+    </footer> -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.3/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="bootstrap-3.3.7/dist/js/bootstrap.min.js"></script>
-    <script src="js/budget.js"></script>
+    <script src="js/myBudget.js"></script>
     <script src="js/loader.js"></script>
 </body>
 </html>

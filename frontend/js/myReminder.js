@@ -1,3 +1,10 @@
+//const url = 'http://18.191.127.230:8080/finwise/services/'
+const url = 'http://localhost:8080/finwise/services/'
+
+//to change the theme
+const savedTheme = localStorage.getItem('selected-theme');
+document.documentElement.setAttribute("data-selected-theme", savedTheme);
+
 if(sessionStorage.getItem("loggedIn") != "true"){
     window.location.href = "index.html";
 }
@@ -37,7 +44,7 @@ async function showReminders(currMonth,currYear){
     formDataObject.year = currYear;
     console.log(formDataObject);
     let formDataJsonString = JSON.stringify(formDataObject);
-    await fetch(`http://localhost:8080/finwise/${userId}/reminder/period`, {
+    await fetch(url+`${userId}/reminder/period`, {
     method:'POST', 
     headers: {
         "Content-Type": "application/json",
@@ -153,7 +160,7 @@ function addBillReminder(){
         // Format the plain form data as JSON
         let formDataJsonString = JSON.stringify(formDataObject);
         
-        fetch(`http://localhost:8080/finwise/${userId}/reminder/create`, {
+        fetch(url+`${userId}/reminder/create`, {
             method:'POST', 
             //Set the headers that specify you're sending a JSON body request and accepting JSON response
         headers: {
@@ -209,7 +216,7 @@ async function displayReminder(){
     var damount = document.getElementById('damount');
     var ddate = document.getElementById('ddate');
     // var dbillName = document.getElementById('dbillName');
-    fetch(`http://localhost:8080/finwise/${userId}/reminder/${billId}`).then((response)=> response.json())
+    fetch(url+`${userId}/reminder/${billId}`).then((response)=> response.json())
     .then((data)=>{
     //   if(data != null){
     //     console.log(data);
@@ -243,7 +250,7 @@ async function displayReminder(){
 async function deleteReminder(){
     var id = document.getElementById('dbillId').value;
     console.log(id);
-    await fetch(`http://localhost:8080/finwise/${userId}/reminder/${id}`, {
+    await fetch(url+`${userId}/reminder/${id}`, {
             method:'DELETE', 
             //Set the headers that specify you're sending a JSON body request and accepting JSON response
         headers: {
@@ -290,7 +297,7 @@ function updateBillReminder(){
         // Format the plain form data as JSON
         let formDataJsonString = JSON.stringify(formDataObject);
         
-        fetch(`http://localhost:8080/finwise/${userId}/reminder/update`, {
+        fetch(url+`${userId}/reminder/update`, {
             method:'PUT', 
             //Set the headers that specify you're sending a JSON body request and accepting JSON response
         headers: {
@@ -334,7 +341,7 @@ function reminderPopup(){
     console.log(currentDate);
     var newDate = currentDate.substring(4,10) + ", " + currentDate.substring(11,);
         console.log(newDate);
-    fetch(`http://localhost:8080/finwise/${userId}/reminder`, {
+    fetch(url+`${userId}/reminder`, {
     method:'GET', 
     headers: {
         "Content-Type": "application/json",
@@ -359,7 +366,7 @@ function reminderPopup(){
                     Subject : "Reminder from finwise",
                     Body : `Please pay your ${itemData.billName} bill of Rs.${itemData.billAmount}`
                 }).then(
-                  message => alert(message)
+                //   message => alert(message)
                 );
                 var message = `Please pay your ${itemData.billName} bill of Rs.${itemData.billAmount}`
                 showAlert(message);

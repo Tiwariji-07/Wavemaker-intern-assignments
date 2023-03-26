@@ -1,3 +1,13 @@
+//const url = 'http://18.191.127.230:8080/finwise/services/'
+const url = 'http://localhost:8080/finwise/services/'
+
+
+//to change the theme
+const savedTheme = localStorage.getItem('selected-theme');
+document.documentElement.setAttribute("data-selected-theme", savedTheme);
+console.log(savedTheme);
+
+
 if(sessionStorage.getItem("loggedIn") != "true"){
     window.location.href = "index.html";
 }
@@ -11,7 +21,7 @@ function displayUser(){
     var demail = document.getElementById('demail');
     var dpassword = document.getElementById('dpassword');
     var doccupation = document.getElementById('doccupation');
-    fetch(`http://localhost:8080/finwise/user/${userId}`).then((response)=> response.json())
+    fetch(url+`user/${userId}`).then((response)=> response.json())
     .then((data)=>{
     //   if(data != null){
     //     console.log(data);
@@ -62,7 +72,7 @@ function updateUser(){
         let formDataJsonString = JSON.stringify(formDataObject);
 
         // console.log(formDataJsonString);
-        fetch('http://localhost:8080/finwise/user/update', {
+        fetch('http://localhost:8080/finwise/services/user/update', {
             method:'PUT', 
             //Set the headers that specify you're sending a JSON body request and accepting JSON response
         headers: {

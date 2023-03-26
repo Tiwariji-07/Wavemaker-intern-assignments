@@ -1,5 +1,12 @@
-// var transactions = [];
-// var transaction = {transactionType:"",category:"",debitAmount:0,creditAmount:0,month:0,year:0}
+
+//const url = 'http://18.191.127.230:8080/finwise/services/'
+const url = 'http://localhost:8080/finwise/services/'
+
+//to change the theme
+const savedTheme = localStorage.getItem('selected-theme');
+document.documentElement.setAttribute("data-selected-theme", savedTheme);
+
+
 if(sessionStorage.getItem("loggedIn") != "true"){
   window.location.href = "index.html";
 }
@@ -8,12 +15,16 @@ const userId = sessionStorage.getItem('userId');
 
 const monthControl = document.querySelector('#budgetMonth');
 var rDate = document.getElementById('date');
-// rDate.min = new Date().toLocaleDateString('fr-ca');
+
+var rDate1 = document.getElementById('date1');
+
 const date= new Date()
 const month=("0" + (date.getMonth() + 1)).slice(-2)
 const year=date.getFullYear()
-rDate.value = `${year}-${month}`;
+
 monthControl.value = `${year}-${month}`;
+rDate.min = `${year}-${month}`;
+rDate1.min = `${year}-${month}`;
 
 var loader = document.getElementById('loader');
 // var body = document.getElementById('container');
@@ -80,7 +91,10 @@ function closeDetails1Form() {
 }
 function getTransactions(){
   const form1 = document.getElementById('periodForm');
-    form1.addEventListener('submit', (e)=>{
+  const budgetMonth = document.getElementById('budgetMonth');
+    budgetMonth.addEventListener('change', (e)=>{
+
+      
       loading();
         setTimeout(loaded,1000);
         e.preventDefault();
@@ -94,13 +108,15 @@ function getTransactions(){
         var period = formDataObject.budgetDate.split("-");
         var year = period[0];
         var month = period[1];
+        rDate.value = `${year}-${month}`;
+      rDate1.value = `${year}-${month}`;
         delete formDataObject.budgetDate;
         formDataObject.month = month;
         formDataObject.year = year;
         // console.log(formDataObject);
         let formDataJsonString = JSON.stringify(formDataObject);
 
-      fetch(`http://localhost:8080/finwise/${userId}/transactions/period`, {
+      fetch(url+`${userId}/transactions/period`, {
       method:'POST', 
       headers: {
           "Content-Type": "application/json",
@@ -150,12 +166,12 @@ function getTransactions(){
                 //     console.log(itemData);
                 //     temp1 += "<td>" + "-" + "</td>";
                 // }else{
-                //     temp1 += "<td>" + itemData.category.categoryName + "</td>";
+                    temp1 += "<td>" + itemData.category.categoryName + "</td>";
                 // }
                 // temp1 += "<td>" + itemData.debitAmount + "</td>";
                 temp1 += "<td>₹ " + itemData.creditAmount + "</td>";
                 temp1 += "<td>" + itemData.transactionMonth +"/"+itemData.transactionYear + "</td>";
-                temp1+= `<td><img src="assets/edit-icon.png" alt="edit" class="img img-responsive edit-img"></td>`;
+                temp1+= `<td><button><img src="assets/edit-icon.png" alt="edit" class="img img-responsive edit-img"></button></td>`;
                 // temp1+= "<td><button>Delete</button></td>";
                 temp1 += "</tr>";
               }
@@ -179,8 +195,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
   formDataObject.month = month;
       formDataObject.year = year;
+      rDate.value = `${year}-${month}`;
+      rDate1.value = `${year}-${month}`;
   let formDataJsonString = JSON.stringify(formDataObject);
-  fetch(`http://localhost:8080/finwise/${userId}/transactions/period`, {
+  fetch(url+`${userId}/transactions/period`, {
       method:'POST', 
       headers: {
           "Content-Type": "application/json",
@@ -230,7 +248,7 @@ document.addEventListener('DOMContentLoaded', function() {
                   //     console.log(itemData);
                   //     temp1 += "<td>" + "-" + "</td>";
                   // }else{
-                  //     temp1 += "<td>" + itemData.category.categoryName + "</td>";
+                      temp1 += "<td>" + itemData.category.categoryName + "</td>";
                   // }
                   // temp1 += "<td>" + itemData.debitAmount + "</td>";
                   temp1 += "<td>₹ " + itemData.creditAmount + "</td>";
@@ -274,11 +292,14 @@ function addIncome(){
         formDataObject.transactionMonth = oldDate.getMonth()+1;
         formDataObject.transactionYear = oldDate.getFullYear();
         delete formDataObject.transactionDate;
+        var categoryValue = formDataObject.category.split(" ");
+        formDataObject.category = {categoryId:categoryValue[0],
+          categoryName:categoryValue[1],userId:2};
         console.log(formDataObject);
         // Format the plain form data as JSON
         let formDataJsonString = JSON.stringify(formDataObject);
         console.log(formDataJsonString);
-        fetch(`http://localhost:8080/finwise/${userId}/transactions/1/create`, {
+        fetch(url+`${userId}/transactions/1/create`, {
             method:'POST', 
             //Set the headers that specify you're sending a JSON body request and accepting JSON response
         headers: {
@@ -325,7 +346,7 @@ function addExpense(){
         // Format the plain form data as JSON
         let formDataJsonString = JSON.stringify(formDataObject);
         console.log(formDataJsonString);
-        fetch(`http://localhost:8080/finwise/${userId}/transactions/2/create`, {
+        fetch(url+`${userId}/transactions/2/create`, {
             method:'POST', 
             //Set the headers that specify you're sending a JSON body request and accepting JSON response
         headers: {
@@ -352,8 +373,8 @@ function addExpense(){
 const batchTrack = document.getElementById("category");
 // var dtCategory1 = document.getElementById('dtcategory1');
 const getCategories = async () => {
-  const response =await fetch(`http://localhost:8080/finwise/${userId}/category`);
-  console.log(response);
+  const response =await fetch(url+`${userId}/category`);
+  // console.log(response);
   const data = await response.json();
   return data;
 };
@@ -363,7 +384,7 @@ const displayOption = async () => {
   // options.forEach(option => {
     for(option of options){
       const newOption = document.createElement("option");
-      console.log(option);
+      // console.log(option);
       newOption.value = option.categoryId + " " + option.categoryName;
       newOption.text = option.categoryName;
       batchTrack.appendChild(newOption);
@@ -394,7 +415,7 @@ async function displayTransaction(){
   // var dtCredit = document.getElementById('dtcredit');
   var dtDescription = document.getElementById('dtdescription');
   // var dbillName = document.getElementById('dbillName');
-  fetch(`http://localhost:8080/finwise/${userId}/transactions/${transactionId}`).then((response)=> response.json())
+  fetch(url+`${userId}/transactions/${transactionId}`).then((response)=> response.json())
   .then((data)=>{
   //   if(data != null){
   //     console.log(data);
@@ -403,7 +424,7 @@ async function displayTransaction(){
   //   }else{
   //     // alert("Not added ")
   //   }
-      console.log(data);
+      // console.log(data);
       dtId.value = data.transactionId;
       // dtType.value = data.transactionType.transactionTypeName;
       if(("category" in data )){
@@ -415,7 +436,7 @@ async function displayTransaction(){
       }
       var month = ("0" + (data.transactionMonth)).slice(-2);
       dtdate.value = data.transactionYear+"-"+month;
-      console.log(dtdate.value);
+      // console.log(dtdate.value);
       dtDebit.value = data.debitAmount;
       // dtCredit.value = data.creditAmount;
       dtDescription.value = data.description;
@@ -446,7 +467,7 @@ async function displayTransaction(){
     var dtCredit = document.getElementById('dtcredit1');
     var dtDescription = document.getElementById('dtdescription1');
     // var dbillName = document.getElementById('dbillName');
-    fetch(`http://localhost:8080/finwise/${userId}/transactions/${transactionId}`).then((response)=> response.json())
+    fetch(url+`${userId}/transactions/${transactionId}`).then((response)=> response.json())
     .then((data)=>{
     //   if(data != null){
     //     console.log(data);
@@ -467,7 +488,7 @@ async function displayTransaction(){
         // }
         var month = ("0" + (data.transactionMonth)).slice(-2);
         dtdate.value = data.transactionYear+"-"+month;
-        console.log(dtdate.value);
+        // console.log(dtdate.value);
         // dtDebit.value = data.debitAmount;
         dtCredit.value = data.creditAmount;
         dtDescription.value = data.description;
@@ -484,7 +505,7 @@ async function displayTransaction(){
 function deleteTransaction(){
   var id = document.getElementById('dtid').value;
     console.log(id);
-    fetch(`http://localhost:8080/finwise/${userId}/transactions/${id}`, {
+    fetch(url+`${userId}/transactions/${id}`, {
             method:'DELETE', 
             //Set the headers that specify you're sending a JSON body request and accepting JSON response
         headers: {
@@ -494,7 +515,7 @@ function deleteTransaction(){
         }).then((response)=> response.json())
         .then((data)=>{
           if(data != null){
-            console.log(data);
+            // console.log(data);
             // alert("Transaction deleted");
             closeDetailsForm();
             // getTransactions();
@@ -505,7 +526,7 @@ function deleteTransaction(){
 function deleteTransaction1(){
   var id = document.getElementById('dtid1').value;
     console.log(id);
-    fetch(`http://localhost:8080/finwise/${userId}/transactions/${id}`, {
+    fetch(url+`${userId}/transactions/${id}`, {
             method:'DELETE', 
             //Set the headers that specify you're sending a JSON body request and accepting JSON response
         headers: {
@@ -515,7 +536,7 @@ function deleteTransaction1(){
         }).then((response)=> response.json())
         .then((data)=>{
           if(data != null){
-            console.log(data);
+            // console.log(data);
             // alert("Transaction deleted");
             closeDetails1Form();
             // getTransactions();
@@ -523,6 +544,114 @@ function deleteTransaction1(){
           }
     })
 }
+
+// var pdf = new jsPDF('p', 'pt', [580, 630]);
+// var content = document.getElementsByClassName('t-jumbotron')[0].innerHTML;
+// html2canvas(content, {
+//     onrendered: function(canvas) {
+//         document.body.appendChild(canvas);
+//         var ctx = canvas.getContext('2d');
+//         var imgData = canvas.toDataURL("image/png", 1.0);
+//         var width = canvas.width;
+//         var height = canvas.clientHeight;
+//         pdf.addImage(imgData, 'PNG', 20, 20, (width - 10), (height));
+
+//     }
+// });
+// setTimeout(function() {
+//     //jsPDF code to save file
+//     pdf.save('sample.pdf');
+// }, 0);
+
+function generatePDF() {
+  // Create a new jsPDF instance
+  
+  var doc = new jsPDF('p', 'pt', 'a4');
+
+  // Get the HTML table element
+  var table = document.getElementsByClassName('t-jumbotron')[0].innerHTML;
+
+  // Convert the table to a data URL
+  tableToDataURL(table, function(dataURL) {
+    // Add the table as an image to the PDF document
+    doc.addImage(dataURL, 'PNG', 10, 10, 180, 0);
+
+    // Download the PDF document
+    setTimeout(function() {
+      // Download the PDF document
+      doc.save('transactions.pdf');
+    }, 100);
+  });
+  
+}
+
+function tableToDataURL(table) {
+  // Create a new canvas element
+  var canvas = document.createElement('canvas');
+
+  // Get the table dimensions
+  var width = table.offsetWidth;
+  var height = table.offsetHeight;
+
+  // Set the canvas dimensions
+  canvas.width = width;
+  canvas.height = height;
+
+  // Draw the table on the canvas
+  var ctx = canvas.getContext('2d');
+  ctx.fillStyle = '#ffffff';
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+  var img = new Image();
+  img.src = 'data:image/svg+xml,' + encodeURIComponent(table.outerHTML);
+  img.onload = function() {
+    ctx.drawImage(img, 0, 0);
+    // Wait for the canvas to fully render before converting to a data URL
+    setTimeout(function() {
+      var dataURL = canvas.toDataURL('image/png');
+      return dataURL;
+    }, 100);
+  };
+}
+
+
+// var specialElementHandlers = {
+//   // element with id of "bypass" - jQuery style selector
+//   '.no-export': function (element, renderer) {
+//       // true = "handled elsewhere, bypass text extraction"
+//       return true;
+//   }
+// };
+
+// function exportPDF() {
+//   var doc = new jsPDF('p', 'pt', 'a4');
+//   //A4 - 595x842 pts
+//   //https://www.gnu.org/software/gv/manual/html_node/Paper-Keywords-and-paper-size-in-points.html
+
+
+//   //Html source 
+//   var source = document.getElementById("expense-table");
+// console.log(source);
+//   var margins = {
+//       top: 10,
+//       bottom: 10,
+//       left: 10,
+//       width: 600
+//   };
+
+//   doc.fromHTML(
+//       source, // HTML string or DOM elem ref.
+//       margins.left,
+//       margins.top, {
+//           'width': margins.width,
+//           'elementHandlers': specialElementHandlers
+//       },
+
+//       function (dispose) {
+//           // dispose: object with X, Y of the last line add to the PDF 
+//           //          this allow the insertion of new lines after html
+//           doc.save('Test.pdf');
+//       }, margins);
+// }
 
 getTransactions();
 displayOption();

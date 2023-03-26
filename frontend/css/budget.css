@@ -1,10 +1,61 @@
+
+  :root,
+  [data-selected-theme="green"] {
+    --primary-color: #002B5B;
+    --secondary-color: #159895;
+    --third-color: #b3ebe3;
+    --bg-c:linear-gradient(to top, #159895, #4caca7, #71c1ba, #93d6ce, #b3ebe3);
+    --jumbotron-color:white;
+  }
+  
+  [data-selected-theme="blue"] {
+    --primary-color: #2f486a;
+    --secondary-color: #00ade5;
+    --third-color: #ddebf8;
+    --bg-c: linear-gradient(to bottom, #ddebf8, #bbdbf4, #95cbf0, #67bceb, #00ade5);
+    --jumbotron-color:white;
+  }
+  
+  [data-selected-theme="pink"] {
+    --primary-color: #DFB2F4;
+    --secondary-color: #463546;
+    --third-color: #F06EFC;
+    --jumbotron-color:white;
+  }
+  
+  [data-selected-theme="orange"] {
+    --primary-color: #FA7D61;
+    --secondary-color: #1E1E24;
+    --third-color: #F3601C;
+    --jumbotron-color:white;
+  }
+  [data-selected-theme="violet"] {
+    --primary-color: #393053;
+    --secondary-color: #443C68;
+    --third-color: #a7a3b7;
+    --bg-c: linear-gradient(to top, #443c68, #5c547b, #746e8f, #8d88a3, #a7a3b7);
+    --jumbotron-color:white;
+  }
+  [data-selected-theme="dark"] {
+    --primary-color: white;
+    --secondary-color: #929292;
+    --third-color: #1F1F1F;
+    --bg-c: #000101;
+    --jumbotron-color:#1F1F1F;
+  }
+
 body{
-    --primary-color :#2f486a;
+    /* --primary-color :#2f486a;
     --secondary-color : #00ade5;
-    --third-color : #ddebf8;
-    background-image: linear-gradient(to bottom, #ddebf8, #bbdbf4, #95cbf0, #67bceb, #00ade5);
+    /* --third-color : #ddebf8; */
+    background-image: var(--bg-c);
+    background-color: var(--bg-c);
     overflow-x:hidden;
     font-family: 'Lato', sans-serif;
+}
+
+h1,h3,h4,h5{
+    color: var(--primary-color);
 }
 
 .budget-header{
@@ -31,16 +82,8 @@ body{
     padding: 1em 0;
 }
 
-.budget-section .jumbotron{
-    background-color: #fff;
-}
 
-.budget-jump1{
-    /* padding: 0; */
-    /* background-image: url("/assets/budget1.jpg"); */
-    /* background-color: #fff; */
-    /* opacity: .1; */
-}
+
 
 .budget-overview{
     display: flex;
@@ -87,27 +130,29 @@ body{
     background-color: white;
 }
 .budget-info{
-    /* display: flex; */
-    /* justify-content: center;
-    align-items: center; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
     padding: 1em;
     /* border: 1px solid red; */
 }
 
 .budget-list{
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
+    /* align-items: center; */
     gap: 1em;
     flex-wrap: wrap;
     /* border: 1px solid red; */
-    padding: 2em;
+    /* padding: 2em; */
 }
 
 .budget-card{
-    padding: 1em;
-    background-color: var(--third-color);
+    padding: 0.5em 1em;
+    background-color: #f4f4f494;
     border-radius: 1em;
     color: var(--primary-color);
+    width: 260px;
     /* border: 1px solid red; */
     /* padding: 1em 1em;
     margin: 1em 1em; */
@@ -115,8 +160,11 @@ body{
 
 .budget-card h4{
     /* color: var(--secondary-color); */
-    font-size: 2em;
+    /* font-size: 2em;
+    font-weight: 700; */
     font-weight: 700;
+    margin: 0 0 4px;
+    font-size: 15px;
 }
 
 .spending-c{
@@ -154,8 +202,11 @@ body{
 }
 
 .card-bar-footer{
-    padding-top: .5em;
-    font-size: 1.4em;
+    /* padding-top: .5em;
+    font-size: 1.4em; */
+    padding-top: 0.5em;
+    font-size: 11px;
+    text-align: right;
 }
 
 .card-bar-footer span{
@@ -229,6 +280,7 @@ body{
     justify-content: center;
     align-items: center;
     gap: .3em;
+    width: 260px;
 }
 
 .bottom-nav{
@@ -270,4 +322,108 @@ body{
     footer{
         display: none;
     }
+}
+
+.side-navbar{
+    padding-top: 2em;
+    /* border: 1px solid red; */
+    position: fixed;
+    z-index: 2;
+    /* right: 0;
+    left: 0; */
+    width: 20%;
+  }
+  @media only screen and (max-width: 767px) {
+    .side-navbar{
+        display: none;
+    }
+  }
+  
+  .s-jumbotron{
+    padding: 1em !important;
+    height: 85vh;
+    /* width: 100%; */
+    /* From https://css.glass */
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  }
+  .side-nav{
+    color: var(--primary-color);
+    /* border: 1px solid red; */
+    
+  }
+  
+  .s-heading{
+    background-color: var(--third-color);
+    padding: 1em;
+    border-radius: 1em;
+  }
+  .s-row{
+    width: 100%;
+  }
+  
+  .s-nav{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 1em;
+    /* border: 1px solid red; */
+  }
+  
+  .s-nav a{
+    text-decoration: none;
+    font-size: 1.2em;
+    font-weight: 600;
+  }
+  .s-nav a span{
+    color: white;
+    background-color: var(--secondary-color);
+    border-radius: 20%;
+    padding: .2em;
+  }
+  .s-item{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 1em;
+    width: 100%;
+    /* border: 1px solid red; */
+    padding-top:1em;
+    color: var(--primary-color);
+  }
+  
+  h3,h1,h4,h5{
+    font-weight: 600;
+    color: var(--primary-color);
+  }
+
+  .layer{
+    display: none;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    z-index: 3;
+    background-color: var(--primary-color);
+    opacity: .4;
+}
+
+.modal-dialog{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content{
+    /* border: 1px solid red; */
+    width: max-content;
+    background-color: var(--jumbotron-color);
+}
+
+.jumbotron{
+    background-color: var(--jumbotron-color);
 }

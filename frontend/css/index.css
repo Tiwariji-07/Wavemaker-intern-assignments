@@ -56,6 +56,47 @@ body{
 
 }
 
+.get-started{
+    top: 8px;
+    padding-left: 30px;
+    color: white;
+}
+.btn{
+    border-radius: 20px;
+    background-color: white;
+    /* border: 1.5px solid black; */
+    display: flex;
+    gap: .3em;
+}
+.btn-green{
+    background-color: var(--secondary-color);
+}
+
+.btn-green:hover, .btn-green:focus{
+    color: white;
+    outline: none;
+    border: none;
+
+}
+
+.btn-black{
+    background-color: black;
+    border: 1.5px solid white;
+    color: white;
+}
+.btn .img-container{
+    /* background-color: black; */
+    height: 1.2em;
+    width: 1.2em;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 4px;
+}
+/* .btn .img-container span{
+    color: white;
+} */
 .op-btn{
     font-size: 1.2em;
     background-color: var(--secondary-color);
@@ -118,7 +159,7 @@ body{
 .banner{
     /* padding: 0 !important;
     margin: 0; */
-    padding: 2em 0;
+    padding: 2.6em 0;
     background-color: transparent;
     /* text-align: center; */
     /* border: 1px solid rebeccapurple; */
