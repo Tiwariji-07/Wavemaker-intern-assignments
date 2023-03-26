@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE urlrewrite PUBLIC "-//tuckey.org//DTD UrlRewrite 4.0//EN"
+        "http://www.tuckey.org/res/dtds/urlrewrite4.0.dtd">
+
+<urlrewrite>
+    <rule>
+        <from>Home</from>
+        <to>/index.html</to>
+    </rule>
+    <rule>
+        <from>Dashboard</from>
+        <to>/overview.html</to>
+    </rule>
+    <rule>
+        <from>Reminders</from>
+        <to>/reminder.html</to>
+    </rule>
+    <rule>
+        <from>MySetting</from>
+        <to>/settings.html</to>
+    </rule>
+    <rule>
+        <from>MyTransactions</from>
+        <to>/transactions.html</to>
+    </rule>
+    <rule>
+        <from>Budgets</from>
+        <to>/budget.html</to>
+    </rule>
+    <rule>
+        <from>MyProfile</from>
+        <to>/user.html</to>
+    </rule>
+
+
+</urlrewrite>

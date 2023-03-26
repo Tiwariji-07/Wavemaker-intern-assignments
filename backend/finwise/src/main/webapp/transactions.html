@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transactions</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@NaN,0,0,0" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@NaN,0,0,0" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,400,0,0" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,400,0,0" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,400,0,0" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,400,0,0" />
+    <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;0,900;1,300&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+    <link rel="stylesheet" href="bootstrap-3.3.7/dist/css/bootstrap.min.css">
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.2/jspdf.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script type="text/javascript" src="lib/jquery.min.js"></script>
+    <script type="text/javascript" src="lib/jspdf.debug.js"></script>
+    <script type="text/javascript" src="lib/html2canvas.js"></script> -->
+    <!-- <link rel="stylesheet" href="css/index.css"> -->
+    <link rel="stylesheet" href="css/loader.css">
+    <link rel="stylesheet" href="css/overview.css">
+    <link rel="stylesheet" href="css/reminder.css">
+</head>
+<body>
+    <div class="loader" id="loader">
+        <div class="justify-content-center jimu-primary-loading"></div>
+    </div>
+    <div class="layer"></div>
+    <!-- <header>
+        <nav class="navbar heading">
+            <div class="container">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="index.html">
+                    
+                        <b>Finwise.</b>
+                    </a>
+                </div>
+                <div class="collapse navbar-collapse nav-tabs">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a href="overview.html">Overview</a>
+                        </li>
+                        <li>
+                            <a href="reminder.html">Reminders</a>
+                        </li>
+                        <li>
+                            <a href="budget.html">Budgets</a>
+                        </li>
+                        <li>
+                            <a href="transactions.html">Transactions</a>
+                        </li>
+                        <li>
+                            <div class="op-btns">
+                                <a href="user.html">
+                                    <span class="material-symbols-outlined profile-icon">account_circle</span>
+                                </a>
+                                
+                            </div>
+                            
+                        </li>
+                    </ul>
+                </div>  
+            </div>
+        </nav>
+    </header> -->
+
+    <section class="transaction-page container-fluid">
+        <div class="row">
+            <div class="col-sm-3 hidden-xs">
+                <section class="side-navbar">
+                    <div class="jumbotron s-jumbotron">
+                        <div class="side-nav">
+                            <div class="s-heading">
+                                <h3><b><a href="Home">Finwise</a></b></h3>
+                            </div>
+                            <div class="s-nav">
+                                <!-- <div class="col-xs-2"> -->
+                                    <a class="s-row" href="Dashboard">
+                                    <div class="s-item">
+                                            <!-- <img src="assets/dashboard.png" alt="dashboard" class="nav-img"> -->
+                                            <span class="material-symbols-rounded">
+                                                dashboard
+                                            </span>
+                                        
+                                        Dashboard
+                                    </div>
+                                </a>
+                                <!-- </div>
+                                <div class="col-xs-2"> -->
+                                    <a class="s-row" href="Reminders">
+                                    <div class="s-item">
+                                        
+                                            <!-- <img src="assets/reminder.png" alt="dashboard" class="nav-img rem-img"> -->
+                                            <span class="material-symbols-rounded">
+                                                event
+                                                </span>
+                                        
+                                        Reminders
+                                    </div>
+                                </a>
+                                <!-- </div>
+                                <div class="col-xs-2"> -->
+                                    <a class="s-row" href="Budgets">
+                                    <div class="s-item">
+                                        
+                                            <!-- <img src="assets/budget.png" alt="dashboard" class="nav-img"> -->
+                                            <span class="material-symbols-rounded">
+                                                savings
+                                                </span>
+                                        
+                                        Budget
+                                    </div>
+                                </a>
+                                <!-- </div> -->
+                                <!-- <div class="col-xs-2"> -->
+                                    <a class="s-row" href="MyTransactions">
+                                    <div class="s-item">
+                                        
+                                            <!-- <img src="assets/transaction.png" alt="dashboard" class="nav-img"> -->
+                                            <span class="material-symbols-rounded">
+                                                sync_alt
+                                                </span>
+                                        
+                                        Transaction
+                                    </div>
+                                </a>
+                                <!-- </div> -->
+                                <!-- <div class="col-xs-2"> -->
+                                    <a class="s-row" href="MyProfile">
+                                    <div class="s-item">
+                                        
+                                            <!-- <img src="assets/profile.png" alt="profile" class="nav-img"> -->
+                                            <span class="material-symbols-rounded">
+                                                person
+                                                </span>
+                                        
+                                        Profile
+                                    </div>
+                                </a>
+                                <a class="s-row" href="MySetting">
+                                    <div class="s-item">
+                                        
+                                            <!-- <img src="assets/profile.png" alt="profile" class="nav-img"> -->
+                                            <span class="material-symbols-rounded">
+                                                settings
+                                                </span>
+                                        
+                                        Settings
+                                    </div>
+                                </a>
+                                <!-- </div> -->
+                                <a class="s-row" onclick="logout()">
+                                    <!-- <button onclick="logout()"> -->
+                                    <div class="s-item">
+                                        
+                                            <!-- <img src="assets/profile.png" alt="profile" class="nav-img"> -->
+                                            <span class="material-symbols-rounded">
+                                                logout
+                                                </span>
+                                        
+                                        Logout
+                                    </div>
+                                <!-- </button> -->
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+            <div class="col-sm-9">
+                <section>
+                    <div class="reminder-header">
+                        <!-- <div> -->
+                            <h1 class="reminder-heading">Transactions</h1>
+                            <form method="post" id="periodForm">
+                                <div class="form-froup grp">
+                                    <label for="budgetMonth">Budget Month</label>
+                                    <div>
+                                        <input type="month" name="budgetDate" id="budgetMonth">
+                                    <!-- <button type="submit" class="btn">Get</button> -->
+                                    </div>
+                                </div>
+                            </form>
+                        <!-- </div> -->
+                        <!-- <div class="tran-btns">
+                            <button class="btn reminder-btn" onclick="closeTranForm(),openTranExpenseForm()">Add Expense</button>
+                            <button class="btn reminder-btn" onclick="closeTranExpenseForm(),openTranForm()">Add Income</button>
+                        </div> -->
+                        
+                    </div>
+                </section>
+                <section >
+                    <div class="row">
+                        <div class="col-md-6 col-xs-12">
+                            <!-- <h3>Expenses</h3> -->
+                            <div class="jumbotron t-jumbotron">
+                                <div class="tran-btns">
+                                    <h3>Expenses</h3>
+                                    <button class="btn reminder-btn" onclick="closeTranForm(),openTranExpenseForm()"><img src="assets/add-icon.png" alt="add"> Expense</button>
+                                </div>
+                                <table class="table table-hover table-condensed" id="expense-table">
+                                    <thead>
+                                      <tr>
+                                        <th>S No</th>
+                                        <th>Tid</th>
+                                        <!-- <th>Type</th> -->
+                                        <th>Category</th>
+                                        <th>Amount</th>
+                                        <!-- <th>Credit</th> -->
+                                        <th>Month</th>
+                                        <th></th>
+                                      </tr>
+                                    </thead>
+                                    <tbody id="data">
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-xs-12">
+                            <!-- <h3>Income</h3> -->
+                            <div class="jumbotron t-jumbotron">
+                                <div class="tran-btns">
+                                    <h3>Incomes</h3>
+                                    <button class="btn reminder-btn" onclick="closeTranForm(),openTranForm()"><img src="assets/add-icon.png" alt="add"> Income</button>
+                                </div>
+                                <table class="table table-hover table-condensed">
+                                    <thead>
+                                      <tr>
+                                        <th>S No</th>
+                                        <th>Tid</th>
+                                        <th>Amount</th>
+                                        <th>Month</th>
+                                        <th></th>
+                                      </tr>
+                                    </thead>
+                                    <tbody id="data1">
+                                    </tbody>
+                                </table>
+                                <!-- <img src="assets/edit-icon.png" alt=""> -->
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <!-- <button onclick="generatePDF()">Download PDF</button> -->
+            </div>
+        </div>
+        
+    </section>
+    <section class="form-popup" id="transaction-income-page">
+        <div class="add-reminder-form">
+            <form method="post" class="form-container" id="transaction-income-form">
+                <div class="ac-form">
+                    <h1>Add Income</h1>
+                    <div class="form-group grp">
+                        <label for="category"><b>Category *</b></label>
+                        <select name="category" id="category" required>  
+                        </select>
+                    </div>
+                    <div class="form-group grp">
+                        <label for="creditAmount"><b>Amount *</b></label>
+                        <input type="number" placeholder="Enter Amount" name="creditAmount" id="creditAmount" required>
+                    </div>
+                    <div class="form-group grp">
+                        <label for="date"><b>Transaction Date *</b></label>
+                        <input type="month" name="transactionDate" id="date" required>
+                    </div>
+                    <div class="form-group grp">
+                        <label for="desc"><b>Description</b></label>
+                        <input type="text" name="description" id="description">
+                    </div>
+
+
+                    <button type="submit" class="btn">Add</button>
+                    <button type="button" class="btn cancel" onclick="closeTranForm()">Close</button>
+                </div>
+              </form>
+        </div>
+    </section>
+    <section class="form-popup" id="transaction-expense-page">
+        <div class="add-reminder-form">
+            <form method="post" class="form-container" id="transaction-expense-form">
+                <div class="ac-form">
+                    <h1>Add Expense</h1>
+                    <div class="form-group grp">
+                        <label for="category"><b>Category *</b></label>
+                        <select name="category" id="category" required>
+                            
+                        </select>
+                    </div>
+                    <div class="form-group grp">
+                        <label for="debitAmount"><b>Amount *</b></label>
+                        <input type="number" placeholder="Enter Amount" name="debitAmount" id="creditAmount" required>
+                    </div>
+                    <div class="form-group grp">
+                        <label for="date1"><b>Transaction Date *</b></label>
+                        <input type="month" name="transactionDate" id="date1" required>
+                    </div>
+                    <div class="form-group grp">
+                        <label for="desc"><b>Description</b></label>
+                        <input type="text" name="description" id="description">
+                    </div>
+
+
+                    <button type="submit" class="btn">Add</button>
+                    <button type="button" class="btn cancel" onclick="closeTranExpenseForm()">Close</button>
+                </div>
+              </form>
+        </div>
+    </section>
+    <section class="form-popup details" id="expenseDetailForm">
+        <div class="add-reminder-form">
+            <form method="post" class="form-container" id="reminder-detail-form">
+                <div class="ac-form">
+                    <h1>Expense Details</h1>
+                    <div class="form-group grp">
+                        <label for="dtid"><b>Transaction Id</b></label>
+                        <input type="num" placeholder="Enter Bill Id" name="billId" id="dtid" required readonly>
+                    </div>
+                    <!-- <div class="form-group grp">
+                        <label for="dttype"><b>Type</b></label>
+                        <input type="text" placeholder="Enter Type Name" name="billName" id="dttype" required readonly>
+                    </div> -->
+                    <div class="form-group grp" id="dtcategory1">
+                        <label for="dtcategory"><b>Category</b></label>
+                        <input type="text" placeholder="Enter category" name="billAmount" id="dtcategory" required readonly>
+                    </div>
+                    <div class="form-group grp">
+                        <label for="dtdate"><b>Transaction Date</b></label>
+                        <input type="month" name="reminderDate" id="dtdate" required readonly>
+                    </div>
+                    <div class="form-group grp">
+                        <label for="dtdebit"><b>Debit</b></label>
+                        <input type="number" name="reminderDate" id="dtdebit" required readonly>
+                    </div>
+                    <!-- <div class="form-group grp">
+                        <label for="dtcredit"><b>Credit</b></label>
+                        <input type="number" name="reminderDate" id="dtcredit" required readonly>
+                    </div> -->
+                    <div class="form-group grp">
+                        <label for="dtdescription"><b>Description</b></label>
+                        <input type="text" name="reminderDate" id="dtdescription" required readonly>
+                    </div>
+                    <!-- <button type="submit" class="btn btn-success">Save</button> -->
+                    <button type="button" class="btn" onclick="deleteTransaction()">Delete</button>
+                    <button type="button" class="btn cancel" onclick="closeDetailsForm()">Close</button>
+                </div>
+              </form>
+        </div>
+    </section>
+    <section class="form-popup details" id="incomeDetailForm">
+        <div class="add-reminder-form">
+            <form method="post" class="form-container" id="reminder-detail-form">
+                <div class="ac-form">
+                    <h1>Income Details</h1>
+                    <div class="form-group grp">
+                        <label for="dtid1"><b>Transaction Id</b></label>
+                        <input type="num" placeholder="Enter Bill Id" name="billId" id="dtid1" required readonly>
+                    </div>
+                    <!-- <div class="form-group grp">
+                        <label for="dttype"><b>Type</b></label>
+                        <input type="text" placeholder="Enter Type Name" name="billName" id="dttype" required readonly>
+                    </div> -->
+                    <!-- <div class="form-group grp" id="dtcategory1">
+                        <label for="dtcategory"><b>Category</b></label>
+                        <input type="text" placeholder="Enter category" name="billAmount" id="dtcategory" required readonly>
+                    </div> -->
+                    <div class="form-group grp">
+                        <label for="dtdate1"><b>Transaction Date</b></label>
+                        <input type="month" name="reminderDate" id="dtdate1" required readonly>
+                    </div>
+                    <!-- <div class="form-group grp">
+                        <label for="dtdebit"><b>Debit</b></label>
+                        <input type="number" name="reminderDate" id="dtdebit" required readonly>
+                    </div> -->
+                    <div class="form-group grp">
+                        <label for="dtcredit1"><b>Credit</b></label>
+                        <input type="number" name="reminderDate" id="dtcredit1" required readonly>
+                    </div>
+                    <div class="form-group grp">
+                        <label for="dtdescription1"><b>Description</b></label>
+                        <input type="text" name="reminderDate" id="dtdescription1" required readonly>
+                    </div>
+                    <!-- <button type="submit" class="btn btn-success">Save</button> -->
+                    <button type="button" class="btn" onclick="deleteTransaction1()">Delete</button>
+                    <button type="button" class="btn cancel" onclick="closeDetails1Form()">Close</button>
+                </div>
+              </form>
+        </div>
+    </section>
+    <section class="mobile-nav">
+        <div class="container-fluid bottom-nav">
+            <div class="b-nav">
+                <!-- <div class="col-xs-2"> -->
+                    <div class="b-item">
+                        <a href="overview.html">
+                            <!-- <img src="assets/dashboard.png" alt="dashboard" class="nav-img"> -->
+                            <span class="material-symbols-rounded">
+                                dashboard
+                            </span>
+                        </a>
+                        Dashboard
+                    </div>
+                <!-- </div>
+                <div class="col-xs-2"> -->
+                    <div class="b-item">
+                        <a href="reminder.html">
+                            <!-- <img src="assets/reminder.png" alt="dashboard" class="nav-img rem-img"> -->
+                            <span class="material-symbols-rounded">
+                                event
+                                </span>
+                        </a>
+                        Reminders
+                    </div>
+                <!-- </div>
+                <div class="col-xs-2"> -->
+                    <div class="b-item">
+                        <a href="budget.html">
+                            <!-- <img src="assets/budget.png" alt="dashboard" class="nav-img"> -->
+                            <span class="material-symbols-rounded">
+                                savings
+                                </span>
+                        </a>
+                        Budget
+                    </div>
+                <!-- </div> -->
+                <!-- <div class="col-xs-2"> -->
+                    <div class="b-item">
+                        <a href="transactions.html">
+                            <!-- <img src="assets/transaction.png" alt="dashboard" class="nav-img"> -->
+                            <span class="material-symbols-rounded">
+                                sync_alt
+                                </span>
+                        </a>
+                        Transaction
+                    </div>
+                <!-- </div> -->
+                <!-- <div class="col-xs-2"> -->
+                    <div class="b-item">
+                        <a href="user.html">
+                            <!-- <img src="assets/profile.png" alt="profile" class="nav-img"> -->
+                            <span class="material-symbols-rounded">
+                                person
+                                </span>
+                        </a>
+                        Profile
+                    </div>
+                <!-- </div> -->
+            </div>
+        </div>
+    </section>
+    <footer>
+        <div class="row">
+            <div class="col container">
+                <p>© Copyright 2023 Finwise - All Rights Reserved</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.3/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="bootstrap-3.3.7/dist/js/bootstrap.min.js"></script>
+    <script src="js/myTransaction.js"></script>
+    
+</body>
+</html>

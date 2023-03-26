@@ -1,0 +1,224 @@
+body{
+    --primary-color :#2f486a;
+    --secondary-color : #00ade5;
+    --third-color : #ddebf8;
+    /* background-color: white; */
+    background-image: linear-gradient(to left top, #00ade5, #81bef0, #bad0f6, #e2e6fa, #ffffff);
+    /* background-image: linear-gradient(to right bottom, #ffffff, #cdcdd7, #9a9db1, #66718d, #2f486a); */
+    overflow-x:hidden;
+    font-family: 'Lato', sans-serif;
+    /* font-family: 'Roboto', sans-serif; */
+}
+
+.profile-icon{
+    font-weight: 900;
+    font-size: 1.6em;
+    margin-top: .3em;
+    cursor: pointer;
+}
+
+.heading{
+    padding: .9em 0;
+    /* border: 1px solid rebeccapurple; */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.login-page{
+    display: none;
+    position: absolute;
+    z-index: 9;
+    left: 0;
+    right: 0;
+    margin: auto;
+    justify-content: center;
+    align-items: center;
+    /* padding: 6em 0; */
+}
+
+.login-form{
+    /* min-width: 320px; */
+    border-radius: 1em;
+    background-color: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2em;
+    /* margin-left:auto; */
+}
+
+.ac-form{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+
+}
+
+.get-started{
+    top: 8px;
+    padding-left: 30px;
+    color: white;
+}
+.btn{
+    border-radius: 20px;
+    background-color: white;
+    /* border: 1.5px solid black; */
+    display: flex;
+    gap: .3em;
+}
+.btn-green{
+    background-color: var(--secondary-color);
+}
+
+.btn-green:hover, .btn-green:focus{
+    color: white;
+    outline: none;
+    border: none;
+
+}
+
+.btn-black{
+    background-color: black;
+    border: 1.5px solid white;
+    color: white;
+}
+.btn .img-container{
+    /* background-color: black; */
+    height: 1.2em;
+    width: 1.2em;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 4px;
+}
+/* .btn .img-container span{
+    color: white;
+} */
+.op-btn{
+    font-size: 1.2em;
+    background-color: var(--secondary-color);
+    color: white;
+    border-radius: .5em;
+}
+
+.login-form p{
+    padding-top: 1em;
+}
+
+.navbar-brand{
+    color: var(--primary-color);
+    font-size: 1.6em;
+}
+
+.finwise-logo{
+    width: 4em;
+    padding-top: 0 !important;
+    /* padding-bottom: 3em; */
+}
+
+.nav-tabs a{
+    font-size: 1.2em;
+    font-weight: 700;
+    color: var(--primary-color);
+}
+
+/* .nav-tabs a:hover{
+    background: var(--third-color);
+}
+
+.nav-tabs:focus{
+    background: transparent;
+} */
+
+.op-btns{
+    margin-top: .2em;
+    display: flex;
+    gap: 1em;
+    justify-content: center;
+    align-items: center;
+}
+
+.op-btn{
+    font-size: 1.2em;
+    background-color: var(--secondary-color);
+    color: white;
+    border-radius: .5em;
+}
+
+.op-btn:hover{
+    color: white;
+}
+.op-btn:focus{
+    color: white;
+    outline: none;
+    border: none;
+}
+.banner{
+    /* padding: 0 !important;
+    margin: 0; */
+    padding: 2.6em 0;
+    background-color: transparent;
+    /* text-align: center; */
+    /* border: 1px solid rebeccapurple; */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+
+.banner-img{
+    /* max-width: 35em; */
+    /* width: 100%; */
+    margin: auto;
+    object-fit: contain;
+    /* color: var(--secondary-color); */
+}
+
+.banner-left{
+    display: flex;
+    flex-direction: column;
+    padding: 1em;
+    /* gap: .3em; */
+}
+
+.title{
+    font-weight: 700;
+}
+
+.name{
+    color: var(--secondary-color);
+    font-size: 3em;
+}
+
+.abt{
+    color: var(--primary-color);
+    font-size: 1.5em;
+}
+
+
+footer{
+    /* position:fixed;
+    bottom: 0;
+    z-index: 2; */
+    width: 100%;
+    text-align: center;
+    padding-top: 1em;
+    background-color: var(--primary-color);
+    color: var(--third-color);
+    font-size: 1em;
+    font-weight: 700;
+}
+
+.layer{
+    display: none;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    z-index: 3;
+    background-color: var(--primary-color);
+    opacity: .4;
+}

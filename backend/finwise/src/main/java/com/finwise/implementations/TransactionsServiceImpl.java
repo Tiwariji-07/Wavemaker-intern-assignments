@@ -59,16 +59,17 @@ public class TransactionsServiceImpl implements TransactionsService {
         transactions1.setTransactionMonth(transactions.getTransactionMonth());
         transactions1.setTransactionYear(transactions.getTransactionYear());
         transactions1.setDescription(transactions.getDescription());
+        transactions1.setCategory(transactions.getCategory());
         if(tranTypeId == 1){
 //            Category category = new Category();
 //            category.setCategoryId(0);
 //            category.setCategoryName("-");
 //            category.setUserId(userId);
-            transactions1.setCategory(null);
+//            transactions1.setCategory(null);
             transactions1.setDebitAmount(0);
             transactions1.setCreditAmount(transactions.getCreditAmount());
         }else{
-            transactions1.setCategory(transactions.getCategory());
+
             transactions1.setCreditAmount(0);
             transactions1.setDebitAmount(transactions.getDebitAmount());
             String sql = "SELECT * FROM expense_budget WHERE category_id = :category_id";
@@ -111,16 +112,17 @@ public class TransactionsServiceImpl implements TransactionsService {
         transactions1.setTransactionMonth(transactions1.getTransactionMonth());
         transactions1.setTransactionYear(transactions.getTransactionYear());
         transactions1.setDescription(transactions.getDescription());
+        transactions1.setCategory(transactions.getCategory());
         if(tranTypeId == 1){
 //            Category category = new Category();
 //            category.setCategoryId(0);
 //            category.setCategoryName("-");
 //            category.setUserId(userId);
-            transactions1.setCategory(null);
+//            transactions1.setCategory(null);
             transactions1.setDebitAmount(0);
             transactions1.setCreditAmount(transactions.getCreditAmount());
         }else{
-            transactions1.setCategory(transactions.getCategory());
+
             transactions1.setCreditAmount(0);
             transactions1.setDebitAmount(transactions.getDebitAmount());
             Transactions oldTransaction = new Transactions();
