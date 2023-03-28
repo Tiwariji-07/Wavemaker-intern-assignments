@@ -74,7 +74,7 @@ var pendingAmt = document.getElementById('pending-amount');
 async function showReminders(currMonth,currYear){
     var formDataObject = {};
     var flag = true;
-    var pendingAmount=0;
+    
     formDataObject.month = currMonth;
     formDataObject.year = currYear;
     // console.log(formDataObject);
@@ -99,7 +99,7 @@ async function showReminders(currMonth,currYear){
                 count=count+1;
                 var recurringDate;
                 var rd;
-                pendingAmount+=itemData.billAmount;
+                // pendingAmount+=itemData.billAmount;
                 // if(itemData.isRecurring){
                 //     var d = new Date(formatDate(itemData.reminderDate)).getDate();
                 //     console.log(d);
@@ -145,9 +145,7 @@ async function showReminders(currMonth,currYear){
         //     document.getElementsByClassName('r-jumbotron')[0].innerHTML = temp;
         // }
     })
-    var pendingData =`<h6>Pending</h6>
-        <span>${pendingAmount}</span>`;
-        pendingAmt.innerHTML = pendingData;
+    
     
     
 }
@@ -198,7 +196,7 @@ expenseChartData = {};
                         }
                         // expenseChartData[itemData.category.categoryName]+=itemData.debitAmount;
                     }
-                    console.log(expenseChartData);
+                    // console.log(expenseChartData);
                     // console.log(itemData.category);
                     if(count <= 8){
                         temp += "<tr>";
@@ -454,6 +452,7 @@ async function displayTranByCategoryChart(currMonth,currYear){
 
 // updateUser();
 function calender(currMonth,currYear){
+    
     const daysTag = document.querySelector(".days"),
     currentDate = document.querySelector(".current-date"),
     prevNextIcon = document.querySelectorAll(".icons span");
@@ -470,6 +469,7 @@ function calender(currMonth,currYear){
                 "August", "September", "October", "November", "December"];
     const renderCalendar =async () => {
         await showReminders(currMonth+1,currYear);
+        var pendingAmount=0;
         let firstDayofMonth = new Date(currYear, currMonth, 1).getDay(), // getting first day of month
         lastDateofMonth = new Date(currYear, currMonth + 1, 0).getDate(), // getting last date of month
         lastDayofMonth = new Date(currYear, currMonth, lastDateofMonth).getDay(), // getting last day of month
@@ -489,29 +489,44 @@ function calender(currMonth,currYear){
             //     }
             activeDates.forEach((bill)=>{
                 var date1 = new Date(bill[2]);
-                console.log(date1.getMonth());
+                // console.log(date1.getMonth());
                 if(i == date1.getDate() && currMonth == date1.getMonth()
                         && currYear == date1.getFullYear()){
                             isToday = "active";
                             props = `data-trigger="hover" data-toggle="popover" title="Bill Name: ${bill[0]}\n\nAmount: ₹${bill[1]}" data-content="${bill[1]}"`
                 }
+                
             });
             if(i == new Date().getDate() && currMonth == new Date().getMonth() 
                 && currYear == new Date().getFullYear()){
                     isToday = "present"
                     // props = "";
-                }
+            }
+          
             
             
             // console.log(props);
             liTag += `<li class="${isToday}" ${props}>${i}</li>`;
         }
+        activeDates.forEach((bill)=>{
+            var date1 = new Date(bill[2]);
+            // console.log(date1.getMonth());
+            if(date1.getDate() > new Date().getDate() && currMonth == date1.getMonth() 
+            && currYear == date.getFullYear()){
+                pendingAmount+=bill[1];
+                // console.log(pendingAmount);
+        }
+        });
         for (let i = lastDayofMonth; i < 6; i++) { // creating li of next month first days
             liTag += `<li class="inactive">${i - lastDayofMonth + 1}</li>`
         }
         // for(let i )
         currentDate.innerText = `${months[currMonth]} ${currYear}`; // passing current mon and yr as currentDate text
         daysTag.innerHTML = liTag;
+        console.log(pendingAmount);
+        var pendingData =`<h6>Pending</h6>
+        <span>${pendingAmount}</span>`;
+        pendingAmt.innerHTML = pendingData;
     }
     renderCalendar();
     // prevNextIcon.forEach(icon => { // getting prev and next icons

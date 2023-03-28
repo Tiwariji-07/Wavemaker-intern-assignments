@@ -19,7 +19,8 @@ const year=date.getFullYear()
 monthControl.value = `${year}-${month}`;
 monthControl2.min = `${year}-${month}`;
 monthControl2.value = `${year}-${month}`;
-
+var changedMonth=month;
+var changedYear=year;
 var amountLeft = document.getElementsByClassName('amount-left')[0];
 var spending = document.getElementsByClassName('spent-amount')[0];
 var total = document.getElementsByClassName('total-amount')[0];
@@ -71,9 +72,9 @@ function closeCategoryForm(){
 function getAllbudget(){
     const form1 = document.getElementById('periodForm');
     const budgetInput = document.getElementById('budgetMonth');
-    budgetInput.addEventListener('change', (e)=>{
-        loading();
-        setTimeout(loaded,1000);
+    budgetInput.addEventListener('change',async (e)=>{
+        // loading();
+        // setTimeout(loaded,1000);
         e.preventDefault();
         
         // budgetList.removeChild();
@@ -85,14 +86,18 @@ function getAllbudget(){
         var period = formDataObject.budgetDate.split("-");
         var year = period[0];
         var month = period[1];
+        changedMonth = period[1];
+        changedYear = period[0];
+        monthControl2.value = `${changedYear}-${changedMonth}`;
         delete formDataObject.budgetDate;
         formDataObject.month = month;
         formDataObject.year = year;
+        displayOption(month,year);
         // console.log(formDataObject);
         let formDataJsonString = JSON.stringify(formDataObject);
 
         console.log(formDataJsonString);
-        fetch(url+`${userId}/budget/period`, {
+        await fetch(url+`${userId}/budget/period`, {
             method:'POST', 
             //Set the headers that specify you're sending a JSON body request and accepting JSON response
         headers: {
@@ -105,7 +110,7 @@ function getAllbudget(){
             var totalAmount=0;
             var spentAmount=0;
             var remainingAmount=0;
-            budgetList.innerHTML = null;
+            budgetList.innerHTML = `<button class="btn add-btn"  type="button" data-toggle="modal" data-target="#myModal"><img src="assets/add-icon.png" alt="add"> Budget</button>`;
             data.forEach((itemData) => {
                 totalAmount += itemData.budgetAmount;
                 spentAmount += itemData.spentAmount;
@@ -126,19 +131,29 @@ function getAllbudget(){
             spendingBar.style.width = percentage+"%";
         // console.log(totalAmount+" "+spentAmount+" "+remainingAmount);
         })
+        displayBudget(month,year);
         
     });
 }
 
-document.addEventListener('DOMContentLoaded', function() {
+monthControl2.addEventListener('change',function(){
+    var period = monthControl2.value.split("-");
+    var year = period[0];
+    var month = period[1];
+    // console.log(period);
+    displayOption(month,year);
+})
+
+document.addEventListener('DOMContentLoaded',async function() {
     var formDataObject = {};
 
     formDataObject.month = month;
         formDataObject.year = year;
+        displayOption(month,year);
     let formDataJsonString = JSON.stringify(formDataObject);
 
         console.log(formDataJsonString);
-        fetch(url+`${userId}/budget/period`, {
+        await fetch(url+`${userId}/budget/period`, {
             method:'POST', 
             //Set the headers that specify you're sending a JSON body request and accepting JSON response
         headers: {
@@ -154,8 +169,8 @@ document.addEventListener('DOMContentLoaded', function() {
             data.forEach((itemData) => {
                 totalAmount += itemData.budgetAmount;
                 spentAmount += itemData.spentAmount;
-                console.log(itemData);
-                console.log(totalAmount+" "+spentAmount);
+                // console.log(itemData);
+                // console.log(totalAmount+" "+spentAmount);
                 setEachCard(itemData);
             })
             remainingAmount = totalAmount - spentAmount;
@@ -171,6 +186,7 @@ document.addEventListener('DOMContentLoaded', function() {
             spendingBar.style.width = percentage+"%";
         console.log(totalAmount+" "+spentAmount+" "+remainingAmount);
         })
+        displayBudget(month,year);
  }, false);
 
 
@@ -178,6 +194,11 @@ function setEachCard(budget){
     
     var budgetCard = document.createElement('div');
     budgetCard.classList.add('col-sm-5','col-xs-12','budget-card');
+    var cardHeader = document.createElement('div');
+    cardHeader.classList.add('card-header');
+    var editButton =`<span class="material-symbols-rounded edit-button">
+    edit
+    </span>`;
     var categoryName = document.createElement('h4');
     var spending = document.createElement('div');
     spending.classList.add('spending-c');
@@ -207,7 +228,9 @@ function setEachCard(budget){
     }
     spendingBar.style.width = percentage+"%";
     spending.appendChild(spendingBar);
-    budgetCard.appendChild(categoryName);
+    cardHeader.appendChild(categoryName);
+    cardHeader.insertAdjacentHTML('beforeend',editButton);
+    budgetCard.appendChild(cardHeader);
     budgetCard.appendChild(spending);
     // // cardBarFooter.appendChild('spent');
     // cardBarFooter.appendChild(cardSpentAmount);
@@ -222,41 +245,52 @@ function setEachCard(budget){
                     </div>`
     budgetCard.insertAdjacentHTML('beforeend',barFooter);
     budgetList.appendChild(budgetCard);
-    console.log(budgetCard);
+    // console.log(budgetCard);
 }
 
 const batchTrack = document.getElementById("category");
-const getCategories = async () => {
+var dtcategory = document.getElementById('dtcategory');
+async function getCategories(year,month){
     var formDataObject = {};
 
     formDataObject.month = month;
     formDataObject.year = year;
+    // console.log(month+" "+year);
     let formDataJsonString = JSON.stringify(formDataObject);
 
-    console.log(formDataJsonString);
-    const response =await fetch(url+`${userId}/category`, {
-        method:'GET', 
+    // console.log(formDataJsonString);
+    const response =await fetch(url+`${userId}/category/unused`, {
+        method:'POST', 
           //Set the headers that specify you're sending a JSON body request and accepting JSON response
         headers: {
           "Content-Type": "application/json",
             Accept: "application/json",
-        }
+        },
+        body:formDataJsonString
       });
-  console.log(response);
+//   console.log(response);
   const data = await response.json();
+//   console.log(data);
   return data;
 };
 
-const displayOption = async () => {
-  const options =await getCategories();
+async function displayOption(month,year){
+  const options =await getCategories(year,month);
   // options.forEach(option => {
+    batchTrack.innerHTML=null;
+    dtcategory.innerHTML = null;
     for(option of options){
         if(option != null){
             const newOption = document.createElement("option");
-            console.log(option);
+            // console.log(option);
             newOption.value = option.categoryId + " " + option.categoryName;
             newOption.text = option.categoryName;
+            const newOption2 = document.createElement("option");
+            // console.log(option);
+            newOption2.value = option.categoryId + " " + option.categoryName;
+            newOption2.text = option.categoryName;
             batchTrack.appendChild(newOption);
+            dtcategory.appendChild(newOption2);
         }
     }
 
@@ -308,22 +342,108 @@ async function addBudget(){
             alert("Not added ")
           }
         })
+        displayBudget(month,year);
     });
 }
 
-function addCategory(){
-    const categoryForm = document.getElementById('add-category-form');
-    categoryForm.addEventListener('submit', (e)=>{
+function displayBudget(month,year){
+    var editBtns = document.querySelectorAll('.edit-button');
+    editBtns.forEach(btn=>
+        {btn.onclick =async function(ev) {
+            await displayOption(month,year);
+            var index='';
+            index = ev.target.parentElement.children[0].innerHTML;
+            // console.log(index);
+            $('#detailModal').modal('show');
+            var formDataObject = {};
+            var dtcategory = document.getElementById('dtcategory');
+            var dtBudgetAmount = document.getElementById('dtbudgetAmount');
+            formDataObject.month = month;
+            formDataObject.year = year;
+            // console.log(month+" "+year);
+            let formDataJsonString = JSON.stringify(formDataObject);
+            
+            // console.log(formDataJsonString);
+            // console.log(url+`${userId}/budget/details/${index}`);
+            fetch(url+`${userId}/budget/details/${index}`, {
+                method:'POST', 
+                //Set the headers that specify you're sending a JSON body request and accepting JSON response
+            headers: {
+                "Content-Type": "application/json",
+                Accept: "application/json",
+            },
+                body: formDataJsonString
+            }).then((response)=> response.json())
+            .then((data)=>{
+              if(data != null){
+                // console.log(data);
+                const newOption2 = document.createElement("option");
+                // console.log(option);
+                var id = document.getElementById('dtid');
+                id.value=data.expenseBudgetId;
+                newOption2.value = data.category.categoryId + " " + data.category.categoryName;
+                newOption2.text = data.category.categoryName;
+                dtcategory.appendChild(newOption2);
+                dtcategory.value = data.category.categoryId + " " + data.category.categoryName;
+                dtBudgetAmount.value = data.budgetAmount;
+                // alert("Budget added")
+                // getAllbudget();
+                // window.location.reload();
+                // closeBudgetForm();
+                // deleteBudget()
+              }else{
+                alert("Not added ")
+              }
+            })
+            
+
+        }
+    });
+}
+
+function deleteBudget(){
+    var id = document.getElementById('dtid').value;
+      console.log(id);
+      fetch(url+`${userId}/budget/${id}`, {
+              method:'DELETE', 
+              //Set the headers that specify you're sending a JSON body request and accepting JSON response
+          headers: {
+              "Content-Type": "application/json",
+              Accept: "application/json",
+          }
+          }).then((response)=> response.json())
+          .then((data)=>{
+            if(data != null){
+              // console.log(data);
+              // alert("Transaction deleted");
+              // closeDetailsForm();
+              $('#detailModal').modal('hide');
+              // getTransactions();
+              window.location.reload();
+            }
+      })
+  }
+
+  
+function updateBudget(){
+    const budgetForm = document.getElementById('edit-budget-form');
+    budgetForm.addEventListener('submit', (e)=>{
         e.preventDefault();
-        const categoryData = new FormData(categoryForm);
-        let formDataObject = Object.fromEntries(categoryData.entries());
-        formDataObject.userId = userId;
+
+        const budgetData = new FormData(budgetForm);
+        // const data = new URLSearchParams(formData);
+        //Create an object from the form data entries
+        let formDataObject = Object.fromEntries(budgetData.entries());
+        formDataObject.isRecurring = "false";
+        var categoryValue = formDataObject.category.split(" ");
+        formDataObject.category = {categoryId:categoryValue[0],
+            categoryName:categoryValue[1],userId:`${userId}`};
         console.log(formDataObject);
         // Format the plain form data as JSON
         let formDataJsonString = JSON.stringify(formDataObject);
         console.log(formDataJsonString);
-        fetch(url+`${userId}/category/create`, {
-            method:'POST', 
+        fetch(url+`${userId}/budget/update`, {
+            method:'PUT', 
             //Set the headers that specify you're sending a JSON body request and accepting JSON response
         headers: {
             "Content-Type": "application/json",
@@ -332,20 +452,26 @@ function addCategory(){
             body: formDataJsonString
         }).then((response)=> response.json())
         .then((data)=>{
-          if(data.userId != 0){
+          if(data != null){
             console.log(data);
-            alert("Category added");
-            closeCategoryForm();
-            getAllbudget();
+            // alert("Budget added")
+            // getAllbudget();
+            $('#detailModal').modal('hide');
             window.location.reload();
+            
+            
           }else{
-            alert("Category already exists!")
+            alert("Not added ")
           }
         })
+        // displayBudget(month,year);
     });
 }
 
+updateBudget();
 getAllbudget();
-displayOption();
+// displayOption();
 addBudget();
-addCategory();
+// addCategory();
+// getCategories(year,month);
+// displayBudget();

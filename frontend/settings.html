@@ -81,17 +81,17 @@
                                 </a>
                                 <!-- </div> -->
                                 <!-- <div class="col-xs-2"> -->
-                                    <a class="s-row" href="user.html">
+                                    <!-- <a class="s-row" href="user.html">
                                     <div class="s-item">
                                         
-                                            <!-- <img src="assets/profile.png" alt="profile" class="nav-img"> -->
+                                            
                                             <span class="material-symbols-rounded">
                                                 person
                                                 </span>
                                         
                                         Profile
                                     </div>
-                                </a>
+                                </a> -->
                                 <a class="s-row" href="settings.html">
                                     <div class="s-item">
                                         
@@ -103,20 +103,15 @@
                                         Settings
                                     </div>
                                 </a>
-                                <!-- </div> -->
-                                <a class="s-row" onclick="logout()">
-                                    <!-- <button onclick="logout()"> -->
+                                <!-- <a class="s-row" onclick="logout()">
                                     <div class="s-item">
-                                        
-                                            <!-- <img src="assets/profile.png" alt="profile" class="nav-img"> -->
                                             <span class="material-symbols-rounded">
                                                 logout
                                                 </span>
                                         
                                         Logout
                                     </div>
-                                <!-- </button> -->
-                                </a>
+                                </a> -->
                             </div>
                         </div>
                     </div>
@@ -141,36 +136,84 @@
                       
                         <!-- Tab panes -->
                         <div class="tab-content">
-                          <div role="tabpanel" class="tab-pane active" id="theme">
-                            <div class="row">
-                                <div class="col-sm-3">
-                                    <div class="jumbotron">
-                                        <button data-theme="blue" aria-pressed="true">Blue</button>
-                                    </div>
-                                </div>
-                                <div class="col-sm-3">
-                                    <div class="jumbotron">
-                                        <button data-theme="green" aria-pressed="false">green</button>
-                                    </div>
-                                </div>
-                                <div class="col-sm-3">
-                                    <div class="jumbotron">
-                                        <button data-theme="violet" aria-pressed="false">violet</button>
-                                    </div>
-                                </div>
-                                <div class="col-sm-3">
-                                    <div class="jumbotron">
-                                        <button data-theme="dark" aria-pressed="false">dark</button>
-                                    </div>
-                                </div>
+                          <div role="tabpanel" class="tab-pane active theme-tabs" id="theme">
+                            <div class="theme-tab">
+                                <img src="assets/blue-theme.png" alt="green-theme" class="th-img" data-theme="blue" aria-pressed="true">
+                                <img src="assets/light-violet-theme.png" alt="green-theme" class="th-img" data-theme="light-violet" aria-pressed="false">
+                                <img src="assets/green-theme.png" alt="green-theme" class="th-img" data-theme="green" aria-pressed="false">
+                                <img src="assets/violet-theme.png" alt="green-theme" class="th-img" data-theme="violet" aria-pressed="false">
+                                <img src="assets/green-theme.png" alt="green-theme" class="th-img" data-theme="dark" aria-pressed="false">
+                                
                             </div>
                           </div>
                           <div role="tabpanel" class="tab-pane" id="categories">
+                            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                <div class="modal-dialog" role="document">
+                                  <div class="modal-content">
+                                    <div class="modal-header">
+                                      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                      <h4 class="modal-title" id="myModalLabel">Add Category</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form method="post" class="form-container" id="add-category-form">
+                                            <div class="ac-form">
+                                                <!-- <h1>Add Category</h1> -->
+                                                <div class="form-group grp">
+                                                    <label for="categoryName"><b>Category Name *</b></label>
+                                                    <input type="text" placeholder="Enter category" name="categoryName" id="categoryName" required>
+                                                </div>
+                                                <div>
+                                                    <button type="submit" class="btn">Add</button>
+                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                </div>
+                                                <!-- <button type="button" class="btn cancel" onclick="closeCategoryForm()">Close</button> -->
+                                            </div>
+                                          </form>
+                                    </div>
+                                    <!-- <div class="modal-footer">
+                                      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                      <button type="button" class="btn btn-primary">Save changes</button>
+                                    </div> -->
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="modal fade" id="detailModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                <div class="modal-dialog" role="document">
+                                  <div class="modal-content">
+                                    <div class="modal-header">
+                                      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                      <h4 class="modal-title" id="myModalLabel">Edit Category</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form method="post" class="form-container" id="edit-category-form">
+                                            <div class="ac-form">
+                                                <!-- <h1>Add Category</h1> -->
+                                                <input type="hidden" placeholder="Enter Bill Id" name="categoryId" id="dtid" required readonly>
+                                                <div class="form-group grp">
+                                                    <label for="categoryName"><b>Category Name *</b></label>
+                                                    <input type="text" placeholder="Enter category" name="categoryName" id="dtcategoryName" required>
+                                                </div>
+                                                <div>
+                                                    <button type="submit" class="btn">Save</button>
+                                                    <button type="button" class="btn" onclick="deleteCategory()">Delete</button>
+                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                </div>
+                                                <!-- <button type="button" class="btn cancel" onclick="closeCategoryForm()">Close</button> -->
+                                            </div>
+                                          </form>
+                                    </div>
+                                    <!-- <div class="modal-footer">
+                                      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                      <button type="button" class="btn btn-primary">Save changes</button>
+                                    </div> -->
+                                  </div>
+                                </div>
+                              </div>
                             <div class="categories-section">
                                 <div class="jumbotron">
                                     <div class="category-header">
                                         <h3>Categories</h3>
-                                        <button class="btn add-btn" onclick="openCategoryForm()"><img src="assets/add-icon.png" alt="add"> Category</button>
+                                        <button class="btn add-btn" type="button" data-toggle="modal" data-target="#myModal"><img src="assets/add-icon.png" alt="add"> Category</button>
                                     </div>
                                     <table class="table table-hover table-condensed category-table">
                                         <thead>
@@ -178,8 +221,8 @@
                                             <th>S No</th>
                                             <th>Category Id</th>
                                             <th>Name</th>
-                                            <th>is_active</th>
-                                            <th></th>
+                                            <!-- <th>is_active</th>
+                                            <th></th> -->
                                             <!-- <th>Edit</th>
                                             <th>Delete</th> -->
                                           </tr>

@@ -48,6 +48,14 @@
   --bg-c: #000101;
   --jumbotron-color:#1F1F1F;
 }
+[data-selected-theme="light-violet"]{
+  --primary-color: #6E3CBC;
+    --secondary-color: #7267CB;
+    --third-color: #98BAE7;
+    --bg-c:linear-gradient(to top, #7267cb, #727ed6, #7893de, #85a7e3, #98bae7);
+    --jumbotron-color:white;
+    --active-theme-border : #C060A1;
+}
 
 body{
     /* --primary-color :#2f486a;
@@ -238,6 +246,10 @@ footer{
     background-color: var(--third-color);
     padding: 1em;
     border-radius: 1em;
+  }
+
+  .s-heading a{
+    color: var(--primary-color);
   }
   .s-row{
     width: 100%;

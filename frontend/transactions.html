@@ -9,6 +9,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@NaN,0,0,0" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@NaN,0,0,0" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@NaN,0,0,0" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,400,0,0" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,400,0,0" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,400,0,0" />
@@ -131,17 +132,17 @@
                                 </a>
                                 <!-- </div> -->
                                 <!-- <div class="col-xs-2"> -->
-                                    <a class="s-row" href="user.html">
+                                    <!-- <a class="s-row" href="user.html">
                                     <div class="s-item">
                                         
-                                            <!-- <img src="assets/profile.png" alt="profile" class="nav-img"> -->
+                                            
                                             <span class="material-symbols-rounded">
                                                 person
                                                 </span>
                                         
                                         Profile
                                     </div>
-                                </a>
+                                </a> -->
                                 <a class="s-row" href="settings.html">
                                     <div class="s-item">
                                         
@@ -153,20 +154,15 @@
                                         Settings
                                     </div>
                                 </a>
-                                <!-- </div> -->
-                                <a class="s-row" onclick="logout()">
-                                    <!-- <button onclick="logout()"> -->
+                                <!-- <a class="s-row" onclick="logout()">
                                     <div class="s-item">
-                                        
-                                            <!-- <img src="assets/profile.png" alt="profile" class="nav-img"> -->
                                             <span class="material-symbols-rounded">
                                                 logout
                                                 </span>
                                         
                                         Logout
                                     </div>
-                                <!-- </button> -->
-                                </a>
+                                </a> -->
                             </div>
                         </div>
                     </div>
@@ -176,7 +172,15 @@
                 <section>
                     <div class="reminder-header">
                         <!-- <div> -->
-                            <h1 class="reminder-heading">Transactions</h1>
+                            <div class="grp">
+                                <h1 class="reminder-heading">Transactions</h1>
+                                <button onclick="generatePDF()" class="btn download-btn">
+                                    <span class="material-symbols-rounded">
+                                    download
+                                    </span> 
+                                    Statement
+                                </button>
+                            </div>
                             <form method="post" id="periodForm">
                                 <div class="form-froup grp">
                                     <label for="budgetMonth">Budget Month</label>
@@ -201,17 +205,16 @@
                             <div class="jumbotron t-jumbotron">
                                 <div class="tran-btns">
                                     <h3>Expenses</h3>
-                                    <button class="btn reminder-btn" onclick="closeTranForm(),openTranExpenseForm()"><img src="assets/add-icon.png" alt="add"> Expense</button>
+                                    <button class="btn reminder-btn" type="button" data-toggle="modal" data-target="#addExpenseModal"><img src="assets/add-icon.png" alt="add"> Expense</button>
                                 </div>
+                                <div class="pdf">
                                 <table class="table table-hover table-condensed" id="expense-table">
                                     <thead>
                                       <tr>
                                         <th>S No</th>
                                         <th>Tid</th>
-                                        <!-- <th>Type</th> -->
                                         <th>Category</th>
                                         <th>Amount</th>
-                                        <!-- <th>Credit</th> -->
                                         <th>Date</th>
                                         <th></th>
                                       </tr>
@@ -220,14 +223,16 @@
                                     </tbody>
                                 </table>
                             </div>
+                            </div>
                         </div>
                         <div class="col-md-6 col-xs-12">
                             <!-- <h3>Income</h3> -->
                             <div class="jumbotron t-jumbotron">
                                 <div class="tran-btns">
                                     <h3>Incomes</h3>
-                                    <button class="btn reminder-btn" onclick="closeTranForm(),openTranForm()"><img src="assets/add-icon.png" alt="add"> Income</button>
+                                    <button class="btn reminder-btn" type="button" data-toggle="modal" data-target="#addIncomeModal"><img src="assets/add-icon.png" alt="add"> Income</button>
                                 </div>
+                                <div class="pdf">
                                 <table class="table table-hover table-condensed">
                                     <thead>
                                       <tr>
@@ -242,17 +247,167 @@
                                     <tbody id="data1">
                                     </tbody>
                                 </table>
+                            </div>
                                 <!-- <img src="assets/edit-icon.png" alt=""> -->
                             </div>
                         </div>
                     </div>
                 </section>
-                <!-- <button onclick="generatePDF()">Download PDF</button> -->
+                
             </div>
         </div>
         
     </section>
-    <section class="form-popup" id="transaction-income-page">
+    <div class="modal fade" id="addIncomeModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog modal-sm" role="document">
+          <div class="modal-content add-reminder-modal">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <h4 class="modal-title" id="myModalLabel">Add Income</h4>
+            </div>
+            <div class="modal-body">
+                <form method="post" id="transaction-income-form">
+                        <div class="form-group grp">
+                            <label for="category"><b>Category *</b></label>
+                            <select name="category" id="category" required>  
+                            </select>
+                        </div>
+                        <div class="form-group grp">
+                            <label for="creditAmount"><b>Amount *</b></label>
+                            <input type="number" placeholder="Enter Amount" name="creditAmount" id="creditAmount" required>
+                        </div>
+                        <div class="form-group grp">
+                            <label for="date"><b>Transaction Date *</b></label>
+                            <input type="month" name="transactionDate" id="date" required>
+                        </div>
+                        <div class="form-group grp">
+                            <label for="desc"><b>Description</b></label>
+                            <input type="text" name="description" id="description">
+                        </div>
+    
+    
+                        <button type="submit" class="btn">Add</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                  </form>
+            </div>
+          </div>
+        </div>
+    </div>
+    <div class="modal fade" id="addExpenseModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog modal-sm" role="document">
+          <div class="modal-content add-reminder-modal">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <h4 class="modal-title" id="myModalLabel">Add Expense</h4>
+            </div>
+            <div class="modal-body">
+                <form method="post" id="transaction-expense-form">
+                        <div class="form-group grp">
+                            <label for="category1"><b>Category *</b></label>
+                            <select name="category" id="category1" required>
+                                
+                            </select>
+                        </div>
+                        <div class="form-group grp">
+                            <label for="debitAmount"><b>Amount *</b></label>
+                            <input type="number" placeholder="Enter Amount" name="debitAmount" id="creditAmount" required>
+                        </div>
+                        <div class="form-group grp">
+                            <label for="date1"><b>Transaction Date *</b></label>
+                            <input type="month" name="transactionDate" id="date1" required>
+                        </div>
+                        <div class="form-group grp">
+                            <label for="desc"><b>Description</b></label>
+                            <input type="text" name="description" id="description">
+                        </div>
+    
+    
+                        <button type="submit" class="btn">Add</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                  </form>
+            </div>
+          </div>
+        </div>
+    </div>
+    <div class="modal fade" id="detExpenseModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog modal-sm" role="document">
+          <div class="modal-content add-reminder-modal">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <h4 class="modal-title" id="myModalLabel">Expense Details</h4>
+            </div>
+            <div class="modal-body">
+                <form method="post" id="expense-detail-form">
+                        <div class="form-group grp">
+                            <label for="dtid"><b>Transaction Id</b></label>
+                            <input type="num" placeholder="Enter Bill Id" name="transactionId" id="dtid" required readonly>
+                        </div>
+                        <div class="form-group grp" id="dtcategory1">
+                            <label for="dtcategoryE"><b>Category *</b></label>
+                            <select name="categoryE" id="dtcategoryE" required>
+                                
+                            </select>
+                        </div>
+                        <div class="form-group grp">
+                            <label for="dtdate"><b>Date *</b></label>
+                            <input type="month" name="transactionDate" id="dtdate" required >
+                        </div>
+                        <div class="form-group grp">
+                            <label for="dtdebit"><b>Amount *</b></label>
+                            <input type="number" name="debitAmount" id="dtdebit" required >
+                        </div>
+                        <div class="form-group grp">
+                            <label for="dtdescription"><b>Description</b></label>
+                            <input type="text" name="description" id="dtdescription">
+                        </div>
+                        <button type="submit" class="btn btn-success">Save</button>
+                        <button type="button" class="btn" onclick="deleteTransaction()">Delete</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                  </form>
+            </div>
+          </div>
+        </div>
+    </div>
+    <div class="modal fade" id="detIncomeModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog modal-sm" role="document">
+          <div class="modal-content add-reminder-modal">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <h4 class="modal-title" id="myModalLabel">Income Details</h4>
+            </div>
+            <div class="modal-body">
+                <form method="post" id="income-detail-form">
+                    <div class="form-group grp">
+                        <label for="dtid1"><b>Transaction Id</b></label>
+                        <input type="num" placeholder="Enter Bill Id" name="transactionId" id="dtid1" required readonly>
+                    </div>
+                    <div class="form-group grp" id="dtcategory1">
+                        <label for="dtcategory2"><b>Category *</b></label>
+                        <select name="category" id="dtcategory2" required>
+                                
+                        </select>
+                    </div>
+                    <div class="form-group grp">
+                        <label for="dtdate1"><b>Date *</b></label>
+                        <input type="month" name="transactionDate" id="dtdate1" required>
+                    </div>
+                    <div class="form-group grp">
+                        <label for="dtcredit1"><b>Amount *</b></label>
+                        <input type="number" name="creditAmount" id="dtcredit1" required>
+                    </div>
+                    <div class="form-group grp">
+                        <label for="dtdescription1"><b>Description</b></label>
+                        <input type="text" name="description" id="dtdescription1">
+                    </div>
+                    <button type="submit" class="btn btn-success">Save</button>
+                    <button type="button" class="btn" onclick="deleteTransaction1()">Delete</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                  </form>
+            </div>
+          </div>
+        </div>
+    </div>
+    <!-- <section class="form-popup" id="transaction-income-page">
         <div class="add-reminder-form">
             <form method="post" class="form-container" id="transaction-income-form">
                 <div class="ac-form">
@@ -281,8 +436,8 @@
                 </div>
               </form>
         </div>
-    </section>
-    <section class="form-popup" id="transaction-expense-page">
+    </section> -->
+    <!-- <section class="form-popup" id="transaction-expense-page">
         <div class="add-reminder-form">
             <form method="post" class="form-container" id="transaction-expense-form">
                 <div class="ac-form">
@@ -312,8 +467,9 @@
                 </div>
               </form>
         </div>
-    </section>
-    <section class="form-popup details" id="expenseDetailForm">
+    </section> -->
+    
+    <!-- <section class="form-popup details" id="expenseDetailForm">
         <div class="add-reminder-form">
             <form method="post" class="form-container" id="reminder-detail-form">
                 <div class="ac-form">
@@ -322,10 +478,6 @@
                         <label for="dtid"><b>Transaction Id</b></label>
                         <input type="num" placeholder="Enter Bill Id" name="billId" id="dtid" required readonly>
                     </div>
-                    <!-- <div class="form-group grp">
-                        <label for="dttype"><b>Type</b></label>
-                        <input type="text" placeholder="Enter Type Name" name="billName" id="dttype" required readonly>
-                    </div> -->
                     <div class="form-group grp" id="dtcategory1">
                         <label for="dtcategory"><b>Category</b></label>
                         <input type="text" placeholder="Enter category" name="billAmount" id="dtcategory" required readonly>
@@ -338,22 +490,18 @@
                         <label for="dtdebit"><b>Debit</b></label>
                         <input type="number" name="reminderDate" id="dtdebit" required readonly>
                     </div>
-                    <!-- <div class="form-group grp">
-                        <label for="dtcredit"><b>Credit</b></label>
-                        <input type="number" name="reminderDate" id="dtcredit" required readonly>
-                    </div> -->
                     <div class="form-group grp">
                         <label for="dtdescription"><b>Description</b></label>
                         <input type="text" name="reminderDate" id="dtdescription" required readonly>
                     </div>
-                    <!-- <button type="submit" class="btn btn-success">Save</button> -->
+                    <button type="submit" class="btn btn-success">Save</button>
                     <button type="button" class="btn" onclick="deleteTransaction()">Delete</button>
                     <button type="button" class="btn cancel" onclick="closeDetailsForm()">Close</button>
                 </div>
               </form>
         </div>
-    </section>
-    <section class="form-popup details" id="incomeDetailForm">
+    </section> -->
+    <!-- <section class="form-popup details" id="incomeDetailForm">
         <div class="add-reminder-form">
             <form method="post" class="form-container" id="reminder-detail-form">
                 <div class="ac-form">
@@ -362,22 +510,14 @@
                         <label for="dtid1"><b>Transaction Id</b></label>
                         <input type="num" placeholder="Enter Bill Id" name="billId" id="dtid1" required readonly>
                     </div>
-                    <!-- <div class="form-group grp">
-                        <label for="dttype"><b>Type</b></label>
-                        <input type="text" placeholder="Enter Type Name" name="billName" id="dttype" required readonly>
-                    </div> -->
-                    <!-- <div class="form-group grp" id="dtcategory1">
+                    <div class="form-group grp" id="dtcategory1">
                         <label for="dtcategory"><b>Category</b></label>
                         <input type="text" placeholder="Enter category" name="billAmount" id="dtcategory" required readonly>
-                    </div> -->
+                    </div>
                     <div class="form-group grp">
                         <label for="dtdate1"><b>Transaction Date</b></label>
                         <input type="month" name="reminderDate" id="dtdate1" required readonly>
                     </div>
-                    <!-- <div class="form-group grp">
-                        <label for="dtdebit"><b>Debit</b></label>
-                        <input type="number" name="reminderDate" id="dtdebit" required readonly>
-                    </div> -->
                     <div class="form-group grp">
                         <label for="dtcredit1"><b>Credit</b></label>
                         <input type="number" name="reminderDate" id="dtcredit1" required readonly>
@@ -386,13 +526,13 @@
                         <label for="dtdescription1"><b>Description</b></label>
                         <input type="text" name="reminderDate" id="dtdescription1" required readonly>
                     </div>
-                    <!-- <button type="submit" class="btn btn-success">Save</button> -->
+                    <button type="submit" class="btn btn-success">Save</button>
                     <button type="button" class="btn" onclick="deleteTransaction1()">Delete</button>
                     <button type="button" class="btn cancel" onclick="closeDetails1Form()">Close</button>
                 </div>
               </form>
         </div>
-    </section>
+    </section> -->
     <section class="mobile-nav">
         <div class="container-fluid bottom-nav">
             <div class="b-nav">
@@ -466,6 +606,7 @@
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="bootstrap-3.3.7/dist/js/bootstrap.min.js"></script>
     <script src="js/myTransaction.js"></script>
+    <script src="https://smtpjs.com/v3/smtp.js"></script>
     
 </body>
 </html>

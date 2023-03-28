@@ -43,6 +43,14 @@
     --bg-c: #000101;
     --jumbotron-color:#1F1F1F;
   }
+  [data-selected-theme="light-violet"]{
+    --primary-color: #6E3CBC;
+      --secondary-color: #7267CB;
+      --third-color: #98BAE7;
+      --bg-c:linear-gradient(to top, #7267cb, #727ed6, #7893de, #85a7e3, #98bae7);
+      --jumbotron-color:white;
+      --active-theme-border : #C060A1;
+  }
 
 body{
     /* --primary-color :#2f486a;
@@ -156,6 +164,14 @@ h1,h3,h4,h5{
     /* border: 1px solid red; */
     /* padding: 1em 1em;
     margin: 1em 1em; */
+}
+
+.card-header{
+  display: flex;
+  justify-content: space-between;
+}
+.card-header span{
+  font-size: 20px;
 }
 
 .budget-card h4{
@@ -314,7 +330,9 @@ h1,h3,h4,h5{
 .mobile-nav{
     display: none;
 }
-
+.jumbotron{
+    background-color: var(--jumbotron-color);
+}
 @media only screen and (max-width: 767px) {
     .mobile-nav{
         display: block;
@@ -361,6 +379,9 @@ h1,h3,h4,h5{
     background-color: var(--third-color);
     padding: 1em;
     border-radius: 1em;
+  }
+  .s-heading a{
+    color: var(--primary-color);
   }
   .s-row{
     width: 100%;
@@ -424,6 +445,3 @@ h1,h3,h4,h5{
     background-color: var(--jumbotron-color);
 }
 
-.jumbotron{
-    background-color: var(--jumbotron-color);
-}

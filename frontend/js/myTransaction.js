@@ -294,7 +294,7 @@ function addIncome(){
         delete formDataObject.transactionDate;
         var categoryValue = formDataObject.category.split(" ");
         formDataObject.category = {categoryId:categoryValue[0],
-          categoryName:categoryValue[1],userId:2};
+          categoryName:categoryValue[1],userId:userId};
         console.log(formDataObject);
         // Format the plain form data as JSON
         let formDataJsonString = JSON.stringify(formDataObject);
@@ -313,13 +313,61 @@ function addIncome(){
             console.log(data);
             // alert("transaction added")
             // getTransactions();
-            closeTranForm();
+            // closeTranForm();
+            $('#addIncomeModal').modal('hide');
             window.location.reload();
           }else{
             alert("Not added ")
           }
         })
     });
+}
+function updateIncome(){
+  const transactionForm = document.getElementById('income-detail-form');
+  transactionForm.addEventListener('submit', (e)=>{
+      e.preventDefault();
+
+      const transactionData = new FormData(transactionForm);
+      // const data = new URLSearchParams(formData);
+      //Create an object from the form data entries
+      let formDataObject = Object.fromEntries(transactionData.entries());
+      
+
+      
+      var oldDate = new Date(formDataObject.transactionDate);
+
+      formDataObject.transactionMonth = oldDate.getMonth()+1;
+      formDataObject.transactionYear = oldDate.getFullYear();
+      delete formDataObject.transactionDate;
+      var categoryValue = formDataObject.category.split(" ");
+      formDataObject.category = {categoryId:categoryValue[0],
+        categoryName:categoryValue[1],userId:userId};
+      console.log(formDataObject);
+      // Format the plain form data as JSON
+      let formDataJsonString = JSON.stringify(formDataObject);
+      console.log(formDataJsonString);
+      fetch(url+`${userId}/transactions/1/update`, {
+          method:'PUT', 
+          //Set the headers that specify you're sending a JSON body request and accepting JSON response
+      headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+      },
+          body: formDataJsonString
+      }).then((response)=> response.json())
+      .then((data)=>{
+        if(data != null){
+          console.log(data);
+          // alert("transaction added")
+          // getTransactions();
+          // closeTranForm();
+          $('#detIncomeModal').modal('hide');
+          window.location.reload();
+        }else{
+          alert("Not added ")
+        }
+      })
+  });
 }
 
 function addExpense(){
@@ -360,7 +408,8 @@ function addExpense(){
             console.log(data);
             // alert("transaction added")
             // getTransactions();
-            closeTranExpenseForm(); 
+            // closeTranExpenseForm();
+            $('#addExpenseModal').modal('hide');
             window.location.reload();
 
           }else{
@@ -369,9 +418,60 @@ function addExpense(){
         })
     });
 }
+function updateExpense(){
+  const transactioExpenseForm = document.getElementById('expense-detail-form');
+  transactioExpenseForm.addEventListener('submit', (e)=>{
+      e.preventDefault();
+
+      const transactionData = new FormData(transactioExpenseForm);
+      // const data = new URLSearchParams(formData);
+      //Create an object from the form data entries
+      let formDataObject = Object.fromEntries(transactionData.entries());
+      
+
+      
+      var oldDate = new Date(formDataObject.transactionDate);
+
+      formDataObject.transactionMonth = oldDate.getMonth()+1;
+      formDataObject.transactionYear = oldDate.getFullYear();
+      delete formDataObject.transactionDate;
+      var categoryValue = formDataObject.categoryE.split(" ");
+      formDataObject.category = {categoryId:categoryValue[0],
+        categoryName:categoryValue[1],userId:userId};
+      console.log(formDataObject);
+      // Format the plain form data as JSON
+      let formDataJsonString = JSON.stringify(formDataObject);
+      console.log(formDataJsonString);
+      fetch(url+`${userId}/transactions/2/update`, {
+          method:'PUT', 
+          //Set the headers that specify you're sending a JSON body request and accepting JSON response
+      headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+      },
+          body: formDataJsonString
+      }).then((response)=> response.json())
+      .then((data)=>{
+        if(data != null){
+          console.log(data);
+          // alert("transaction added")
+          // getTransactions();
+          // closeTranExpenseForm();
+          $('#detExpenseModal').modal('hide');
+          window.location.reload();
+
+        }else{
+          alert("Not added ")
+        }
+      })
+  });
+}
 
 const batchTrack = document.getElementById("category");
-// var dtCategory1 = document.getElementById('dtcategory1');
+var backTrack1 = document.getElementById('category1');
+var exCategoryE = document.getElementById('dtcategoryE');
+var inCategory = document.getElementById('dtcategory2');
+
 const getCategories = async () => {
   const response =await fetch(url+`${userId}/category`);
   // console.log(response);
@@ -379,18 +479,32 @@ const getCategories = async () => {
   return data;
 };
 
+
 const displayOption = async () => {
+  
   const options =await getCategories();
   // options.forEach(option => {
     for(option of options){
-      const newOption = document.createElement("option");
+      var newOption1 = document.createElement("option");
+      var newOption2= document.createElement("option");
+      var newOption3 = document.createElement("option");
+      var newOption4 = document.createElement("option");
       // console.log(option);
-      newOption.value = option.categoryId + " " + option.categoryName;
-      newOption.text = option.categoryName;
-      batchTrack.appendChild(newOption);
-      // dtCategory1.appendChild(newOption);
+      newOption1.value = option.categoryId + " " + option.categoryName;
+      newOption1.text = option.categoryName;
+      newOption2.value = option.categoryId + " " + option.categoryName;
+      newOption2.text = option.categoryName;
+      newOption3.value = option.categoryId + " " + option.categoryName;
+      newOption3.text = option.categoryName;
+      newOption4.value = option.categoryId + " " + option.categoryName;
+      newOption4.text = option.categoryName;
+      batchTrack.appendChild(newOption1);
+      backTrack1.appendChild(newOption2);
+      exCategoryE.appendChild(newOption3);
+      inCategory.appendChild(newOption4);
+      
     }
-
+    console.log(exCategoryE);
   // });
 };
 
@@ -405,11 +519,12 @@ async function displayTransaction(){
   console.log(document.getElementById('data').children[index-1]);
   var transactionId = row.children[1].innerHTML;
   console.log(transactionId);
-  openDetailsForm();
+  // openDetailsForm();
+  $('#detExpenseModal').modal('show');
   var dtId = document.getElementById('dtid');
   // var dtType = document.getElementById('dttype');
-  var dtCategory = document.getElementById('dtcategory');
-  var dtCategory1 = document.getElementById('dtcategory1');
+  var dtCategory = document.getElementById('dtcategoryE');
+  // var dtCategory1 = document.getElementById('dtcategory1');
   var dtdate = document.getElementById('dtdate');
   var dtDebit = document.getElementById('dtdebit');
   // var dtCredit = document.getElementById('dtcredit');
@@ -427,13 +542,13 @@ async function displayTransaction(){
       // console.log(data);
       dtId.value = data.transactionId;
       // dtType.value = data.transactionType.transactionTypeName;
-      if(("category" in data )){
-        dtCategory1.style.display ="block";
-        dtCategory.style.display ="block";
-        dtCategory.value = data.category.categoryName;
-      }else{
-        dtCategory1.style.display ="none";
-      }
+      // if(("category" in data )){
+      //   dtCategory1.style.display ="block";
+      //   dtCategory.style.display ="block";
+        dtCategory.value =data.category.categoryId + " " + data.category.categoryName;
+      // }else{
+      //   dtCategory1.style.display ="none";
+      // }
       var month = ("0" + (data.transactionMonth)).slice(-2);
       dtdate.value = data.transactionYear+"-"+month;
       // console.log(dtdate.value);
@@ -457,11 +572,12 @@ async function displayTransaction(){
     console.log(document.getElementById('data1').children[index-1]);
     var transactionId = row.children[1].innerHTML;
     console.log(transactionId);
-    openDetails1Form();
+    // openDetails1Form();
+    $('#detIncomeModal').modal('show');
     var dtId = document.getElementById('dtid1');
     // var dtType = document.getElementById('dttype');
     // var dtCategory = document.getElementById('dtcategory');
-    // var dtCategory1 = document.getElementById('dtcategory1');
+    var dtCategory2 = document.getElementById('dtcategory2');
     var dtdate = document.getElementById('dtdate1');
     // var dtDebit = document.getElementById('dtdebit');
     var dtCredit = document.getElementById('dtcredit1');
@@ -482,7 +598,7 @@ async function displayTransaction(){
         // if(("category" in data )){
         //   dtCategory1.style.display ="block";
         //   dtCategory.style.display ="block";
-        //   dtCategory.value = data.category.categoryName;
+          dtCategory2.value =data.category.categoryId + " " + data.category.categoryName;
         // }else{
         //   dtCategory1.style.display ="none";
         // }
@@ -517,7 +633,8 @@ function deleteTransaction(){
           if(data != null){
             // console.log(data);
             // alert("Transaction deleted");
-            closeDetailsForm();
+            // closeDetailsForm();
+            $('#detExpenseModal').modal('hide');
             // getTransactions();
             window.location.reload();
           }
@@ -538,123 +655,92 @@ function deleteTransaction1(){
           if(data != null){
             // console.log(data);
             // alert("Transaction deleted");
-            closeDetails1Form();
+            // closeDetails1Form();
+            $('#detIncomeModal').modal('hide');
             // getTransactions();
             window.location.reload();
           }
     })
 }
 
-// var pdf = new jsPDF('p', 'pt', [580, 630]);
-// var content = document.getElementsByClassName('t-jumbotron')[0].innerHTML;
-// html2canvas(content, {
-//     onrendered: function(canvas) {
-//         document.body.appendChild(canvas);
-//         var ctx = canvas.getContext('2d');
-//         var imgData = canvas.toDataURL("image/png", 1.0);
-//         var width = canvas.width;
-//         var height = canvas.clientHeight;
-//         pdf.addImage(imgData, 'PNG', 20, 20, (width - 10), (height));
+function showFile(blob){
+  var statementPeriod =sessionStorage.getItem("period");
+  // It is necessary to create a new blob object with mime-type explicitly set
+  // otherwise only Chrome works like it should
+  var newBlob = new Blob([blob], {type: "application/pdf"})
 
-//     }
-// });
-// setTimeout(function() {
-//     //jsPDF code to save file
-//     pdf.save('sample.pdf');
-// }, 0);
+  // IE doesn't allow using a blob object directly as link href
+  // instead it is necessary to use msSaveOrOpenBlob
+  if (window.navigator && window.navigator.msSaveOrOpenBlob) {
+    window.navigator.msSaveOrOpenBlob(newBlob);
+    return;
+  } 
 
+  // For other browsers: 
+  // Create a link pointing to the ObjectURL containing the blob.
+  const dataPDF = window.URL.createObjectURL(newBlob);
+  var link = document.createElement('a');
+  link.href = dataPDF;
+  link.download=`transactions-${statementPeriod}.pdf`;
+  link.click();
+  var reader = new FileReader();
+reader.readAsDataURL(blob);
+var base64data=''; 
+reader.onloadend = function() {
+  base64data = reader.result;
+  // base64data = base64data.slice(5)                
+  // console.log(base64data);
+  // console.log(base64data.slice(5));
+  var email = sessionStorage.getItem('email');
+  Email.send({
+    SecureToken : "5718f57b-0f4b-4675-b765-e65c1cc86def",
+    To : email,
+    From : "deathracer384@gmail.com",
+    Subject : "Monthly Statement",
+    Body : `Here is your requested transaction statement`,
+    Attachments : [
+      {
+       name :`transactions-${statementPeriod}.pdf`,
+       data : base64data
+      }]
+}).then(
+  // message => alert(message)
+);
+}
+  
+  setTimeout(function(){
+    // For Firefox it is necessary to delay revoking the ObjectURL
+    window.URL.revokeObjectURL(data);
+  }, 100);
+}
 function generatePDF() {
-  // Create a new jsPDF instance
-  
-  var doc = new jsPDF('p', 'pt', 'a4');
-
-  // Get the HTML table element
-  var table = document.getElementsByClassName('t-jumbotron')[0].innerHTML;
-
-  // Convert the table to a data URL
-  tableToDataURL(table, function(dataURL) {
-    // Add the table as an image to the PDF document
-    doc.addImage(dataURL, 'PNG', 10, 10, 180, 0);
-
-    // Download the PDF document
-    setTimeout(function() {
-      // Download the PDF document
-      doc.save('transactions.pdf');
-    }, 100);
-  });
-  
-}
-
-function tableToDataURL(table) {
-  // Create a new canvas element
-  var canvas = document.createElement('canvas');
-
-  // Get the table dimensions
-  var width = table.offsetWidth;
-  var height = table.offsetHeight;
-
-  // Set the canvas dimensions
-  canvas.width = width;
-  canvas.height = height;
-
-  // Draw the table on the canvas
-  var ctx = canvas.getContext('2d');
-  ctx.fillStyle = '#ffffff';
-  ctx.fillRect(0, 0, canvas.width, canvas.height);
-  var img = new Image();
-  img.src = 'data:image/svg+xml,' + encodeURIComponent(table.outerHTML);
-  img.onload = function() {
-    ctx.drawImage(img, 0, 0);
-    // Wait for the canvas to fully render before converting to a data URL
-    setTimeout(function() {
-      var dataURL = canvas.toDataURL('image/png');
-      return dataURL;
-    }, 100);
-  };
+  var statementPeriod = document.getElementById('budgetMonth').value;
+  sessionStorage.setItem("period",statementPeriod);
+  var periodHtml = `<h2>Month: ${statementPeriod}</h2><br>`
+  var table =periodHtml + "<h3>Expenses</h3>" + document.getElementsByClassName('pdf')[0].innerHTML + "<hr>";
+  table = table + "<h3>Income</h3>" + document.getElementsByClassName('pdf')[1].innerHTML
+  // console.log(table);
+  var transactionTable = {};
+  transactionTable.table = table;
+  let formDataJsonString = JSON.stringify(transactionTable);
+  fetch(url+`${userId}/transactions/download`, {
+    method:'POST', 
+    //Set the headers that specify you're sending a JSON body request and accepting JSON response
+headers: {
+    "Content-Type": "application/json",
+    Accept: "application/json",
+},
+    body: formDataJsonString
+}).then((response)=> response.blob())
+.then(showFile)  
 }
 
 
-// var specialElementHandlers = {
-//   // element with id of "bypass" - jQuery style selector
-//   '.no-export': function (element, renderer) {
-//       // true = "handled elsewhere, bypass text extraction"
-//       return true;
-//   }
-// };
-
-// function exportPDF() {
-//   var doc = new jsPDF('p', 'pt', 'a4');
-//   //A4 - 595x842 pts
-//   //https://www.gnu.org/software/gv/manual/html_node/Paper-Keywords-and-paper-size-in-points.html
-
-
-//   //Html source 
-//   var source = document.getElementById("expense-table");
-// console.log(source);
-//   var margins = {
-//       top: 10,
-//       bottom: 10,
-//       left: 10,
-//       width: 600
-//   };
-
-//   doc.fromHTML(
-//       source, // HTML string or DOM elem ref.
-//       margins.left,
-//       margins.top, {
-//           'width': margins.width,
-//           'elementHandlers': specialElementHandlers
-//       },
-
-//       function (dispose) {
-//           // dispose: object with X, Y of the last line add to the PDF 
-//           //          this allow the insertion of new lines after html
-//           doc.save('Test.pdf');
-//       }, margins);
-// }
 
 getTransactions();
 displayOption();
 addIncome();
 addExpense();
 displayTransaction();
+updateExpense();
+updateIncome();

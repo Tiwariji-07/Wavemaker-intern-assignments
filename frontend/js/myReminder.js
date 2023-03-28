@@ -113,17 +113,17 @@ async function showReminders(currMonth,currYear){
     
 }
 
-function openForm() {
-    document.getElementById("myForm").style.display = "flex";
-    document.getElementsByClassName('layer')[0].style.display="block";
-  document.getElementsByTagName('body')[0].style.overflowY="hidden";
-}
+// function openForm() {
+//     document.getElementById("myForm").style.display = "flex";
+//     document.getElementsByClassName('layer')[0].style.display="block";
+//   document.getElementsByTagName('body')[0].style.overflowY="hidden";
+// }
     
-function closeForm() {
-    document.getElementById("myForm").style.display = "none";
-    document.getElementsByClassName('layer')[0].style.display="none";
-  document.getElementsByTagName('body')[0].style.overflowY="scroll";
-}
+// function closeForm() {
+//     document.getElementById("myForm").style.display = "none";
+//     document.getElementsByClassName('layer')[0].style.display="none";
+//   document.getElementsByTagName('body')[0].style.overflowY="scroll";
+// }
 function openDetailsForm() {
 document.getElementById("detailForm").style.display = "flex";
 document.getElementsByClassName('layer')[0].style.display="block";
@@ -149,14 +149,14 @@ function addBillReminder(){
 
         
         var oldDate = new Date(formDataObject.reminderDate);
-        console.log( oldDate.toLocaleDateString() + "\n" + oldDate.toISOString() + "\n" +
-         oldDate.toDateString() +"\n" + oldDate.toUTCString()
-        );
+        // console.log( oldDate.toLocaleDateString() + "\n" + oldDate.toISOString() + "\n" +
+        //  oldDate.toDateString() +"\n" + oldDate.toUTCString()
+        // );
         var newDate = oldDate.toDateString().substring(4,10) + ", " + oldDate.toDateString().substring(11,);
-        console.log(newDate);
+        // console.log(newDate);
         formDataObject.reminderDate = newDate;
         formDataObject.isActive=true;
-        console.log(formDataObject);
+        // console.log(formDataObject);
         // Format the plain form data as JSON
         let formDataJsonString = JSON.stringify(formDataObject);
         
@@ -177,14 +177,14 @@ function addBillReminder(){
             showAlert("Added successfully !");
             setTimeout(hideAlert,2000)
             // showReminders();
-            closeForm();
+            // closeForm();
             // window.location.reload();
             renderCalendar();
           }else{
             showAlert("Reminder with same name and date exists !");
             setTimeout(window.location.reload(),2000)
             // showReminders();
-            closeForm();
+            // closeForm();
             // window.location.reload();
             renderCalendar();
           }
@@ -210,7 +210,8 @@ async function displayReminder(){
     console.log(document.getElementById('data').children[index-1]);
     var billId = row.children[1].innerHTML;
     console.log(billId);
-    openDetailsForm();
+    // openDetailsForm();
+    $('#detailsModal').modal('show');
     var dbillId = document.getElementById('dbillId');
     var dbillName = document.getElementById('dbillName');
     var damount = document.getElementById('damount');
@@ -264,7 +265,8 @@ async function deleteReminder(){
             // alert("reminder deleted");
             showAlert("Deleted Successfully.");
             setTimeout(hideAlert,2000)
-            closeDetailsForm();
+            // closeDetailsForm();
+            $('#myModal').modal('hide');
             
             // renderCalendar();
             // showReminders();
@@ -312,7 +314,8 @@ function updateBillReminder(){
             // alert("reminder saved");
             // showAlert("Updated Successfully");
             // setTimeout(hideAlert,2000)
-            closeDetailsForm();
+            // closeDetailsForm();
+            $('#myModal').modal('hide');
             window.location.reload();
             // renderCalendar();s
             // showReminders();

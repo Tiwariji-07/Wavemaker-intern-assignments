@@ -1,4 +1,11 @@
+//const url = 'http://18.191.127.230:8080/finwise/services/'
+const url = 'http://localhost:8080/finwise/services/'
 
+if(sessionStorage.getItem("loggedIn") != "true"){
+  window.location.href = "index.html";
+}
+
+const userId = sessionStorage.getItem('userId');
 
 const pressedButtonSelector = '[data-theme][aria-pressed="true"]';
 const defaultTheme = 'blue';
@@ -8,6 +15,8 @@ const applyTheme = (theme) => {
   document.documentElement.setAttribute("data-selected-theme", theme);
   document.querySelector(pressedButtonSelector).setAttribute('aria-pressed', 'false');
   target.setAttribute('aria-pressed', 'true');
+  // target.style.border = "3px solid #C060A1";
+  target.classList.add('active-theme');
 };
 
 const handleThemeSelection = (event) => {
@@ -17,8 +26,15 @@ const handleThemeSelection = (event) => {
   console.log(isPressed);
   console.log(theme);
   if(isPressed !== "true") {
+    buttons.forEach((button) => {
+      // button.style.border=0;
+      button.classList.remove('active-theme');
+      //  button.addEventListener('click', handleThemeSelection);
+    });
     applyTheme(theme);
     localStorage.setItem('selected-theme', theme);
+    
+    // target.style.border = "3px solid #C060A1"
   }
 }
 
@@ -32,15 +48,18 @@ const setInitialTheme = () => {
   document.documentElement.setAttribute("data-selected-theme", defaultTheme);
   document.querySelector(pressedButtonSelector).setAttribute('aria-pressed', 'false');
   target.setAttribute('aria-pressed', 'true');
+  // target.style.border = "3px solid #C060A1";
+  target.classList.add('active-theme');
   }
 };
 
 setInitialTheme();
 
 const themeSwitcher = document.querySelector('#theme');
-const buttons = themeSwitcher.querySelectorAll('button');
+const buttons = themeSwitcher.querySelectorAll('img');
 
 buttons.forEach((button) => {
+  // button.style.border=0;
    button.addEventListener('click', handleThemeSelection);
 });
 
@@ -48,19 +67,13 @@ buttons.forEach((button) => {
 //category part*********************************************************************************
 
 async function showCategories(){
-  var formDataObject = {};
-  var flag = true;
-  formDataObject.month = currMonth;
-  formDataObject.year = currYear;
-  console.log(formDataObject);
-  let formDataJsonString = JSON.stringify(formDataObject);
-  await fetch(url+`${userId}/reminder/period`, {
-  method:'POST', 
-  headers: {
+  await fetch(url+`${userId}/category`, {
+    method:'GET', 
+      //Set the headers that specify you're sending a JSON body request and accepting JSON response
+    headers: {
       "Content-Type": "application/json",
-      Accept: "application/json",
-  },
-  body: formDataJsonString
+        Accept: "application/json",
+    }
   }).then((response) => response.json())
   .then((data) => {
       var count = 0;
@@ -70,45 +83,20 @@ async function showCategories(){
       if(data.length !=0){
           var temp="";
           data.forEach((itemData) => {
-              console.log(itemData);
+              // console.log(itemData);
               count=count+1;
-              var recurringDate;
-              var rd;
-              
-              // if(itemData.isRecurring){
-              //     var d = new Date(formatDate(itemData.reminderDate)).getDate();
-              //     console.log(d);
-              //     var r = new Date(formatDate(itemData.reminderDate)).setMonth(currMonth-1);
-              //     var d1 = new Date(r).getDate();
-              //     console.log(d1);
-              //     if(d <= d1 ){
-              //      recurringDate = new Date(formatDate(itemData.reminderDate)).setMonth(currMonth-1);
-              //      rd = new Date(recurringDate).toDateString();
-              //     //  recurringDate.toLocaleString();
-              //     // console.log(rd);
-              //     }else{
-              //         return;
-              //     }
-              // }else{
-                  rd = itemData.reminderDate;
-              // }
               temp += "<tr>";
               temp += "<td>" + count + "</td>";
-              temp += "<td>" + itemData.billId + "</td>";
-              temp += "<td>" + itemData.billName + "</td>";
-              temp += "<td>" + rd + "</td>";
-              temp += "<td>₹ " + itemData.billAmount + "</td>";
-              // temp+= "<td><button>Edit</button></td>";
-              // temp+= "<td><button>Delete</button></td>";
+              temp += "<td>" + itemData.categoryId + "</td>";
+              temp += "<td>" + itemData.categoryName + "</td>";
               temp += "</tr>";
-              activeDates.push([itemData.billName,itemData.billAmount,formatDate(rd)]);
           });
           // document.getElementById('data').innerHTML = temp;
       }else{
           flag=false;
           var temp="";
           // temp = `<img src="assets/no-result-found.svg" class="img img-responsive result-img"/>`
-          temp += `No Reminders`;
+          temp += `No Categories`;
           // document.getElementsByClassName('r-jumbotron')[0].innerHTML = temp;
       }
       
@@ -122,3 +110,122 @@ async function showCategories(){
   
   
 }
+
+function addCategory(){
+  const categoryForm = document.getElementById('add-category-form');
+  categoryForm.addEventListener('submit', (e)=>{
+      e.preventDefault();
+      const categoryData = new FormData(categoryForm);
+      let formDataObject = Object.fromEntries(categoryData.entries());
+      formDataObject.userId = userId;
+      console.log(formDataObject);
+      // Format the plain form data as JSON
+      let formDataJsonString = JSON.stringify(formDataObject);
+      console.log(formDataJsonString);
+      fetch(url+`${userId}/category/create`, {
+          method:'POST', 
+          //Set the headers that specify you're sending a JSON body request and accepting JSON response
+      headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+      },
+          body: formDataJsonString
+      }).then((response)=> response.json())
+      .then((data)=>{
+        if(data.userId != 0){
+          // console.log(data);
+          // alert("Category added");
+          $('#myModal').modal('hide');
+          window.location.reload();
+        }else{
+          alert("Category already exists!")
+        }
+      })
+  });
+}
+
+function categoryDetails(){
+  document.querySelector('#data').onclick = function(ev) {
+    // ev.target <== td element
+    // ev.target.parentElement <== tr
+    var index = ev.target.parentElement.rowIndex;
+    console.log(index);
+    var row = document.getElementById('data').children[index-1];
+    console.log(document.getElementById('data').children[index-1]);
+    var categoryId = row.children[1].innerHTML;
+    var categoryName = row.children[2].innerHTML;
+
+    console.log(categoryId + " "+ categoryName);
+    // openDetailsForm();
+    $('#detailModal').modal('show');
+    var dtId = document.getElementById('dtid');
+    var dtcategoryName = document.getElementById('dtcategoryName');
+    dtId.value = categoryId;
+    dtcategoryName.value = categoryName;
+    }
+}
+function deleteCategory(){
+  var id = document.getElementById('dtid').value;
+  console.log(id);
+  fetch(url+`${userId}/category/${id}`, {
+          method:'DELETE', 
+          //Set the headers that specify you're sending a JSON body request and accepting JSON response
+      headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+      }
+      }).then((response)=> response.json())
+      .then((data)=>{
+        if(data != null){
+          // console.log(data);
+          // alert("Transaction deleted");
+          // closeDetailsForm();
+          $('#detailModal').modal('hide');
+          // getTransactions();
+          window.location.reload();
+        }
+  })
+
+}
+
+function updateCategory(){
+  const budgetForm = document.getElementById('edit-category-form');
+  budgetForm.addEventListener('submit', (e)=>{
+      e.preventDefault();
+
+      const budgetData = new FormData(budgetForm);
+      // const data = new URLSearchParams(formData);
+      //Create an object from the form data entries
+      let formDataObject = Object.fromEntries(budgetData.entries());
+      let formDataJsonString = JSON.stringify(formDataObject);
+      console.log(formDataJsonString);
+      fetch(url+`${userId}/category/update`, {
+          method:'PUT', 
+          //Set the headers that specify you're sending a JSON body request and accepting JSON response
+      headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+      },
+          body: formDataJsonString
+      }).then((response)=> response.json())
+      .then((data)=>{
+        if(data != null){
+          console.log(data);
+          // alert("Budget added")
+          // getAllbudget();
+          $('#detailModal').modal('hide');
+          window.location.reload();
+          
+          
+        }else{
+          alert("Not added ")
+        }
+      })
+      // displayBudget(month,year);
+  });
+}
+updateCategory()
+categoryDetails();
+addCategory();
+
+showCategories();

@@ -69,6 +69,7 @@
             </div>
         </nav>
     </header> -->
+    
     <section class="transaction-page container-fluid">
         <div class="row">
             <div class="col-sm-3 hidden-xs">
@@ -131,17 +132,18 @@
                                 </a>
                                 <!-- </div> -->
                                 <!-- <div class="col-xs-2"> -->
-                                    <a class="s-row" href="user.html">
+                                    
+                                    <!-- <a class="s-row" href="user.html">
                                     <div class="s-item">
                                         
-                                            <!-- <img src="assets/profile.png" alt="profile" class="nav-img"> -->
+                                            
                                             <span class="material-symbols-rounded">
                                                 person
                                                 </span>
                                         
                                         Profile
                                     </div>
-                                </a>
+                                </a> -->
                                 <a class="s-row" href="settings.html">
                                     <div class="s-item">
                                         
@@ -153,20 +155,15 @@
                                         Settings
                                     </div>
                                 </a>
-                                <!-- </div> -->
-                                <a class="s-row" onclick="logout()">
-                                    <!-- <button onclick="logout()"> -->
+                                <!-- <a class="s-row" onclick="logout()">
                                     <div class="s-item">
-                                        
-                                            <!-- <img src="assets/profile.png" alt="profile" class="nav-img"> -->
                                             <span class="material-symbols-rounded">
                                                 logout
                                                 </span>
                                         
                                         Logout
                                     </div>
-                                <!-- </button> -->
-                                </a>
+                                </a> -->
                             </div>
                         </div>
                     </div>
@@ -175,9 +172,37 @@
             <div class="col-sm-9">
                 <section>
                     <!-- <div class="row"> -->
+                        <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                            <div class="modal-dialog modal-sm" role="document">
+                              <div class="modal-content add-reminder-modal">
+                                <div class="modal-header">
+                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                  <h4 class="modal-title" id="myModalLabel">Add Reminder</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <form method="post" id="reminder-form">
+                                            <div class="form-group grp">
+                                                <label for="billName"><b>Bill Name *</b></label>
+                                                <input type="text" placeholder="Enter Bill Name" name="billName" id="billName" required>
+                                            </div>
+                                            <div class="form-group grp">
+                                                <label for="amount"><b>Amount *</b></label>
+                                                <input type="number" placeholder="Enter Amount" name="billAmount" id="amount" required>
+                                            </div>
+                                            <div class="form-group grp">
+                                                <label for="date"><b>Reminder Date *</b></label>
+                                                <input type="date" name="reminderDate" id="date" required>
+                                            </div>
+                                            <button type="submit" class="btn">Add</button>
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                    </form>
+                                </div>
+                              </div>
+                            </div>
+                        </div>
                     <div class="reminder-header">
                         <h1 class="reminder-heading">Reminders</h1>
-                        <button class="btn reminder-btn" onclick="openForm()">Add reminder</button>
+                        <button class="btn reminder-btn" type="button" data-toggle="modal" data-target="#addModal">Add reminder</button>
                     </div>
                 <!-- </div> -->
                 </section>
@@ -250,12 +275,49 @@
                             </div>
                             
                         </div>
+                        <div class="modal fade" id="detailsModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                            <div class="modal-dialog modal-sm" role="document">
+                              <div class="modal-content add-reminder-modal">
+                                <div class="modal-header">
+                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                  <h4 class="modal-title" id="myModalLabel">Reminder Details</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <form method="post"  id="reminder-detail-form">
+                                        <!-- <div class="ac-form"> -->
+                                            <!-- <h1>Reminder Details</h1> -->
+                                            <div class="form-group grp">
+                                                <label for="dbillId"><b>Bill Id</b></label>
+                                                <input type="text" placeholder="Enter Bill Id" name="billId" id="dbillId" required readonly>
+                                            </div>
+                                            <div class="form-group grp">
+                                                <label for="dbillName"><b>Bill Name *</b></label>
+                                                <input type="text" placeholder="Enter Bill Name" name="billName" id="dbillName" required>
+                                            </div>
+                                            <div class="form-group grp">
+                                                <label for="damount"><b>Amount *</b></label>
+                                                <input type="number" placeholder="Enter Amount" name="billAmount" id="damount" required>
+                                            </div>
+                                            <div class="form-group grp">
+                                                <label for="ddate"><b>Reminder Date *</b></label>
+                                                <input type="date" name="reminderDate" id="ddate" required>
+                                            </div>
+                                            <button type="submit" class="btn">Save</button>
+                                            <button type="button" class="btn" onclick="deleteReminder()">Delete</button>
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                        <!-- </div> -->
+                                      </form>
+                                </div>
+                              </div>
+                            </div>
+                        </div>
                     </div>
                 </section>
             </div>
         </div>
     </section>
-    <section class="form-popup adding" id="myForm">
+    
+    <!-- <section class="form-popup adding" id="myForm">
         <div class="add-reminder-form">
             <form method="post" class="form-container" id="reminder-form">
                 <div class="ac-form">
@@ -272,24 +334,13 @@
                         <label for="date"><b>Reminder Date *</b></label>
                         <input type="date" name="reminderDate" id="date" required>
                     </div>
-                    <!-- <div class="recurring-buttons grp">
-                        <label for="inlineRadio1">Is it recurring</label>
-                        <div class="form-group" id="recurring">
-                            <label class="radio-inline">
-                                <input type="radio" name="isRecurring" id="inlineRadio1" value=true > Yes
-                            </label>
-                            <label class="radio-inline">
-                                <input type="radio" name="isRecurring" id="inlineRadio2" value=false> No
-                            </label>
-                        </div>
-                    </div> -->
                     <button type="submit" class="btn">Add</button>
                     <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
                 </div>
               </form>
         </div>
-    </section>
-    <section class="form-popup details" id="detailForm">
+    </section> -->
+    <!-- <section class="form-popup details" id="detailForm">
         <div class="add-reminder-form">
             <form method="post" class="form-container" id="reminder-detail-form">
                 <div class="ac-form">
@@ -310,24 +361,13 @@
                         <label for="ddate"><b>Reminder Date *</b></label>
                         <input type="date" name="reminderDate" id="ddate" required>
                     </div>
-                    <!-- <div class="recurring-buttons">
-                        <label for="dinlineRadio1">Is it recurring</label>
-                        <div class="form-group" id="recurring">
-                            <label class="radio-inline">
-                                <input type="radio" name="isRecurring" id="true" value=true > Yes
-                            </label>
-                            <label class="radio-inline">
-                                <input type="radio" name="isRecurring" id="false" value=false> No
-                            </label>
-                        </div>
-                    </div> -->
                     <button type="submit" class="btn">Save</button>
                     <button type="button" class="btn" onclick="deleteReminder()">Delete</button>
                     <button type="button" class="btn cancel" onclick="closeDetailsForm()">Close</button>
                 </div>
               </form>
         </div>
-    </section>
+    </section> -->
     <section class="mobile-nav">
         <div class="container-fluid bottom-nav">
             <div class="b-nav">
@@ -401,6 +441,8 @@
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <!-- <script src="bootstrap-3.3.7/js/tooltip.js"></script>
     <script src="bootstrap-3.3.7/js/popover.js"></script> -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.3/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="bootstrap-3.3.7/dist/js/bootstrap.min.js"></script>
     <script src="js/myReminder.js"></script>
     <!-- <script src="js/overview.js"></script> -->
