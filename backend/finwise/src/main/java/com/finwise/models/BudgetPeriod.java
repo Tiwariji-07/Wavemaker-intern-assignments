@@ -5,6 +5,7 @@ public class BudgetPeriod {
     private int month;
     private int year;
 
+
     public int getMonth() {
         return month;
     }

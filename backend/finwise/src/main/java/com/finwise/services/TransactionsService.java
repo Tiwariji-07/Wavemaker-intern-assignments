@@ -1,6 +1,7 @@
 package com.finwise.services;
 
 import com.finwise.models.BudgetPeriod;
+import com.finwise.models.TransactionTable;
 import com.finwise.models.Transactions;
 
 import java.util.List;
@@ -17,4 +18,6 @@ public interface TransactionsService {
     Transactions getTransactionsById(int id);
 
     List<Transactions> getTransactionOfPeriod(BudgetPeriod budgetPeriod,int userId);
+
+    byte[] generate(TransactionTable transactionTable);
 }

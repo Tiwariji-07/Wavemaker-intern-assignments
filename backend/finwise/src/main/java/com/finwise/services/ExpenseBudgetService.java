@@ -19,4 +19,5 @@ public interface ExpenseBudgetService {
 
     List<ExpenseBudget> getExpenseBudgetOfPeriod(BudgetPeriod budgetPeriod,int userId);
 
+    ExpenseBudget getExpenseBudgetByNamePeriod(BudgetPeriod budgetPeriod,int userId,String categoryName);
 }

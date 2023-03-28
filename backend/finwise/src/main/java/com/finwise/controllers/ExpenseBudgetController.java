@@ -48,4 +48,11 @@ public class ExpenseBudgetController {
                                                         @PathVariable("user_id") int userId){
         return expenseBudgetService.getExpenseBudgetOfPeriod(budgetPeriod, userId);
     }
+
+    @PostMapping("/details/{category_name}")
+    public ExpenseBudget getExpenseBudgetByNamePeriod(@RequestBody BudgetPeriod budgetPeriod,
+                                                        @PathVariable("user_id") int userId,
+                                                      @PathVariable("category_name") String categoryName){
+        return expenseBudgetService.getExpenseBudgetByNamePeriod(budgetPeriod,userId,categoryName);
+    }
 }

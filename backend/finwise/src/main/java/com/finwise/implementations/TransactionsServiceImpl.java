@@ -3,6 +3,8 @@ package com.finwise.implementations;
 import com.finwise.models.*;
 import com.finwise.models.Transactions;
 import com.finwise.services.*;
+import com.itextpdf.html2pdf.ConverterProperties;
+import com.itextpdf.html2pdf.HtmlConverter;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -10,6 +12,7 @@ import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -109,7 +112,7 @@ public class TransactionsServiceImpl implements TransactionsService {
         transactions1.setTransactionId(transactions.getTransactionId());
         transactions1.setUser(transactions.getUser());
         transactions1.setTransactionType(transactions.getTransactionType());
-        transactions1.setTransactionMonth(transactions1.getTransactionMonth());
+        transactions1.setTransactionMonth(transactions.getTransactionMonth());
         transactions1.setTransactionYear(transactions.getTransactionYear());
         transactions1.setDescription(transactions.getDescription());
         transactions1.setCategory(transactions.getCategory());
@@ -202,5 +205,15 @@ public class TransactionsServiceImpl implements TransactionsService {
             }
         }
         return transactionsList;
+    }
+
+    @Override
+    public byte[] generate(TransactionTable transactionTable){
+        ByteArrayOutputStream target = new ByteArrayOutputStream();
+        ConverterProperties converterProperties = new ConverterProperties();
+        converterProperties.setBaseUri("http://localhost:8080");
+        HtmlConverter.convertToPdf(transactionTable.getTable(),target,converterProperties);
+        byte[] bytes = target.toByteArray();
+        return bytes;
     }
 }

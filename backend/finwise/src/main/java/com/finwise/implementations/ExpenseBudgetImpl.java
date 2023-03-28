@@ -40,34 +40,34 @@ public class ExpenseBudgetImpl implements ExpenseBudgetService {
         Transaction transaction= session.beginTransaction();
 //        User user = userService.getUserById(userId);
         expenseBudget.setUserId(userId);
-        List<ExpenseBudget> expenseBudgets = getAllExpenseBudget(userId);
-        boolean flag=false;
-        ExpenseBudget expenseBudget2 = new ExpenseBudget();
-        for(ExpenseBudget expenseBudget1:expenseBudgets){
-//            if((expenseBudget.isRecurring() || (expenseBudget1.getBudgetMonth() == expenseBudget.getBudgetMonth() &&
-//                expenseBudget1.getBudgetYear() == expenseBudget.getBudgetYear())) &&
-//                expenseBudget1.getCategory().getCategoryId() == expenseBudget.getCategory().getCategoryId()){
+//        List<ExpenseBudget> expenseBudgets = getAllExpenseBudget(userId);
+//        boolean flag=false;
+//        ExpenseBudget expenseBudget2 = new ExpenseBudget();
+//        for(ExpenseBudget expenseBudget1:expenseBudgets){
+////            if((expenseBudget.isRecurring() || (expenseBudget1.getBudgetMonth() == expenseBudget.getBudgetMonth() &&
+////                expenseBudget1.getBudgetYear() == expenseBudget.getBudgetYear())) &&
+////                expenseBudget1.getCategory().getCategoryId() == expenseBudget.getCategory().getCategoryId()){
+////                float budgetAmount = expenseBudget1.getBudgetAmount();
+////                expenseBudget1.setBudgetAmount(budgetAmount + expenseBudget.getBudgetAmount());
+////                expenseBudget1.setRecurring(expenseBudget.isRecurring());
+////                flag = true;
+////                session.saveOrUpdate(expenseBudget1);
+////            }
+//            if(expenseBudget1.getBudgetMonth() == expenseBudget.getBudgetMonth() &&
+//                    expenseBudget1.getBudgetYear() == expenseBudget.getBudgetYear() &&
+//                    expenseBudget1.getCategory().getCategoryId() == expenseBudget.getCategory().getCategoryId()){
 //                float budgetAmount = expenseBudget1.getBudgetAmount();
 //                expenseBudget1.setBudgetAmount(budgetAmount + expenseBudget.getBudgetAmount());
 //                expenseBudget1.setRecurring(expenseBudget.isRecurring());
 //                flag = true;
 //                session.saveOrUpdate(expenseBudget1);
 //            }
-            if(expenseBudget1.getBudgetMonth() == expenseBudget.getBudgetMonth() &&
-                    expenseBudget1.getBudgetYear() == expenseBudget.getBudgetYear() &&
-                    expenseBudget1.getCategory().getCategoryId() == expenseBudget.getCategory().getCategoryId()){
-                float budgetAmount = expenseBudget1.getBudgetAmount();
-                expenseBudget1.setBudgetAmount(budgetAmount + expenseBudget.getBudgetAmount());
-                expenseBudget1.setRecurring(expenseBudget.isRecurring());
-                flag = true;
-                session.saveOrUpdate(expenseBudget1);
-            }
-        }
-        if(!flag){
+//        }
+//        if(!flag){
             session.save(expenseBudget);
-//            return expenseBudget;
-        }
-//        expenseBudget.setUser(user);
+////            return expenseBudget;
+//        }
+////        expenseBudget.setUser(user);
         transaction.commit();
         session.close();
         return expenseBudget;
@@ -76,11 +76,14 @@ public class ExpenseBudgetImpl implements ExpenseBudgetService {
     public ExpenseBudget updateExpenseBudget(ExpenseBudget expenseBudget,int userId) {
         Session session = sessionFactory.openSession();
         Transaction transaction= session.beginTransaction();
+        ExpenseBudget expenseBudget1 = getExpenseBudgetById(expenseBudget.getExpenseBudgetId());
+        expenseBudget1.setCategory(expenseBudget.getCategory());
+        expenseBudget1.setBudgetAmount(expenseBudget.getBudgetAmount());
         expenseBudget.setUserId(userId);
-        session.saveOrUpdate(expenseBudget);
+        session.saveOrUpdate(expenseBudget1);
         transaction.commit();
         session.close();
-        return expenseBudget;
+        return expenseBudget1;
     }
 
     public ExpenseBudget deleteExpenseBudget(int id) {
@@ -116,5 +119,17 @@ public class ExpenseBudgetImpl implements ExpenseBudgetService {
             }
         }
         return expenseBudgets1;
+    }
+
+    @Override
+    public ExpenseBudget getExpenseBudgetByNamePeriod(BudgetPeriod budgetPeriod, int userId, String categoryName) {
+        ExpenseBudget expenseBudget1 = new ExpenseBudget();
+        List<ExpenseBudget> expenseBudgets = getExpenseBudgetOfPeriod(budgetPeriod, userId);
+        for(ExpenseBudget expenseBudget:expenseBudgets){
+            if(expenseBudget.getCategory().getCategoryName().equals(categoryName)){
+                return expenseBudget;
+            }
+        }
+        return expenseBudget1;
     }
 }
