@@ -1,4 +1,10 @@
 
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;300;400;600;700;800;900&display=swap');
+
+body *{
+  font-family: 'Inter', sans-serif;
+}
+
 :root {
   --border-radius: 3px;
 }
@@ -65,7 +71,7 @@ body{
     background-color: var(--bg-c);
     overflow-x: hidden;
     /* min-height: 100vh; */
-    font-family: 'Lato', sans-serif;
+    /* font-family: 'Lato', sans-serif; */
     color: var(--primary-color);
     min-height: 100vh;
 }
@@ -236,7 +242,7 @@ box-shadow: 10px 18px 80px -2px var(--secondary-color);
 .grp{
     display: flex;
     flex-direction: column;
-    width: 100%;
+    /* width: 100%; */
 }
 
 .ac-form{
@@ -287,14 +293,14 @@ input{
 }
 .table tbody{
     /* border: none; */
-    cursor: pointer;
+    /* cursor: pointer; */
     color: var(--primary-color);
     font-size: .9em;
 }
 
-.reminder-table tr:hover{
+/* .reminder-table tr:hover{
   background-color: #95cbf0 !important;
-}
+} */
 
 .transaction-page{
     min-height: 93.5vh;
@@ -635,6 +641,7 @@ border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 .s-nav{
+  padding-top: 10px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -661,10 +668,13 @@ border: 1px solid rgba(255, 255, 255, 0.3);
   gap: 1em;
   width: 100%;
   /* border: 1px solid red; */
-  padding-top:1em;
+  border-radius: 10px;
+  padding:10px;
   color: var(--primary-color);
 }
-
+.active-tab{
+  background: rgba(255, 255, 255, 0.6);
+}
 .layer{
   display: none;
   position: absolute;
@@ -692,3 +702,30 @@ border: 1px solid rgba(255, 255, 255, 0.3);
   justify-content: center;
   align-items: center;
 } */
+
+.edit-button,.edit-button1,.delete-button,.delete-button1{
+  cursor: pointer;
+  font-size: 18px;
+}
+
+.tid{
+  visibility: collapse;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+th, td {
+  text-align: left;
+  padding: 10px;
+  border: 1px solid var(--primary-color);
+}
+
+/* tr:nth-child(even){background-color: #f2f2f2} */
+
+th {
+  /* background-color: var(--primary-color); */
+  /* color: white; */
+}

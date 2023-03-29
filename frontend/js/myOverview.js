@@ -422,7 +422,7 @@ async function displayTranByCategoryChart(currMonth,currYear){
     var dataSet = [];
     var dataSet1 = [];
     categories.forEach((category)=>{
-        dataSet.push({data:expenseChartData[category],label:category,borderWidth: 1});
+        dataSet.push({data:expenseChartData[category],label:category,borderWidth: 6});
         dataSet1.push(expenseChartData[category]);
     });
     // console.log(dataSet);
@@ -437,9 +437,16 @@ async function displayTranByCategoryChart(currMonth,currYear){
           datasets: [{
             label: 'Expense ₹',
             data: dataSet1,
-            borderWidth: 1
+            borderWidth: 2
           }]
         },
+        legend:{
+            position: 'bottom',
+            labels:{
+                fontSize:45,
+                align:'bottom',
+            }
+        }
         // options: {
         //   scales: {
         //     y: {
@@ -524,8 +531,8 @@ function calender(currMonth,currYear){
         currentDate.innerText = `${months[currMonth]} ${currYear}`; // passing current mon and yr as currentDate text
         daysTag.innerHTML = liTag;
         console.log(pendingAmount);
-        var pendingData =`<h6>Pending</h6>
-        <span>${pendingAmount}</span>`;
+        var pendingData =`<h6>Yet to pay</h6>
+        <span>${obj1.format(pendingAmount)}</span>`;
         pendingAmt.innerHTML = pendingData;
     }
     renderCalendar();

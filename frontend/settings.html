@@ -93,7 +93,7 @@
                                     </div>
                                 </a> -->
                                 <a class="s-row" href="settings.html">
-                                    <div class="s-item">
+                                    <div class="s-item active-tab">
                                         
                                             <!-- <img src="assets/profile.png" alt="profile" class="nav-img"> -->
                                             <span class="material-symbols-rounded">
@@ -123,30 +123,31 @@
 
                         <!-- Nav tabs -->
                         <ul class="nav nav-tabs settings-tabs" role="tablist">
-                          <li role="presentation" class="active settings-tab">
+                            <li role="presentation" class="active settings-tab"><a href="#categories" aria-controls="categories" role="tab" data-toggle="tab">Categories</a></li>
+                          <li role="presentation" class="settings-tab">
                                 <a href="#theme" aria-controls="theme" role="tab" data-toggle="tab">
                                     <!-- <img src="assets/theme.png" alt="theme" class="theme-img"> -->
                                     Theme
                                 </a>
                             </li>
-                          <li role="presentation" class="settings-tab"><a href="#categories" aria-controls="categories" role="tab" data-toggle="tab">Categories</a></li>
+                          
                           <!-- <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">Messages</a></li>
                           <li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Settings</a></li> -->
                         </ul>
                       
                         <!-- Tab panes -->
                         <div class="tab-content">
-                          <div role="tabpanel" class="tab-pane active theme-tabs" id="theme">
+                          <div role="tabpanel" class="tab-pane theme-tabs" id="theme">
                             <div class="theme-tab">
                                 <img src="assets/blue-theme.png" alt="green-theme" class="th-img" data-theme="blue" aria-pressed="true">
                                 <img src="assets/light-violet-theme.png" alt="green-theme" class="th-img" data-theme="light-violet" aria-pressed="false">
                                 <img src="assets/green-theme.png" alt="green-theme" class="th-img" data-theme="green" aria-pressed="false">
                                 <img src="assets/violet-theme.png" alt="green-theme" class="th-img" data-theme="violet" aria-pressed="false">
-                                <img src="assets/green-theme.png" alt="green-theme" class="th-img" data-theme="dark" aria-pressed="false">
+                                <!-- <img src="assets/green-theme.png" alt="green-theme" class="th-img" data-theme="dark" aria-pressed="false"> -->
                                 
                             </div>
                           </div>
-                          <div role="tabpanel" class="tab-pane" id="categories">
+                          <div role="tabpanel" class="tab-pane active" id="categories">
                             <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                                 <div class="modal-dialog" role="document">
                                   <div class="modal-content">
@@ -164,7 +165,7 @@
                                                 </div>
                                                 <div>
                                                     <button type="submit" class="btn">Add</button>
-                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                <!-- <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> -->
                                                 </div>
                                                 <!-- <button type="button" class="btn cancel" onclick="closeCategoryForm()">Close</button> -->
                                             </div>
@@ -196,7 +197,7 @@
                                                 <div>
                                                     <button type="submit" class="btn">Save</button>
                                                     <button type="button" class="btn" onclick="deleteCategory()">Delete</button>
-                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                    <!-- <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> -->
                                                 </div>
                                                 <!-- <button type="button" class="btn cancel" onclick="closeCategoryForm()">Close</button> -->
                                             </div>
@@ -210,26 +211,31 @@
                                 </div>
                               </div>
                             <div class="categories-section">
-                                <div class="jumbotron">
+                                <div class="">
                                     <div class="category-header">
                                         <h3>Categories</h3>
-                                        <button class="btn add-btn" type="button" data-toggle="modal" data-target="#myModal"><img src="assets/add-icon.png" alt="add"> Category</button>
+                                        <!-- <button class="btn add-btn" type="button" data-toggle="modal" data-target="#myModal"><img src="assets/add-icon.png" alt="add"> Category</button> -->
                                     </div>
-                                    <table class="table table-hover table-condensed category-table">
+                                    <div class="category-list" id="category-list">
+                                        <button class="btn add-btn" type="button" data-toggle="modal" data-target="#myModal"><img src="assets/add-icon.png" alt="add"></button>
+                                        <div class="category-card">
+                                            <span class="material-symbols-rounded">
+                                                category
+                                            </span>
+                                            <p></p>
+                                            <h4>category</h4>
+                                        </div>
+                                    </div>
+                                    <!-- <table class="table table-hover table-condensed category-table">
                                         <thead>
                                           <tr>
-                                            <th>S No</th>
                                             <th>Category Id</th>
                                             <th>Name</th>
-                                            <!-- <th>is_active</th>
-                                            <th></th> -->
-                                            <!-- <th>Edit</th>
-                                            <th>Delete</th> -->
                                           </tr>
                                         </thead>
                                         <tbody id="data">
                                         </tbody>
-                                    </table>
+                                    </table> -->
                                 </div>
                             </div>
                           </div>

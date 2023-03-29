@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@NaN,0,0,0" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@NaN,0,0,0" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@NaN,0,0,0" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@NaN,0,0,0" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,400,0,0" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,400,0,0" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,400,0,0" />
@@ -120,7 +121,7 @@
                                 <!-- </div> -->
                                 <!-- <div class="col-xs-2"> -->
                                     <a class="s-row" href="transactions.html">
-                                    <div class="s-item">
+                                    <div class="s-item active-tab">
                                         
                                             <!-- <img src="assets/transaction.png" alt="dashboard" class="nav-img"> -->
                                             <span class="material-symbols-rounded">
@@ -205,17 +206,18 @@
                             <div class="jumbotron t-jumbotron">
                                 <div class="tran-btns">
                                     <h3>Expenses</h3>
-                                    <button class="btn reminder-btn" type="button" data-toggle="modal" data-target="#addExpenseModal"><img src="assets/add-icon.png" alt="add"> Expense</button>
+                                    <button class="btn reminder-btn" type="button" data-toggle="modal" data-target="#addExpenseModal"><img src="assets/add-icon.png" alt="add"></button>
                                 </div>
                                 <div class="pdf">
-                                <table class="table table-hover table-condensed" id="expense-table">
+                                <table class="table table-condensed" id="expense-table">
                                     <thead>
                                       <tr>
-                                        <th>S No</th>
-                                        <th>Tid</th>
+                                        <!-- <th>S No</th> -->
+                                        <th></th>
                                         <th>Category</th>
                                         <th>Amount</th>
                                         <th>Date</th>
+                                        <th></th>
                                         <th></th>
                                       </tr>
                                     </thead>
@@ -230,17 +232,18 @@
                             <div class="jumbotron t-jumbotron">
                                 <div class="tran-btns">
                                     <h3>Incomes</h3>
-                                    <button class="btn reminder-btn" type="button" data-toggle="modal" data-target="#addIncomeModal"><img src="assets/add-icon.png" alt="add"> Income</button>
+                                    <button class="btn reminder-btn" type="button" data-toggle="modal" data-target="#addIncomeModal"><img src="assets/add-icon.png" alt="add"></button>
                                 </div>
                                 <div class="pdf">
-                                <table class="table table-hover table-condensed">
+                                <table class="table table-condensed">
                                     <thead>
                                       <tr>
-                                        <th>S No</th>
-                                        <th>Tid</th>
+                                        <!-- <th>S No</th> -->
+                                        <th></th>
                                         <th>Category</th>
                                         <th>Amount</th>
                                         <th>Date</th>
+                                        <th></th>
                                         <th></th>
                                       </tr>
                                     </thead>
@@ -287,7 +290,7 @@
     
     
                         <button type="submit" class="btn">Add</button>
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <!-- <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> -->
                   </form>
             </div>
           </div>
@@ -323,7 +326,7 @@
     
     
                         <button type="submit" class="btn">Add</button>
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <!-- <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> -->
                   </form>
             </div>
           </div>
@@ -361,8 +364,8 @@
                             <input type="text" name="description" id="dtdescription">
                         </div>
                         <button type="submit" class="btn btn-success">Save</button>
-                        <button type="button" class="btn" onclick="deleteTransaction()">Delete</button>
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <!-- <button type="button" class="btn" onclick="deleteTransaction()">Delete</button> -->
+                        <!-- <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> -->
                   </form>
             </div>
           </div>
@@ -400,8 +403,8 @@
                         <input type="text" name="description" id="dtdescription1">
                     </div>
                     <button type="submit" class="btn btn-success">Save</button>
-                    <button type="button" class="btn" onclick="deleteTransaction1()">Delete</button>
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <!-- <button type="button" class="btn" onclick="deleteTransaction1()">Delete</button> -->
+                        <!-- <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> -->
                   </form>
             </div>
           </div>

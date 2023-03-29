@@ -9,6 +9,7 @@ if(sessionStorage.getItem("loggedIn") != "true"){
     window.location.href = "index.html";
 }
 
+obj1 = new Intl.NumberFormat('en-US');
 const userId = sessionStorage.getItem('userId');
 
 const monthControl = document.querySelector('#budgetMonth');
@@ -125,9 +126,9 @@ function getAllbudget(){
                 spendingBar.style.borderRadius= "1em";
                 spendingBar.style.backgroundColor = "orange"
             }
-            amountLeft.innerHTML = remainingAmount;
-            spending.innerHTML = spentAmount;
-            total.innerHTML = totalAmount;
+            amountLeft.innerHTML = `₹ ${obj1.format(remainingAmount)}`;
+            spending.innerHTML = `${obj1.format(spentAmount)}`;
+            total.innerHTML = `${obj1.format(totalAmount)}`;
             spendingBar.style.width = percentage+"%";
         // console.log(totalAmount+" "+spentAmount+" "+remainingAmount);
         })
@@ -180,9 +181,9 @@ document.addEventListener('DOMContentLoaded',async function() {
                 spendingBar.style.borderRadius= "1em";
                 spendingBar.style.backgroundColor = "orange"
             }
-            amountLeft.innerHTML = `₹${remainingAmount}`;
-            spending.innerHTML = spentAmount;
-            total.innerHTML = totalAmount;
+            amountLeft.innerHTML = `₹ ${obj1.format(remainingAmount)}`;
+            spending.innerHTML = obj1.format(spentAmount);
+            total.innerHTML = obj1.format(totalAmount);
             spendingBar.style.width = percentage+"%";
         console.log(totalAmount+" "+spentAmount+" "+remainingAmount);
         })
@@ -239,9 +240,9 @@ function setEachCard(budget){
     // budgetCard.appendChild(cardBarFooter);
     var barFooter = `<div class="card-bar-footer">
                         Spent ₹
-                        <span class="card-spent-amount">${spentAmount}</span>
+                        <span class="card-spent-amount">${obj1.format(spentAmount)}</span>
                         of ₹
-                        <span class="card-total-amount">${totalAmount}</span>
+                        <span class="card-total-amount">${obj1.format(totalAmount)}</span>
                     </div>`
     budgetCard.insertAdjacentHTML('beforeend',barFooter);
     budgetList.appendChild(budgetCard);

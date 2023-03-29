@@ -92,7 +92,7 @@ function closeDetails1Form() {
 function getTransactions(){
   const form1 = document.getElementById('periodForm');
   const budgetMonth = document.getElementById('budgetMonth');
-    budgetMonth.addEventListener('change', (e)=>{
+    budgetMonth.addEventListener('change',async (e)=>{
 
       
       loading();
@@ -116,7 +116,7 @@ function getTransactions(){
         // console.log(formDataObject);
         let formDataJsonString = JSON.stringify(formDataObject);
 
-      fetch(url+`${userId}/transactions/period`, {
+      await fetch(url+`${userId}/transactions/period`, {
       method:'POST', 
       headers: {
           "Content-Type": "application/json",
@@ -137,8 +137,8 @@ function getTransactions(){
                 count=count+1;
                 // console.log(itemData.category);
                 temp += "<tr>";
-                temp += "<td>" + count + "</td>";
-                temp += "<td>" + itemData.transactionId + "</td>";
+                // temp += "<td>" + count + "</td>";
+                temp += `<td class="tid">` + itemData.transactionId + "</td>";
                 // temp += "<td>" + itemData.transactionType.transactionTypeName + "</td>";
                 // var category = itemData.category;
                 // if(!("category" in itemData)){
@@ -150,16 +150,21 @@ function getTransactions(){
                 temp += "<td>₹ " + itemData.debitAmount + "</td>";
                 // temp += "<td>" + itemData.creditAmount + "</td>";
                 temp += "<td>" + itemData.transactionMonth +"/"+itemData.transactionYear + "</td>";
-                // temp+= "<td><button>Edit</button></td>";
-                temp+= `<td><img src="assets/edit-icon.png" alt="" class="img img-responsive edit-img"></td>`;
+                temp+= `<td><span class="material-symbols-rounded edit-button">
+                edit
+                </span></td>`;
+                temp+= `<td><span class="material-symbols-rounded delete-button">
+                delete
+                </span></td>`
+                // temp+= `<td><img src="assets/edit-icon.png" alt="" class="img img-responsive edit-img"></td>`;
                 // temp+= "<td><button>Delete</button></td>";
                 temp += "</tr>";
               }else{
                 count1=count1+1;
                 // console.log(itemData.category);
                 temp1 += "<tr>";
-                temp1 += "<td>" + count1 + "</td>";
-                temp1 += "<td>" + itemData.transactionId + "</td>";
+                // temp1 += "<td>" + count1 + "</td>";
+                temp1 += `<td class="tid">` + itemData.transactionId + "</td>";
                 // temp1 += "<td>" + itemData.transactionType.transactionTypeName + "</td>";
                 // var category = itemData.category;
                 // if(!("category" in itemData)){
@@ -171,7 +176,13 @@ function getTransactions(){
                 // temp1 += "<td>" + itemData.debitAmount + "</td>";
                 temp1 += "<td>₹ " + itemData.creditAmount + "</td>";
                 temp1 += "<td>" + itemData.transactionMonth +"/"+itemData.transactionYear + "</td>";
-                temp1+= `<td><button><img src="assets/edit-icon.png" alt="edit" class="img img-responsive edit-img"></button></td>`;
+                temp1+= `<td><span class="material-symbols-rounded edit-button1">
+                edit
+                </span></td>`;
+                temp1+= `<td><span class="material-symbols-rounded delete-button1">
+                delete
+                </span></td>`
+                // temp1+= `<td><button><img src="assets/edit-icon.png" alt="edit" class="img img-responsive edit-img"></button></td>`;
                 // temp1+= "<td><button>Delete</button></td>";
                 temp1 += "</tr>";
               }
@@ -188,9 +199,10 @@ function getTransactions(){
         document.getElementById('data1').innerHTML = temp1;
     })
     });
+    displayTransaction();
 }
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded',async function() {
   var formDataObject = {};
 
   formDataObject.month = month;
@@ -198,7 +210,7 @@ document.addEventListener('DOMContentLoaded', function() {
       rDate.value = `${year}-${month}`;
       rDate1.value = `${year}-${month}`;
   let formDataJsonString = JSON.stringify(formDataObject);
-  fetch(url+`${userId}/transactions/period`, {
+  await fetch(url+`${userId}/transactions/period`, {
       method:'POST', 
       headers: {
           "Content-Type": "application/json",
@@ -219,8 +231,8 @@ document.addEventListener('DOMContentLoaded', function() {
                   count=count+1;
                   // console.log(itemData.category);
                   temp += "<tr>";
-                  temp += "<td>" + count + "</td>";
-                  temp += "<td>" + itemData.transactionId + "</td>";
+                  // temp += "<td>" + count + "</td>";
+                  temp += `<td class="tid">` + itemData.transactionId + "</td>";
                   // temp += "<td>" + itemData.transactionType.transactionTypeName + "</td>";
                   // var category = itemData.category;
                   // if(!("category" in itemData)){
@@ -232,29 +244,39 @@ document.addEventListener('DOMContentLoaded', function() {
                   temp += "<td>₹ " + itemData.debitAmount + "</td>";
                   // temp += "<td>" + itemData.creditAmount + "</td>";
                   temp += "<td>" + itemData.transactionMonth +"/"+itemData.transactionYear + "</td>";
-                  // temp+= "<td><button>Edit</button></td>";
-                  temp+= `<td><img src="assets/edit-icon.png" alt="edit" class="img img-responsive edit-img"></td>`;
+                  temp+= `<td><span class="material-symbols-rounded edit-button">
+                edit
+                </span></td>`;
+                temp+= `<td><span class="material-symbols-rounded delete-button">
+                delete
+                </span></td>`
+                  // temp+= `<td><img src="assets/edit-icon.png" alt="edit" class="img img-responsive edit-img"></td>`;
                   // temp+= "<td><button>Delete</button></td>";
                   temp += "</tr>";
                 }else{
                   count1=count1+1;
                   // console.log(itemData.category);
                   temp1 += "<tr>";
-                  temp1 += "<td>" + count1 + "</td>";
-                  temp1 += "<td>" + itemData.transactionId + "</td>";
+                  // temp1 += "<td>" + count1 + "</td>";
+                  temp1 += `<td class="tid">` + itemData.transactionId + "</td>";
                   // temp1 += "<td>" + itemData.transactionType.transactionTypeName + "</td>";
                   // var category = itemData.category;
                   // if(!("category" in itemData)){
                   //     console.log(itemData);
                   //     temp1 += "<td>" + "-" + "</td>";
                   // }else{
-                      temp1 += "<td>" + itemData.category.categoryName + "</td>";
+                    temp1 += "<td>" + itemData.category.categoryName + "</td>";
                   // }
                   // temp1 += "<td>" + itemData.debitAmount + "</td>";
                   temp1 += "<td>₹ " + itemData.creditAmount + "</td>";
                   temp1 += "<td>" + itemData.transactionMonth +"/"+itemData.transactionYear + "</td>";
-                  // temp1+= "<td><button>Edit</button></td>";
-                  temp1+= `<td><img src="assets/edit-icon.png" alt="edit" class="img img-responsive edit-img"></td>`;
+                  temp1+= `<td><span class="material-symbols-rounded edit-button1">
+                edit
+                </span></td>`;
+                temp1+= `<td><span class="material-symbols-rounded delete-button1">
+                delete
+                </span></td>`
+                  // temp1+= `<td><img src="assets/edit-icon.png" alt="edit" class="img img-responsive edit-img"></td>`;
                   // temp1+= "<td><button>Delete</button></td>";
                   temp1 += "</tr>";
                 }
@@ -270,6 +292,9 @@ document.addEventListener('DOMContentLoaded', function() {
           document.getElementById('data').innerHTML = temp;
           document.getElementById('data1').innerHTML = temp1;
       })
+      displayTransaction();
+      deleteTransaction();
+      deleteTransaction1();
 },false);
 
 
@@ -510,14 +535,17 @@ const displayOption = async () => {
 
 async function displayTransaction(){
   // const reminder =  getOneReminder(billId);
-  document.querySelector('#data').onclick = function(ev) {
-  // ev.target <== td element
-  // ev.target.parentElement <== tr
-  var index = ev.target.parentElement.rowIndex;
-  console.log(index);
-  var row = document.getElementById('data').children[index-1];
-  console.log(document.getElementById('data').children[index-1]);
-  var transactionId = row.children[1].innerHTML;
+  var editBtns = document.querySelectorAll('.edit-button');
+    
+    editBtns.forEach((btn)=>{btn.onclick = function(ev) {
+    // ev.target <== td element
+    // ev.target.parentElement <== tr
+    var index = ev.target.parentElement;
+    var row= index.parentElement;
+    console.log(row);
+  // var row = document.getElementById('data').children[index-1];
+  // console.log(document.getElementById('data').children[index-1]);
+  var transactionId = row.children[0].innerHTML;
   console.log(transactionId);
   // openDetailsForm();
   $('#detExpenseModal').modal('show');
@@ -563,14 +591,18 @@ async function displayTransaction(){
 
   
   }
-  document.querySelector('#data1').onclick = function(ev) {
-    // ev.target <== td element
-    // ev.target.parentElement <== tr
-    var index = ev.target.parentElement.rowIndex;
-    console.log(index);
-    var row = document.getElementById('data1').children[index-1];
-    console.log(document.getElementById('data1').children[index-1]);
-    var transactionId = row.children[1].innerHTML;
+})
+var editBtns1 = document.querySelectorAll('.edit-button1');
+    
+editBtns1.forEach((btn)=>{btn.onclick = function(ev) {
+// ev.target <== td element
+// ev.target.parentElement <== tr
+var index = ev.target.parentElement;
+var row= index.parentElement;
+console.log(row);
+// var row = document.getElementById('data').children[index-1];
+// console.log(document.getElementById('data').children[index-1]);
+    var transactionId = row.children[0].innerHTML;
     console.log(transactionId);
     // openDetails1Form();
     $('#detIncomeModal').modal('show');
@@ -616,11 +648,24 @@ async function displayTransaction(){
   
     
     }
+  })
 }
 
 function deleteTransaction(){
-  var id = document.getElementById('dtid').value;
-    console.log(id);
+  var editBtns = document.querySelectorAll('.delete-button');
+    
+    editBtns.forEach((btn)=>{btn.onclick =async function(ev) {
+    // ev.target <== td element
+    // ev.target.parentElement <== tr
+        var index = ev.target.parentElement;
+        var row= index.parentElement;
+        console.log(row);
+        // var row = document.getElementById('data').children[index-1];
+        // console.log(document.getElementById('data').children[index-1]);
+        var id = row.children[0].innerHTML;
+        // console.log(billId);
+  // var id = document.getElementById('dtid').value;
+  //   console.log(id);
     fetch(url+`${userId}/transactions/${id}`, {
             method:'DELETE', 
             //Set the headers that specify you're sending a JSON body request and accepting JSON response
@@ -639,10 +684,23 @@ function deleteTransaction(){
             window.location.reload();
           }
     })
+  }})
 }
 function deleteTransaction1(){
-  var id = document.getElementById('dtid1').value;
-    console.log(id);
+  var editBtns = document.querySelectorAll('.delete-button1');
+    
+    editBtns.forEach((btn)=>{btn.onclick =async function(ev) {
+    // ev.target <== td element
+    // ev.target.parentElement <== tr
+        var index = ev.target.parentElement;
+        var row= index.parentElement;
+        console.log(row);
+        // var row = document.getElementById('data').children[index-1];
+        // console.log(document.getElementById('data').children[index-1]);
+        var id = row.children[0].innerHTML;
+        // console.log(billId);
+  // var id = document.getElementById('dtid1').value;
+  //   console.log(id);
     fetch(url+`${userId}/transactions/${id}`, {
             method:'DELETE', 
             //Set the headers that specify you're sending a JSON body request and accepting JSON response
@@ -661,6 +719,7 @@ function deleteTransaction1(){
             window.location.reload();
           }
     })
+  }})
 }
 
 function showFile(blob){
@@ -741,6 +800,6 @@ getTransactions();
 displayOption();
 addIncome();
 addExpense();
-displayTransaction();
+
 updateExpense();
 updateIncome();

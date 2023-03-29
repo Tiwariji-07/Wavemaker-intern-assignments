@@ -84,11 +84,16 @@ async function showReminders(currMonth,currYear){
                 // }
                 temp += "<tr>";
                 temp += "<td>" + count + "</td>";
-                temp += "<td>" + itemData.billId + "</td>";
+                temp += `<td class="tid">` + itemData.billId + "</td>";
                 temp += "<td>" + itemData.billName + "</td>";
                 temp += "<td>" + rd + "</td>";
                 temp += "<td>₹ " + itemData.billAmount + "</td>";
-                // temp+= "<td><button>Edit</button></td>";
+                temp+= `<td><span class="material-symbols-rounded edit-button">
+                edit
+                </span></td>`;
+                temp+= `<td><span class="material-symbols-rounded delete-button">
+                delete
+                </span></td>`
                 // temp+= "<td><button>Delete</button></td>";
                 temp += "</tr>";
                 activeDates.push([itemData.billName,itemData.billAmount,formatDate(rd)]);
@@ -109,7 +114,8 @@ async function showReminders(currMonth,currYear){
         //     document.getElementsByClassName('r-jumbotron')[0].innerHTML = temp;
         // }
     })
-    
+    displayReminder();
+    deleteReminder();
     
 }
 
@@ -201,13 +207,16 @@ function addBillReminder(){
 //   };
 async function displayReminder(){
     // const reminder =  getOneReminder(billId);
-    document.querySelector('#data').onclick = function(ev) {
+    var editBtns = document.querySelectorAll('.edit-button');
+    
+    editBtns.forEach((btn)=>{btn.onclick = function(ev) {
     // ev.target <== td element
     // ev.target.parentElement <== tr
-    var index = ev.target.parentElement.rowIndex;
-    console.log(index);
-    var row = document.getElementById('data').children[index-1];
-    console.log(document.getElementById('data').children[index-1]);
+    var index = ev.target.parentElement;
+    var row= index.parentElement;
+    console.log(row);
+    // var row = document.getElementById('data').children[index-1];
+    // console.log(document.getElementById('data').children[index-1]);
     var billId = row.children[1].innerHTML;
     console.log(billId);
     // openDetailsForm();
@@ -246,33 +255,47 @@ async function displayReminder(){
 
     
     }
+})
 }
 
-async function deleteReminder(){
-    var id = document.getElementById('dbillId').value;
-    console.log(id);
-    await fetch(url+`${userId}/reminder/${id}`, {
-            method:'DELETE', 
-            //Set the headers that specify you're sending a JSON body request and accepting JSON response
-        headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
-        }
-        }).then((response)=> response.json())
-        .then((data)=>{
-          if(data != null){
-            console.log(data);
-            // alert("reminder deleted");
-            showAlert("Deleted Successfully.");
-            setTimeout(hideAlert,2000)
-            // closeDetailsForm();
-            $('#myModal').modal('hide');
-            
-            // renderCalendar();
-            // showReminders();
-          }
-    })
-    window.location.reload();
+function deleteReminder(){
+    var editBtns = document.querySelectorAll('.delete-button');
+    
+    editBtns.forEach((btn)=>{btn.onclick =async function(ev) {
+    // ev.target <== td element
+    // ev.target.parentElement <== tr
+        var index = ev.target.parentElement;
+        var row= index.parentElement;
+        console.log(row);
+        // var row = document.getElementById('data').children[index-1];
+        // console.log(document.getElementById('data').children[index-1]);
+        var billId = row.children[1].innerHTML;
+        console.log(billId);
+        // var id = document.getElementById('dbillId').value;
+        // console.log(id);
+        await fetch(url+`${userId}/reminder/${billId}`, {
+                method:'DELETE', 
+                //Set the headers that specify you're sending a JSON body request and accepting JSON response
+            headers: {
+                "Content-Type": "application/json",
+                Accept: "application/json",
+            }
+            }).then((response)=> response.json())
+            .then((data)=>{
+            if(data != null){
+                console.log(data);
+                // alert("reminder deleted");
+                showAlert("Deleted Successfully.");
+                setTimeout(hideAlert,2000)
+                // closeDetailsForm();
+                $('#myModal').modal('hide');
+                
+                // renderCalendar();
+                // showReminders();
+            }
+        })
+        window.location.reload();
+    }})
 }
 
 function updateBillReminder(){
@@ -460,7 +483,7 @@ function reminderPopup(){
 // });
 //   $("#popover").popover({ trigger: "hover focus click" });
 // showReminders();
-displayReminder();
+
 addBillReminder();
 updateBillReminder();
 reminderPopup();

@@ -82,14 +82,29 @@ async function showCategories(){
       // clg
       if(data.length !=0){
           var temp="";
+          temp+=`<button class="btn add-btn" type="button" data-toggle="modal" data-target="#myModal"><img src="assets/add-icon.png" alt="add"></button>`
           data.forEach((itemData) => {
               // console.log(itemData);
-              count=count+1;
-              temp += "<tr>";
-              temp += "<td>" + count + "</td>";
-              temp += "<td>" + itemData.categoryId + "</td>";
-              temp += "<td>" + itemData.categoryName + "</td>";
-              temp += "</tr>";
+              // count=count+1;
+              // temp += "<tr>";
+              // // temp += "<td>" + count + "</td>";
+              // temp += "<td>" + itemData.categoryId + "</td>";
+              // temp += "<td>" + itemData.categoryName + "</td>";
+              // temp += "</tr>";
+              
+              temp+=`<div class="category-card">
+              <span class="material-symbols-rounded">
+                  category
+              </span>
+              <p>${itemData.categoryId}</p>
+              <h4>${itemData.categoryName}</h4>
+              <td><span class="material-symbols-rounded edit-button">
+                edit
+                </span></td>
+                <td><span class="material-symbols-rounded delete-button">
+                delete
+                </span></td>
+          </div>`
           });
           // document.getElementById('data').innerHTML = temp;
       }else{
@@ -102,18 +117,19 @@ async function showCategories(){
       
       // calender();
       // if(flag){
-          document.getElementById('data').innerHTML = temp;
+          document.getElementById('category-list').innerHTML = temp;
       // }else{
       //     document.getElementsByClassName('r-jumbotron')[0].innerHTML = temp;
       // }
   })
   
-  
+  categoryDetails();
+  deleteCategory();
 }
 
 function addCategory(){
   const categoryForm = document.getElementById('add-category-form');
-  categoryForm.addEventListener('submit', (e)=>{
+  categoryForm.addEventListener('submit',async (e)=>{
       e.preventDefault();
       const categoryData = new FormData(categoryForm);
       let formDataObject = Object.fromEntries(categoryData.entries());
@@ -122,7 +138,7 @@ function addCategory(){
       // Format the plain form data as JSON
       let formDataJsonString = JSON.stringify(formDataObject);
       console.log(formDataJsonString);
-      fetch(url+`${userId}/category/create`, {
+      await fetch(url+`${userId}/category/create`, {
           method:'POST', 
           //Set the headers that specify you're sending a JSON body request and accepting JSON response
       headers: {
@@ -141,31 +157,41 @@ function addCategory(){
           alert("Category already exists!")
         }
       })
+      
   });
 }
 
 function categoryDetails(){
-  document.querySelector('#data').onclick = function(ev) {
+  var categories = document.querySelectorAll('.edit-button');
+  categories.forEach(category=>{category.onclick = function(ev) {
     // ev.target <== td element
     // ev.target.parentElement <== tr
-    var index = ev.target.parentElement.rowIndex;
+    var index = ev.target.parentElement;
     console.log(index);
-    var row = document.getElementById('data').children[index-1];
-    console.log(document.getElementById('data').children[index-1]);
-    var categoryId = row.children[1].innerHTML;
-    var categoryName = row.children[2].innerHTML;
-
+    // var row = document.getElementById('data').children[index-1];
+    // console.log(document.getElementById('data').children[index-1]);
+    var categoryId = index.children[1].innerHTML;
+    var categoryName = index.children[2].innerHTML;
+    // console.log(categoryId);
     console.log(categoryId + " "+ categoryName);
-    // openDetailsForm();
+    // // openDetailsForm();
     $('#detailModal').modal('show');
     var dtId = document.getElementById('dtid');
     var dtcategoryName = document.getElementById('dtcategoryName');
     dtId.value = categoryId;
     dtcategoryName.value = categoryName;
     }
+})
 }
 function deleteCategory(){
-  var id = document.getElementById('dtid').value;
+  var categories = document.querySelectorAll('.delete-button');
+  categories.forEach(category=>{category.onclick = function(ev) {
+    var index = ev.target.parentElement;
+    console.log(index);
+    // var row = document.getElementById('data').children[index-1];
+    // console.log(document.getElementById('data').children[index-1]);
+    var id = index.children[1].innerHTML;
+  // var id = document.getElementById('dtid').value;
   console.log(id);
   fetch(url+`${userId}/category/${id}`, {
           method:'DELETE', 
@@ -185,6 +211,10 @@ function deleteCategory(){
           window.location.reload();
         }
   })
+  .catch(error=>{
+    alert("Category is being used cannot delete")
+  })
+}})
 
 }
 
@@ -225,7 +255,7 @@ function updateCategory(){
   });
 }
 updateCategory()
-categoryDetails();
+
 addCategory();
 
 showCategories();
