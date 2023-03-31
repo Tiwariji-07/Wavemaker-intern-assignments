@@ -1,7 +1,18 @@
 //const url = 'http://18.191.127.230:8080/finwise/services/'
 const url = 'http://localhost:8080/finwise/services/'
 
+var successAlert = document.getElementsByClassName('my-alerts')[0];
+var messageField = document.getElementsByClassName('message')[0];
+function showAlert(message){
+    successAlert.style.display = 'flex'
+    successAlert.style.paddingTop = "2em";
+    messageField.innerText = message;
+    
+}
 
+function hideAlert(){
+    successAlert.style.display = 'none'
+}
 //to change the theme
 const savedTheme = localStorage.getItem('selected-theme');
 document.documentElement.setAttribute("data-selected-theme", savedTheme);

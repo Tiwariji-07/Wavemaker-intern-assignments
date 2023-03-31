@@ -65,7 +65,19 @@ buttons.forEach((button) => {
 
 
 //category part*********************************************************************************
+var successAlert = document.getElementsByClassName('my-alerts')[0];
+var messageField = document.getElementsByClassName('message')[0];
+function showAlert(message){
+    successAlert.style.display = 'flex'
+    successAlert.style.paddingTop = "2em";
+    messageField.innerText = message;
+    
+}
 
+function hideAlert(){
+    successAlert.style.display = 'none';
+    window.location.reload()
+}
 async function showCategories(){
   await fetch(url+`${userId}/category`, {
     method:'GET', 
@@ -152,7 +164,10 @@ function addCategory(){
           // console.log(data);
           // alert("Category added");
           $('#myModal').modal('hide');
-          window.location.reload();
+          var message = `Category added successfully`
+                showAlert(message);
+                setTimeout(hideAlert,2000)
+          // window.location.reload();
         }else{
           alert("Category already exists!")
         }
@@ -208,11 +223,16 @@ function deleteCategory(){
           // closeDetailsForm();
           $('#detailModal').modal('hide');
           // getTransactions();
-          window.location.reload();
+          // window.location.reload();
+          var message = `Category deleted successfully`
+                showAlert(message);
+                setTimeout(hideAlert,2000)
         }
   })
   .catch(error=>{
-    alert("Category is being used cannot delete")
+    var message = `Category is being used and cannot delete for now!`
+                showAlert(message);
+                setTimeout(hideAlert,2000)
   })
 }})
 
@@ -244,11 +264,15 @@ function updateCategory(){
           // alert("Budget added")
           // getAllbudget();
           $('#detailModal').modal('hide');
-          window.location.reload();
-          
+          // window.location.reload();
+          var message = `Category updated successfully`
+                showAlert(message);
+                setTimeout(hideAlert,2000)          
           
         }else{
-          alert("Not added ")
+          var message = `Could not update`
+                showAlert(message);
+                setTimeout(hideAlert,2000)
         }
       })
       // displayBudget(month,year);

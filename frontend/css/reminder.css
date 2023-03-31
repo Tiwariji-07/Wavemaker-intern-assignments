@@ -332,7 +332,7 @@ input{
     border-radius: 1em;
     text-align: center;
     position: fixed;
-    bottom: 1.5em;
+    top: 1.5em;
     justify-content: center;
     align-items: center;
     z-index: 89;
@@ -728,4 +728,14 @@ th, td {
 th {
   /* background-color: var(--primary-color); */
   /* color: white; */
+}
+
+.gpr{
+  display: flex;
+  gap: 10px;
+  align-items: flex-end;
+}
+
+.gpr input{
+  height: 37px;
 }

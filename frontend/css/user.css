@@ -309,3 +309,25 @@ footer{
     background-color: var(--primary-color);
     opacity: .4;
 }
+
+.my-alerts{
+  display: none;
+  /* width: 80%; */
+  width: 100vw;
+  /* padding-top: 3em; */
+  /* padding-top: 0; */
+  border-radius: 1em;
+  text-align: center;
+  position: fixed;
+  top: 1.5em;
+  justify-content: center;
+  align-items: center;
+  z-index: 89;
+  transition: all ease 10s;
+}
+
+.message{
+  width: 70%;
+  font-weight: 700;
+  color: var(--primary-color);
+}

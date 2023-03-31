@@ -32,6 +32,9 @@
     <div class="loader" id="loader">
         <div class="justify-content-center jimu-primary-loading"></div>
     </div>
+    <div class="my-alerts">
+        <div class="alert alert-success message" role="alert">Successfully done !!</div>
+    </div>
     <div class="layer"></div>
     <!-- <header>
         <nav class="navbar heading">
@@ -175,16 +178,16 @@
                         <!-- <div> -->
                             <div class="grp">
                                 <h1 class="reminder-heading">Transactions</h1>
-                                <button onclick="generatePDF()" class="btn download-btn">
-                                    <span class="material-symbols-rounded">
-                                    download
-                                    </span> 
-                                    Statement
-                                </button>
                             </div>
+                            
                             <form method="post" id="periodForm">
-                                <div class="form-froup grp">
-                                    <label for="budgetMonth">Budget Month</label>
+                                <div class="form-froup gpr">
+                                    <button onclick="generatePDF()" class="btn download-btn">
+                                        <span class="material-symbols-rounded">
+                                        download
+                                        </span> 
+                                        Statement
+                                    </button>
                                     <div>
                                         <input type="month" name="budgetDate" id="budgetMonth">
                                     <!-- <button type="submit" class="btn">Get</button> -->

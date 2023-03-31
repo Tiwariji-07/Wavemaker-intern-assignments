@@ -28,7 +28,19 @@ rDate1.min = `${year}-${month}`;
 
 var loader = document.getElementById('loader');
 // var body = document.getElementById('container');
+var successAlert = document.getElementsByClassName('my-alerts')[0];
+var messageField = document.getElementsByClassName('message')[0];
+function showAlert(message){
+    successAlert.style.display = 'flex'
+    successAlert.style.paddingTop = "2em";
+    messageField.innerText = message;
+    
+}
 
+function hideAlert(){
+    successAlert.style.display = 'none'
+    window.location.reload();
+}
 function loading(){
     loader.style.display = "block";
     // body.style.display = "none";
@@ -133,6 +145,7 @@ function getTransactions(){
           data.forEach((itemData) => {
               // var category = getCategory(itemData.categoryId);
               var tranType = itemData.transactionType.transactionTypeName;
+              var categoryName = itemData.category.categoryName;
               if(tranType === "expense"){
                 count=count+1;
                 // console.log(itemData.category);
@@ -145,7 +158,7 @@ function getTransactions(){
                 //     console.log(itemData);
                 //     temp += "<td>" + "-" + "</td>";
                 // }else{
-                    temp += "<td>" + itemData.category.categoryName + "</td>";
+                    temp += "<td>" + categoryName + "</td>";
                 // }
                 temp += "<td>₹ " + itemData.debitAmount + "</td>";
                 // temp += "<td>" + itemData.creditAmount + "</td>";
@@ -171,7 +184,8 @@ function getTransactions(){
                 //     console.log(itemData);
                 //     temp1 += "<td>" + "-" + "</td>";
                 // }else{
-                    temp1 += "<td>" + itemData.category.categoryName + "</td>";
+                    temp1 += "<td>" + categoryName + "</td>";
+                    // console.log(itemData.category.categoryName);
                 // }
                 // temp1 += "<td>" + itemData.debitAmount + "</td>";
                 temp1 += "<td>₹ " + itemData.creditAmount + "</td>";
@@ -227,6 +241,7 @@ document.addEventListener('DOMContentLoaded',async function() {
             data.forEach((itemData) => {
                 // var category = getCategory(itemData.categoryId);
                 var tranType = itemData.transactionType.transactionTypeName;
+                var categoryName = itemData.category.categoryName;
                 if(tranType === "expense"){
                   count=count+1;
                   // console.log(itemData.category);
@@ -239,7 +254,7 @@ document.addEventListener('DOMContentLoaded',async function() {
                   //     console.log(itemData);
                   //     temp += "<td>" + "-" + "</td>";
                   // }else{
-                      temp += "<td>" + itemData.category.categoryName + "</td>";
+                      temp += "<td>" + categoryName + "</td>";
                   // }
                   temp += "<td>₹ " + itemData.debitAmount + "</td>";
                   // temp += "<td>" + itemData.creditAmount + "</td>";
@@ -265,7 +280,8 @@ document.addEventListener('DOMContentLoaded',async function() {
                   //     console.log(itemData);
                   //     temp1 += "<td>" + "-" + "</td>";
                   // }else{
-                    temp1 += "<td>" + itemData.category.categoryName + "</td>";
+                    temp1 += "<td>" + categoryName + "</td>";
+                    // console.log(itemData.category.categoryName);
                   // }
                   // temp1 += "<td>" + itemData.debitAmount + "</td>";
                   temp1 += "<td>₹ " + itemData.creditAmount + "</td>";
@@ -340,7 +356,10 @@ function addIncome(){
             // getTransactions();
             // closeTranForm();
             $('#addIncomeModal').modal('hide');
-            window.location.reload();
+            var message = `Income added successfully!`
+              showAlert(message);
+              setTimeout(hideAlert,2000)
+            // window.location.reload();
           }else{
             alert("Not added ")
           }
@@ -387,9 +406,14 @@ function updateIncome(){
           // getTransactions();
           // closeTranForm();
           $('#detIncomeModal').modal('hide');
-          window.location.reload();
+          var message = `Income updated successfully !`
+                showAlert(message);
+                setTimeout(hideAlert,2000)
+          // window.location.reload();
         }else{
-          alert("Not added ")
+          var message = `Could not update !`
+                showAlert(message);
+                setTimeout(hideAlert,2000)
         }
       })
   });
@@ -435,10 +459,15 @@ function addExpense(){
             // getTransactions();
             // closeTranExpenseForm();
             $('#addExpenseModal').modal('hide');
-            window.location.reload();
+            var message = `Expense added successfully !`
+                showAlert(message);
+                setTimeout(hideAlert,2000)
+            // window.location.reload();
 
           }else{
-            alert("Not added ")
+            var message = `Could not add !`
+                showAlert(message);
+                setTimeout(hideAlert,2000)
           }
         })
     });
@@ -483,10 +512,15 @@ function updateExpense(){
           // getTransactions();
           // closeTranExpenseForm();
           $('#detExpenseModal').modal('hide');
-          window.location.reload();
+          var message = `Expense updated successfully`
+                showAlert(message);
+                setTimeout(hideAlert,2000)
+          // window.location.reload();
 
         }else{
-          alert("Not added ")
+          var message = `Could not update !`
+                showAlert(message);
+                setTimeout(hideAlert,2000)
         }
       })
   });
@@ -680,8 +714,11 @@ function deleteTransaction(){
             // alert("Transaction deleted");
             // closeDetailsForm();
             $('#detExpenseModal').modal('hide');
+            var message = `Expense deleted successfully !`
+                showAlert(message);
+                setTimeout(hideAlert,2000)
             // getTransactions();
-            window.location.reload();
+            // window.location.reload();
           }
     })
   }})
@@ -715,8 +752,11 @@ function deleteTransaction1(){
             // alert("Transaction deleted");
             // closeDetails1Form();
             $('#detIncomeModal').modal('hide');
+            var message = `Income deleted successfully !`
+                showAlert(message);
+                setTimeout(hideAlert,2000)
             // getTransactions();
-            window.location.reload();
+            // window.location.reload();
           }
     })
   }})

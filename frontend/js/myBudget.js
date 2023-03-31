@@ -31,6 +31,19 @@ var budgetList = document.getElementById('budget-list');
 var loader = document.getElementById('loader');
 var body = document.getElementById('container');
 
+
+var successAlert = document.getElementsByClassName('my-alerts')[0];
+var messageField = document.getElementsByClassName('message')[0];
+function showAlert(message){
+    successAlert.style.display = 'flex'
+    successAlert.style.paddingTop = "2em";
+    messageField.innerText = message;
+    
+}
+
+function hideAlert(){
+    successAlert.style.display = 'none'
+}
 function loading(){
     loader.style.display = "block";
     // body.style.display = "none";
